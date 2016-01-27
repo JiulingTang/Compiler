@@ -12,6 +12,10 @@ public class LexicalAnylazer {
 	private String s;
 	private int id;
 	private int state;
+	private int rowNum;
+	private int colNum;
+	private int startRow;
+	private int startCol;
 	private boolean com1;//Mark if in the "/*" comment
 	private boolean com2;//Mark if in the "//" comment
 	private Set<Character> chSet; //Set of valid Characters
@@ -35,11 +39,6 @@ public class LexicalAnylazer {
 		return '1';
 		return c;
 		
-	}
-	
-	private boolean valid(char c)
-	{
-		return chSet.contains(c);
 	}
 	
 	public LexicalAnylazer()
@@ -74,6 +73,7 @@ public class LexicalAnylazer {
 		chSet.add('\r');
 		chSet.add('\n');
 		chSet.add('_');
+		chSet.add('\t');
 		
 		
 		/*construct transition table*/
@@ -81,6 +81,7 @@ public class LexicalAnylazer {
 		this.addTrans(0, ' ', 0);
 		this.addTrans(0, '\r', 0);
 		this.addTrans(0, '\n', 0);
+		this.addTrans(0, '\t', 0);
 		/*The transition for letter*/
 		this.addTrans(0, 'a', 1);
 		this.addTrans(1, 'a', 2);
@@ -109,6 +110,7 @@ public class LexicalAnylazer {
 		this.addTrans(6, '1', 7);
 		this.addTrans(7, '0', 7);
 		this.addTrans(7, '1', 7);
+		this.addTrans(7, '.', 8);
 		this.addTrans(8, '0', 9);
 		this.addTrans(8, '1', 9);
 		this.addTrans(9, '0', 11);
@@ -185,6 +187,11 @@ public class LexicalAnylazer {
 		state=0;
 	}
 	
+	private boolean valid(char c)
+	{
+		return chSet.contains(c);
+	}
+
 	private int trans(int cState,char ch)
 	{
 		ArrayList l=new ArrayList();
@@ -219,6 +226,16 @@ public class LexicalAnylazer {
 		while (id!=r.length())
 		{
 			char c=r.charAt(id++);
+			if (c=='\t')
+				colNum+=4;
+			else
+				colNum++;
+			if (c=='\r'||c=='\n')
+			{
+				id++;//"/n/r"
+				rowNum++;
+				colNum=0;
+			}
 			if (!valid(c)) //If invalid Character or in comment, skip it
 			continue;
 			if (com1) //If in the "//" comment
@@ -231,12 +248,24 @@ public class LexicalAnylazer {
 			
 			if (com2) //If in the "/*" comment
 			{
-				if (c=='*'&&id!=r.length()&&r.charAt(id++)=='/')
+				char nc = ' ';
+				if (c=='*'&&r.length()!=id)
 				{
-					com2=false;
-					return new Token("*/","punctuation",1,1);
+					nc=r.charAt(id++);
+					colNum++;
+					if (nc=='\r'||nc=='\n')
+					{
+						id++;//"/n/r"
+						rowNum++;
+						colNum=0;
+					}
+					if (nc=='/')
+					{
+						com2=false;
+						return new Token("*/","punctuation",rowNum,colNum-1);
+					}
 				}
-				else
+				
 				continue;
 			}
 			//System.out.println(c);
@@ -249,7 +278,7 @@ public class LexicalAnylazer {
 				if (finalState(state))
 				{
 					
-						token=new Token(s,fStateMap.get(state),0,0);
+						token=new Token(s,fStateMap.get(state),startRow,startCol);
 						
 					
 				}
@@ -262,19 +291,24 @@ public class LexicalAnylazer {
 				nstate=trans(state,getType(c));
 				
 			}
+			if (state==0&&nstate!=0)
+			{
+				startRow=rowNum;
+				startCol=colNum;
+			}
 			state=nstate;
 			s=s+c;
 			if (state==33)//If in "/*" comment
 			{
 				com2=true;
 				state=0;
-				token=new Token("/*","punctuation",1,1);
+				token=new Token("/*","punctuation",startRow,startCol);
 			}
 			if (state==34)//If in "//" comment
 			{	
 				com1=true;
 				state=0;
-				token=new Token("//","punctuation",1,1);;
+				token=new Token("//","punctuation",startRow,startCol);;
 			}
 			if (state==0)
 				s="";
@@ -284,7 +318,8 @@ public class LexicalAnylazer {
 		if (finalState(state))
 		{
 			state=0;
-			return new Token(s,fStateMap.get(state),0,0);
+			token=new Token(s,fStateMap.get(state),startRow,startCol);
+			return token;
 		}
 		else 
 		{
@@ -301,5 +336,7 @@ public class LexicalAnylazer {
 		s="";
 		com1=false;
 		com2=false;
+		rowNum=1;
+		colNum=0;
 	}
 }

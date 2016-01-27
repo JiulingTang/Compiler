@@ -8,14 +8,14 @@ public class Token {
 	public Token(String pvalue,String ptype,int prow,int pcol )
 	{
 		value=pvalue;
-		ptype=type;
-		prow=row;
-		pcol=col;
+		type=ptype;
+		row=prow;
+		col=pcol;
 	}
 	
 	public String toString()
 	{
-		return "value:"+value+"type:"+type+"row:"+row+"col:"+col;
+		return "value: "+value+" type: "+type+" row: "+row+" col: "+col;
 	}
 
 }

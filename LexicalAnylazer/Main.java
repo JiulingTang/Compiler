@@ -1,7 +1,9 @@
 package LexicalAnylazer;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -11,39 +13,35 @@ import Token.*;
 public class Main {
 	public static void main(String[] args)
 	{
-		InputStreamReader in=null;
+		FileReader in=null;
+		FileWriter out=null;
+		File dic = new File("testCases");
+		String[] names=dic.list();
+		for (int i=0;i<names.length;i++)
+		{
 		try {
-			in=new FileReader("a.txt");
-			//in=new InputStreamReader(new InputStream(b));
-		} catch (FileNotFoundException e) {
+			out=new FileWriter("outputs/"+names[i]);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("no file");
 			e.printStackTrace();
 		}
-		int c;
 		LexicalAnylazer azer=new LexicalAnylazer();
-		int k=0;
-		String s="";
-		try {
-			while ((c=in.read())!=-1)
-			{
-				s=s+(char)c;
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//System.out.println(s);
-		azer.addInput(s);
+		azer.addInput("testCases/"+names[i]);
 		while (true)
 		{
 			Token token=azer.nextToken();
 			if (token==null)
 				break;
 			else
-				System.out.println(token);
+				try {
+					out.write(token.toString()+"\r\n");
+					out.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
-		System.out.println("end");
+		}
 	}
 
 }

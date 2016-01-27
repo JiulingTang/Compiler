@@ -1,9 +1,16 @@
 package LexicalAnylazer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Set;
+
 import Token.*;
 
 public class LexicalAnylazer {
@@ -20,6 +27,8 @@ public class LexicalAnylazer {
 	private boolean com2;//Mark if in the "//" comment
 	private Set<Character> chSet; //Set of valid Characters
 	private Hashtable<Integer,String> fStateMap;
+	private FileReader in;
+	private FileWriter eout;//Out stream for error file
 	private void addTrans(int cState,char ch,int nState)
 	{
 		ArrayList l=new ArrayList();
@@ -27,6 +36,18 @@ public class LexicalAnylazer {
 		l.add(ch);
 		table.put(l, nState);
 		
+	}
+	
+	private char nextCh()
+	{
+		int r = 0;
+		try {
+			r=in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (char)r;
 	}
 	
 	private char getType(char c)
@@ -223,21 +244,29 @@ public class LexicalAnylazer {
 	{
 		
 		Token token=null;
-		while (id!=r.length())
+		char c;
+		while ((c=nextCh())!=(char)-1)
 		{
-			char c=r.charAt(id++);
 			if (c=='\t')
 				colNum+=4;
 			else
 				colNum++;
 			if (c=='\r'||c=='\n')
 			{
-				id++;//"/n/r"
+				nextCh();//"/n/r"
 				rowNum++;
 				colNum=0;
 			}
 			if (!valid(c)) //If invalid Character or in comment, skip it
-			continue;
+			{
+				try {
+					eout.write(rowNum+" "+colNum+": "+"Contain invalid Chracter "+c+'\n');
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				continue;
+			}
 			if (com1) //If in the "//" comment
 			{
 				if (c!='\n'&&c!='\r')
@@ -249,13 +278,12 @@ public class LexicalAnylazer {
 			if (com2) //If in the "/*" comment
 			{
 				char nc = ' ';
-				if (c=='*'&&r.length()!=id)
+				if (c=='*'&&(nc=nextCh())!=-1)
 				{
-					nc=r.charAt(id++);
 					colNum++;
 					if (nc=='\r'||nc=='\n')
 					{
-						id++;//"/n/r"
+						nextCh();//"/n/r"
 						rowNum++;
 						colNum=0;
 					}
@@ -268,9 +296,7 @@ public class LexicalAnylazer {
 				
 				continue;
 			}
-			//System.out.println(c);
-			//System.out.println(state);
-			//System.out.println(s);
+			
 		
 			int nstate=trans(state,getType(c));
 			if (nstate==-1)
@@ -328,9 +354,18 @@ public class LexicalAnylazer {
 	
 	}
 	
-	public void addInput(String input)
+	public void addInput(String fileName)
 	{
-		r=input;
+		try {
+			in=new FileReader(fileName);
+			File f=new File(fileName);
+			eout=new FileWriter("errors/"+f.getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("no file");
+			e.printStackTrace();
+		}
+		r=fileName;
 		id=0;
 		state=0;
 		s="";

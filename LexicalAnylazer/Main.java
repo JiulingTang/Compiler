@@ -25,7 +25,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		LexicalAnylazer azer=new LexicalAnylazer();
+		LexicalAnalyzer azer=new LexicalAnalyzer();
 		azer.addInput("testCases/"+names[i]);
 		while (true)
 		{

@@ -13,7 +13,7 @@ import java.util.Set;
 
 import Token.*;
 
-public class LexicalAnylazer {
+public class LexicalAnalyzer {
 	private Hashtable<ArrayList,Integer> table; //Transition Table
 	private String r="";
 	private String s;
@@ -23,12 +23,13 @@ public class LexicalAnylazer {
 	private int colNum;
 	private int startRow;
 	private int startCol;
-	private boolean com1;//Mark if in the "/*" comment
-	private boolean com2;//Mark if in the "//" comment
+	private boolean com1;//Mark if in the "//" comment
+	private boolean com2;//Mark if in the "/*" comment
 	private Set<Character> chSet; //Set of valid Characters
 	private Hashtable<Integer,String> fStateMap;
 	private FileReader in;
 	private FileWriter eout;//Out stream for error file
+	private Set<String> keyWords;
 	private void addTrans(int cState,char ch,int nState)
 	{
 		ArrayList l=new ArrayList();
@@ -62,7 +63,7 @@ public class LexicalAnylazer {
 		
 	}
 	
-	public LexicalAnylazer()
+	public LexicalAnalyzer()
 	{
 		
 		chSet=new HashSet<Character>();
@@ -173,11 +174,11 @@ public class LexicalAnylazer {
 		fStateMap.put(3, "id");
 		fStateMap.put(4, "id");
 		
-		fStateMap.put(5, "num");
-		fStateMap.put(6, "num");
-		fStateMap.put(7, "num");
-		fStateMap.put(9, "num");
-		fStateMap.put(10, "num");
+		fStateMap.put(5, "Int");
+		fStateMap.put(6, "Int");
+		fStateMap.put(7, "Int");
+		fStateMap.put(9, "Double");
+		fStateMap.put(10, "Double");
 		
 		fStateMap.put(12, "punctuation");// token ";"
 		fStateMap.put(13, "punctuation");// token ","
@@ -203,7 +204,21 @@ public class LexicalAnylazer {
 		fStateMap.put(33, "punctuation");// token "/*¡±
 		fStateMap.put(34, "punctuation");// token "//"
 		
-		/*add state  which need backtracking*/
+		/*add key words*/
+		keyWords=new HashSet();
+		keyWords.add("and");
+		keyWords.add("not");
+		keyWords.add("or");
+		keyWords.add("if");
+		keyWords.add("then");
+		keyWords.add("else");
+		keyWords.add("for");
+		keyWords.add("class");
+		keyWords.add("int");
+		keyWords.add("float");
+		keyWords.add("get");
+		keyWords.add("put");
+		keyWords.add("return");
 	
 		state=0;
 	}
@@ -247,6 +262,12 @@ public class LexicalAnylazer {
 		char c;
 		while ((c=nextCh())!=(char)-1)
 		{
+			try {
+				eout.flush();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			if (c=='\t')
 				colNum+=4;
 			else
@@ -303,14 +324,19 @@ public class LexicalAnylazer {
 			{
 				if (finalState(state))
 				{
-					
-						token=new Token(s,fStateMap.get(state),startRow,startCol);
+						
+						token=addToken();
 						
 					
 				}
 				else
 				{
-					
+					try {
+						eout.write(startRow+" "+startCol+": "+"Incomplete token "+s+'\n');
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				state=0;
 				s="";
@@ -336,6 +362,17 @@ public class LexicalAnylazer {
 				state=0;
 				token=new Token("//","punctuation",startRow,startCol);;
 			}
+			if (state==-1)
+			{
+				try {
+					eout.write(rowNum+" "+colNum+": "+c+" can not start a token "+'\n');
+					eout.flush();
+				} catch (IOException e) {
+						// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				state=0;
+			}
 			if (state==0)
 				s="";
 			if (token!=null)
@@ -343,14 +380,23 @@ public class LexicalAnylazer {
 		}
 		if (finalState(state))
 		{
+			token=addToken();
 			state=0;
-			token=new Token(s,fStateMap.get(state),startRow,startCol);
-			return token;
 		}
-		else 
+		if (token==null&&state!=0)
 		{
-			return null;
+			try{	
+				if (com2)
+				eout.write(rowNum+" "+colNum+": "+"No */ match /* "+'\n');
+				else 
+				eout.write(startRow+" "+startCol+": "+"Incomplete token "+s+'\n');
+				eout.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
+			return token;
 	
 	}
 	
@@ -373,5 +419,47 @@ public class LexicalAnylazer {
 		com2=false;
 		rowNum=1;
 		colNum=0;
+	}
+	
+	private Token addToken()
+	{
+		String t=fStateMap.get(state);
+		if (keyWords.contains(s))
+		t="Key Word";
+		if (t.equals("Double")&&Double.isInfinite(Double.parseDouble(s)))
+		{
+			
+			try {
+				eout.write(startRow+" "+startCol+": "+"Double overflow "+s+'\n');
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (t.equals("Int"))
+		{
+			try{
+				Integer.parseInt(s);
+				return new Token(s,t,startRow,startCol);
+			}
+			catch (Exception e){
+				try {
+					eout.write(startRow+" "+startCol+": "+"Int overflow "+s+'\n');
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+		else
+		return new Token(s,t,startRow,startCol);
+		try {
+			eout.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

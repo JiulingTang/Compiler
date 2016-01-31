@@ -192,7 +192,7 @@ public class LexicalAnalyzer {
 		fStateMap.put(21, "operator");// token "="
 		fStateMap.put(22, "operator");// token "=="
 		fStateMap.put(23, "operator");// token "<"
-		fStateMap.put(24, "operatpr");// token °±<>"
+		fStateMap.put(24, "operatpr");// token ‚Äù<>"
 		fStateMap.put(25, "operator");// token "<="
 		fStateMap.put(26, "operator");// token ">"
 		fStateMap.put(27, "operator");// token ">="
@@ -201,7 +201,7 @@ public class LexicalAnalyzer {
 		fStateMap.put(30, "operator");// token "*"
 		fStateMap.put(31, "punctuation");// token "*/"
 		fStateMap.put(32, "operator");// token "/"
-		fStateMap.put(33, "punctuation");// token "/*°±
+		fStateMap.put(33, "punctuation");// token "/*‚Äù
 		fStateMap.put(34, "punctuation");// token "//"
 		
 		/*add key words*/
@@ -332,6 +332,7 @@ public class LexicalAnalyzer {
 				else
 				{
 					try {
+						if (!s.equals(""))
 						eout.write(startRow+" "+startCol+": "+"Incomplete token "+s+'\n');
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -383,12 +384,17 @@ public class LexicalAnalyzer {
 			token=addToken();
 			state=0;
 		}
-		if (token==null&&state!=0)
+		if (com2)
+			try {
+				eout.write(rowNum+" "+colNum+": "+"No */ match /* "+'\n');
+				eout.flush();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		if (state!=0)
 		{
 			try{	
-				if (com2)
-				eout.write(rowNum+" "+colNum+": "+"No */ match /* "+'\n');
-				else 
 				eout.write(startRow+" "+startCol+": "+"Incomplete token "+s+'\n');
 				eout.flush();
 				} catch (IOException e) {

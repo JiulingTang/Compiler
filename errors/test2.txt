@@ -1,0 +1,12 @@
+1 1: Incomplete token 77.00
+6 2: Incomplete token 3.90
+17 1: Contain invalid Chracter %
+18 1: Contain invalid Chracter $
+19 1: Contain invalid Chracter #
+20 1: Contain invalid Chracter @
+21 1: Contain invalid Chracter !
+21 3: Contain invalid Chracter &
+21 5: Contain invalid Chracter ~
+24 7: Contain invalid Chracter %
+30 5: Contain invalid Chracter #
+38 6: No */ match /* 

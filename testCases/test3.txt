@@ -1,0 +1,4 @@
+and+and_
+not-not_
+or.or_or
+if/then>else for class int float get put return

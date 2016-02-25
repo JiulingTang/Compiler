@@ -1,0 +1,4 @@
+value: . type: operator row: 1 col: 3
+value: a type: id row: 2 col: 5
+value: 0.0 type: Double row: 3 col: 1
+value: asdfadsfas__ type: id row: 4 col: 1

@@ -1,0 +1,13 @@
+value: int type: Key Word row: 1 col: 1
+value: a type: id row: 1 col: 5
+value: = type: operator row: 1 col: 6
+value: ; type: punctuation row: 1 col: 53
+value: double type: id row: 2 col: 1
+value: b type: id row: 2 col: 8
+value: = type: operator row: 2 col: 9
+value: 1.0 type: Double row: 2 col: 10
+value: ; type: punctuation row: 2 col: 13
+value: b type: id row: 3 col: 2
+value: + type: operator row: 3 col: 3
+value: = type: operator row: 3 col: 4
+value: ; type: punctuation row: 3 col: 385

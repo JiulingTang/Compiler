@@ -1,10 +1,10 @@
 package Token;
 
 public class Token {
-	private String value;
-	private String type;
-	private int row;
-	private int col;
+	public String value;
+	public String type;
+	public int row;
+	public int col;
 	public Token(String pvalue,String ptype,int prow,int pcol )
 	{
 		value=pvalue;
@@ -17,5 +17,7 @@ public class Token {
 	{
 		return "value: "+value+" type: "+type+" row: "+row+" col: "+col;
 	}
+	
+	
 
 }

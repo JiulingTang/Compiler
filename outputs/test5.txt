@@ -1,0 +1,12 @@
+value: int type: Key Word row: 1 col: 1
+value: main type: id row: 1 col: 5
+value: ( type: operator row: 1 col: 9
+value: ) type: operatpr row: 1 col: 10
+value: { type: operator row: 2 col: 1
+value: String type: id row: 3 col: 5
+value: a type: id row: 3 col: 12
+value: = type: operator row: 3 col: 13
+value: * type: operator row: 3 col: 15
+value: / type: operator row: 3 col: 16
+value: ; type: punctuation row: 3 col: 18
+value: /* type: punctuation row: 4 col: 5

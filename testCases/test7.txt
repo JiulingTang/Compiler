@@ -13,7 +13,7 @@ import java.util.Set;
 
 import Token.*;
 
-public class LexicalAnalyzer {
+public class LexicalAnylazer {
 	private Hashtable<ArrayList,Integer> table; //Transition Table
 	private String r="";
 	private String s;
@@ -30,7 +30,6 @@ public class LexicalAnalyzer {
 	private FileReader in;
 	private FileWriter eout;//Out stream for error file
 	private Set<String> keyWords;
-	private int count;
 	private void addTrans(int cState,char ch,int nState)
 	{
 		ArrayList l=new ArrayList();
@@ -64,7 +63,7 @@ public class LexicalAnalyzer {
 		
 	}
 	
-	public LexicalAnalyzer()
+	public LexicalAnylazer()
 	{
 		
 		chSet=new HashSet<Character>();
@@ -175,25 +174,25 @@ public class LexicalAnalyzer {
 		fStateMap.put(3, "id");
 		fStateMap.put(4, "id");
 		
-		fStateMap.put(5, "integer");
-		fStateMap.put(6, "integer");
-		fStateMap.put(7, "integer");
-		fStateMap.put(9, "double");
-		fStateMap.put(10, "double");
+		fStateMap.put(5, "Int");
+		fStateMap.put(6, "Int");
+		fStateMap.put(7, "Int");
+		fStateMap.put(9, "Double");
+		fStateMap.put(10, "Double");
 		
 		fStateMap.put(12, "punctuation");// token ";"
 		fStateMap.put(13, "punctuation");// token ","
 		fStateMap.put(14, "operator");// token "("
-		fStateMap.put(15, "operator");// token ")"
+		fStateMap.put(15, "operatpr");// token ")"
 		fStateMap.put(16, "operator");// token "{"
-		fStateMap.put(17, "operator");// token "}"
+		fStateMap.put(17, "operatpr");// token "}"
 		fStateMap.put(18, "operator");// token "["
 		fStateMap.put(19, "operator");// token "]"
 		fStateMap.put(20, "operator");// token "."
 		fStateMap.put(21, "operator");// token "="
 		fStateMap.put(22, "operator");// token "=="
 		fStateMap.put(23, "operator");// token "<"
-		fStateMap.put(24, "operator");// token "<>"
+		fStateMap.put(24, "operatpr");// token ¡±<>"
 		fStateMap.put(25, "operator");// token "<="
 		fStateMap.put(26, "operator");// token ">"
 		fStateMap.put(27, "operator");// token ">="
@@ -202,7 +201,7 @@ public class LexicalAnalyzer {
 		fStateMap.put(30, "operator");// token "*"
 		fStateMap.put(31, "punctuation");// token "*/"
 		fStateMap.put(32, "operator");// token "/"
-		fStateMap.put(33, "punctuation");// token "/*"
+		fStateMap.put(33, "punctuation");// token "/*¡±
 		fStateMap.put(34, "punctuation");// token "//"
 		
 		/*add key words*/
@@ -220,7 +219,6 @@ public class LexicalAnalyzer {
 		keyWords.add("get");
 		keyWords.add("put");
 		keyWords.add("return");
-		keyWords.add("program");
 	
 		state=0;
 	}
@@ -259,7 +257,7 @@ public class LexicalAnalyzer {
 	
 	public Token nextToken()
 	{
-		count++;
+		
 		Token token=null;
 		char c;
 		while ((c=nextCh())!=(char)-1)
@@ -334,7 +332,6 @@ public class LexicalAnalyzer {
 				else
 				{
 					try {
-						if (!s.equals(""))
 						eout.write(startRow+" "+startCol+": "+"Incomplete token "+s+'\n');
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -386,17 +383,12 @@ public class LexicalAnalyzer {
 			token=addToken();
 			state=0;
 		}
-		if (com2)
-			try {
-				eout.write(rowNum+" "+colNum+": "+"No */ match /* "+'\n');
-				eout.flush();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		if (state!=0)
+		if (token==null&&state!=0)
 		{
 			try{	
+				if (com2)
+				eout.write(rowNum+" "+colNum+": "+"No */ match /* "+'\n');
+				else 
 				eout.write(startRow+" "+startCol+": "+"Incomplete token "+s+'\n');
 				eout.flush();
 				} catch (IOException e) {
@@ -404,7 +396,6 @@ public class LexicalAnalyzer {
 					e.printStackTrace();
 				}
 		}
-			
 			return token;
 	
 	}
@@ -428,15 +419,14 @@ public class LexicalAnalyzer {
 		com2=false;
 		rowNum=1;
 		colNum=0;
-		count=0;
 	}
 	
 	private Token addToken()
 	{
 		String t=fStateMap.get(state);
 		if (keyWords.contains(s))
-		t="keyword";
-		if (t.equals("double")&&Double.isInfinite(Double.parseDouble(s)))
+		t="Key Word";
+		if (t.equals("Double")&&Double.isInfinite(Double.parseDouble(s)))
 		{
 			
 			try {
@@ -446,7 +436,7 @@ public class LexicalAnalyzer {
 				e.printStackTrace();
 			}
 		}
-		else if (t.equals("integer"))
+		else if (t.equals("Int"))
 		{
 			try{
 				Integer.parseInt(s);
@@ -471,17 +461,5 @@ public class LexicalAnalyzer {
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	public void close()
-	{
-		//System.out.println(count);
-		try {
-			in.close();
-			eout.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

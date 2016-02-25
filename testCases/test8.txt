@@ -1,0 +1,14 @@
+i@nt main()
+{%^
+	int a=10;
+	System.out.println(f(a)$);
+	
+}
+
+int~`` f(int n)
+{
+	if (n==0)
+	return 0;
+	el^^^se
+	return n+f(n!!-1);
+}""

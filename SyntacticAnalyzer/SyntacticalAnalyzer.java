@@ -19,6 +19,7 @@ public class SyntacticalAnalyzer {
 	private HashSet<Integer>[] follow;
 	private ArrayList<String> nt;
 	private PrintStream eout;
+	private PrintStream error;
 	public int n=89;
 	public SyntacticalAnalyzer()
 	{
@@ -244,7 +245,7 @@ public class SyntacticalAnalyzer {
 		
 		follow=new HashSet[n+1];
 		ts=new HashSet<Integer>();
-		for (int i=30;i<=66;i++)
+		for (int i=30;i<=67;i++)
 			ts.add(i);
 		
 		adf(10,new int[]{35,51});
@@ -263,8 +264,8 @@ public class SyntacticalAnalyzer {
 		adf(79,new int[]{46});
 		adf(80,new int[]{46});
 		adf(81,new int[]{46,48,51,57,58,59,61,62,63,53,44,56,32,47,50,30});//M
-		adf(82,new int[]{46});
-		adf(83,new int[]{46});
+		adf(82,new int[]{55});
+		adf(83,new int[]{55});
 		adf(84,new int[]{46,48,51,57,58,59,61,62,63,53,44,56,32,47,50,30});//P
 		adf(86,new int[]{46,60});
 		
@@ -280,13 +281,71 @@ public class SyntacticalAnalyzer {
 		adf(9,new int[]{46,51});
 		adf(11,new int[]{46,51,48});
 		adf(12,new int[]{51});
+		adf(13,new int[]{46,51,48,57,58,59,61,62,63,53});
+		adf(14,new int[]{38,39,64,45,31,44,56});
+		adf(15,new int[]{46,51,48,57,58,59,61,62,63,53,32,44,56});
+		adf(16,new int[]{46,51,48,57,58,59,61,62,63,53,32,44,56,30,47,50});
+		adf(17,new int[]{47,60});
+		adf(18,new int[]{64});
+		adf(19,new int[]{46,51,48,57,58,59,61,62,63,53,32,44,56,30,47,50,49,52,30});
+		adf(20,new int[]{38,39,64,46,48,51,52});
+		adf(21,new int[]{64});
+		adf(24,new int[]{46,48});
+		adf(25,new int[]{46,48});
+		adf(26,new int[]{44,45,56,64,65,66,31});
+		adf(27,new int[]{44,45,56,64,65,66,31});
+		adf(28,new int[]{44,45,56,64,65,66,31});
+		adf(29,new int[]{44,45,56,64,65,66,31});
+		
+		adf(30,new int[]{44,45,56,64,65,66,31});
+		adf(31,new int[]{44,45,56,64,65,66});
+		adf(32,new int[]{44,45,56,64,65,66,31});
+		adf(33,new int[]{45});
+		adf(34,new int[]{33,35,36,40,41,42,54,64});
+		adf(35,new int[]{33,51,36,40,41,42,54,64});
+		adf(36,new int[]{45});
+		adf(37,new int[]{64});
+		adf(38,new int[]{64});
+		adf(39,new int[]{64});
+		adf(40,new int[]{45});
+		adf(41,new int[]{45});
+		adf(42,new int[]{45});
+		adf(43,new int[]{54});
+		adf(44,new int[]{45,56,64,65,66,31});
+		adf(45,new int[]{44,46,56,64,65,66,31,38,39});
+		adf(46,new int[]{30,32,33,34,36,40,41,42,44,47,48,50,51,53,54,56,57,58,59,61,62,63,64});
+		adf(47,new int[]{31,44,45,56,64,65,66});
+		adf(48,new int[]{31,38,39,44,45,56,64,65,66});
+		adf(49,new int[]{64});
+		adf(50,new int[]{31,44,45,56,64,65,66});
+		adf(51,new int[]{31,33,35,36,37,38,39,40,41,42,43,44,45,55,56,64,65,66,67});
+		adf(52,new int[]{31,44,45,56,64,65,66});
+		adf(53,new int[]{30,32,38,39,44,46,47,48,49,50,51,52,56,57,58,59,60,61,62,63,64});
+		adf(54,new int[]{33,36,38,39,40,41,42,55,64});
+		adf(55,new int[]{35,51});
+		adf(56,new int[]{45,44,64,65,66,31});
+		adf(57,new int[]{45,44,56,64,65,66,31});
+		adf(58,new int[]{45,44,56,64,65,66,31});
+		adf(59,new int[]{45,44,56,64,65,66,31});
+		adf(60,new int[]{45,44,56,64,65,66,31});
+		adf(61,new int[]{45,44,56,64,65,66,31});
+		adf(62,new int[]{45,44,56,64,65,66,31});
+		adf(63,new int[]{45,44,56,64,65,66,31});
+		adf(64,new int[]{30,32,44,45,46,47,48,49,50,51,52,53,54,56,57,58,59,60,61,62,63});
+		adf(65,new int[]{30,32,44,46,47,48,50,51,53,56,57,58,59,61,62,63});
+		adf(66,new int[]{30,32,44,46,47,48,50,51,53,56,57,58,59,61,62,63});
+		adf(85,new int[]{46,48,51,57,58,59,61,62,63,53,44,56,32,47,50,30});
+		adf(87,new int[]{55});
+		adf(88,new int[]{33,36,55,40,41,42,64});
+		adf(89,new int[]{55});
 	}
 	
 	public void addInput(String fileName)
 	{
-		lA.addInput(fileName);
+		lA.addInput("testCases/"+fileName);
 		try {
-			eout=new PrintStream(new File (fileName+"out"));
+			eout=new PrintStream(new File ("outputs/"+fileName));
+			error=new PrintStream(new File("errors/"+fileName));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -304,23 +363,37 @@ public class SyntacticalAnalyzer {
 	public void derive()
 	{
 		Stack<Integer> stack = new Stack<Integer>();
+		stack.push(67);
 		stack.push(1);
 		int sb;
-		sb= find(lA.nextToken());
-		eout.println(nt.get(stack.top()-1));
+		Token t;
+		while (true)
+		{
+			t=lA.nextToken();
+			String v=t.value;
+			if (t==null)
+				break;
+			if(!v.equals("//")&&!t.equals("/*")&&!t.equals("*/"))
+				break;
+		}
+		sb= find(t);
+	//	eout.println(nt.get(stack.top()-1));
 		ArrayList<Integer> ms=new ArrayList();
 		while (!stack.empty())
 		{
 			int top=stack.top();
-			//eout.println(nt.get(top-1)+" "+nt.get(sb-1));
-			if (ts.contains(top))
+			eout.println(nt.get(top-1)+" "+nt.get(sb-1));
+			if (ts.contains(top)&&top==sb)
 			{
-				if (top==sb)
-				{
+				
+				
 					stack.pop();
 					ms.add(sb);
-				}
-				sb= find(lA.nextToken());
+					t= lA.nextToken();
+					//System.out.println(t.col+" "+t.row);
+					sb=find(t);
+				
+				
 			}
 			else if (tTable[top][sb]!=null)
 			{
@@ -331,7 +404,7 @@ public class SyntacticalAnalyzer {
 					stack.push(list[i]);
 				}
 			}
-			else if (follow[top].contains(sb))
+			else if (tTable[top][68]!=null&&follow[top].contains(sb))
 			{
 				int [] list=tTable[top][68];
 				stack.pop();
@@ -340,6 +413,33 @@ public class SyntacticalAnalyzer {
 					stack.push(list[i]);
 				}
 				
+			}
+			else 
+			{
+				error.print(top);
+				if (t!=null)
+				error.print("Error at "+"row:"+t.row+" col:"+t.col+", ");
+				else
+				error.print("Program is not complete, ");
+				if (ts.contains(top))
+					error.print(nt.get(top-1)+" is expected");
+				error.println();
+				//System.out.println("hh");
+				while (tTable[top][sb]==null&&sb!=top)
+				{
+					//System.out.println(top);
+					if (sb==67||follow[top].contains(sb))
+					{
+						//System.out.println("hh");
+						stack.pop();
+						ms.add(top);
+						break;
+					}
+					t=lA.nextToken();
+					sb=find(t);
+						
+				}
+				continue;
 			}
 			if (!ts.contains(top))
 			{
@@ -350,9 +450,15 @@ public class SyntacticalAnalyzer {
 			eout.println();
 			}
 		}
+		while (t!=null)
+		{
+			t=lA.nextToken();
+			error.println("Error at "+"row:"+t.row+" col:"+t.col);
+		}
 		lA.close();
 		eout.close();
-		System.out.println(ms.size());
+		error.close();
+		//System.out.println(ms.size());
 	}
 	
 	public int find(Token t)
@@ -378,5 +484,33 @@ public class SyntacticalAnalyzer {
 			follow[a].add(b[i]);
 	}
 	
+	public void writeSet()
+	{
+		for (int i=0;i<89;i++)
+		if (i!=67&&i!=68)
+		{
+			System.out.print("first("+nt.get(i)+") = {");
+			for (int j=1;j<=89;j++)
+			if (tTable[i+1][j]!=null)
+			{
+				System.out.print(nt.get(j-1));
+				System.out.print(",");
+			}
+			System.out.print("}    ");
+			if (follow[i]!=null)
+			{
+				System.out.print("follow("+nt.get(i)+") = {");
+				for (int j=1;j<=89;j++)
+					if (follow[i].contains(j))
+					{
+						System.out.print(nt.get(j-1));
+						System.out.print("  ");
+					}
+			
+			System.out.print("}");
+			}
+			System.out.println();
+		}
+	}
 
 }

@@ -4,13 +4,14 @@ class Utility {
 
 	int var1[4][5][7][8][9][1][0];
 	float var2;
+	float var1;
 	
 	int findMax(int array[100]) {
 		int maxValue;
-		int idx;
+		idx;
 		maxValue = array[100];
 		
-		for( int idx = 99; idx > 0; idx = idx - 1 ) {
+		for( int = 99; idx > 0; idx = idx - 1 ) {
 			if(array[idx] > maxValue) then {
 				maxValue = array[idx];
 			}
@@ -42,12 +43,12 @@ program {
 	int maxValue;
 	int minValue;
 	
-	Utility utility;
+	Utility utility
 	Utility arrayUtility[2][3][6][7];
 
 	for(int t = 0; t<=100 ; t = t + 1) {
 		get(sample[t]);
-		sample[t] = (sample[t] * randomize());
+		sample[t] = (sample[t * randomize());
 	};
 
 	maxValue = utility.findMax(sample);
@@ -67,4 +68,3 @@ real randomize() {
 	value = 100 * (2 + 3.0 / 7.0006);
 	value = 1.05 + ((2.04 * 2.47) - 3.0) + 7.0006 ;
 	return (value);
-};

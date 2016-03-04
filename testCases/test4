@@ -1,0 +1,41 @@
+class Op
+{
+	float a;
+	float b;
+	float add(float c,float d)
+	{
+		return c+d;
+	}
+	
+	float div(float c,float d)
+	{
+		if (d<>0)
+		then return c/d;
+		else
+		return c/d;
+		
+		
+	}
+};
+
+class Op2
+{
+	float a[100];
+	float b[100];
+	float sub(float c[100],float d[100])
+	{
+		float r=0;
+		for (int i=0;i<100;i++)
+		r=r+c-d;
+		return r;
+	}
+};
+
+program
+{
+	Op2 a;
+	int c[100];
+	int d[100];
+	float e;
+	e=a.sub(c,d);
+};

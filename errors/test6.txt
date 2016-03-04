@@ -1,4 +1,0 @@
-1 1: Incomplete token 3.
-2 1: Incomplete token 2.00
-4 14: _ can not start a token 
-5 1: Incomplete token 3.00

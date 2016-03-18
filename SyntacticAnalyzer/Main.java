@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SyntacticalAnalyzer sA=new SyntacticalAnalyzer();
-		sA.writeSet();
+		//sA.writeSet();
 		File dic = new File("testCases");
 		String[] names=dic.list();
 		for (int i=0;i<names.length;i++)

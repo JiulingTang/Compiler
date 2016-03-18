@@ -1,6 +1,7 @@
 package SyntacticAnalyzer;
 
 import LexicalAnylazer.*;
+import Semantic.Semantic;
 import Token.Token;
 
 import java.io.File;
@@ -21,6 +22,7 @@ public class SyntacticalAnalyzer {
 	private PrintStream eout;
 	private PrintStream error;
 	public int n=89;
+	public Semantic sem=new Semantic();
 	public SyntacticalAnalyzer()
 	{
 		lA=new LexicalAnalyzer();
@@ -362,7 +364,8 @@ public class SyntacticalAnalyzer {
 	
 	public void derive()
 	{
-		Stack<Integer> stack = new Stack<Integer>();
+		sem.stack=new Stack<Integer>();
+		Stack stack=sem.stack;
 		stack.push(67);
 		stack.push(1);
 		int sb;
@@ -382,7 +385,7 @@ public class SyntacticalAnalyzer {
 		while (!stack.empty())
 		{
 			int top=stack.top();
-			eout.println(nt.get(top-1)+" "+nt.get(sb-1));
+			//eout.println(nt.get(top-1)+" "+nt.get(sb-1));
 			if (ts.contains(top)&&top==sb)
 			{
 				

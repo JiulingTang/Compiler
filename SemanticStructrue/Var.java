@@ -3,15 +3,23 @@ package SemanticStructrue;
 import java.util.ArrayList;
 
 public class Var extends Identifier{
-	String value;
-	String dtype; //data type 
-	ArrayList<Integer> dim;
-	public Var(String dtype,ArrayList<Integer> dim,String value)
+	public String value="default";
+	public String dtype; //data type
+	public String name;
+	public ArrayList<Integer> dim;
+	public Var()
 	{
-		this.itype="var";
-		this.dtype="dtype";
-		for (int i=0;i<dim.size();i++)
-			this.dim.add(new Integer(dim.get(i)));
-		this.value=value;
+		dim=new ArrayList<Integer>();
+	}
+	public String toString()
+	{
+		String r="";
+		r+="{\r\n";
+		r+="value: "+value+"\r\n";
+		if (dim.size()>0)
+		r+="dimention: "+dim.size()+"\r\n";
+		r+="type£º "+dtype+"\r\n";
+		r+="}";
+		return r;
 	}
 }

@@ -22,11 +22,14 @@ public class SyntacticalAnalyzer {
 	private PrintStream eout;
 	private PrintStream error;
 	public int n=89;
-	public Semantic sem=new Semantic();
+	public int count;
+	public Semantic sem;
+	ArrayList <Token> ms;
 	public SyntacticalAnalyzer()
 	{
 		lA=new LexicalAnalyzer();
-		
+		ms=new ArrayList<Token>();
+		sem=new Semantic();
 		table=new Hashtable<String,Hashtable<String,String>>();
 		nt=new ArrayList<String>(); 
 		nt.add("prog");//1
@@ -113,9 +116,9 @@ public class SyntacticalAnalyzer {
 		}
 		
 		tTable[1][43]=tTable[1][37]=new int[]{69,3};
-		tTable[2][37]=new int[]{37,64,54,82,55,51};
+		tTable[2][37]=new int[]{37,64,252,54,82,55,253,51};
 		tTable[3][43]=new int[]{43,6,51,71};
-		tTable[4][38]=tTable[4][39]=tTable[4][64]=new int[]{21,64,45,22,46};
+		tTable[4][38]=tTable[4][39]=tTable[4][64]=new int[]{21,256,64,255,45,22,46};
 		tTable[5][38]=tTable[5][39]=tTable[5][64]=new int[]{4,6,51};
 		tTable[6][54]=new int[]{54,83,55};
 		tTable[7][38]=tTable[7][39]=tTable[7][64]=new int[]{21,64,73,51};
@@ -147,12 +150,12 @@ public class SyntacticalAnalyzer {
 		tTable[17][64]=new int[]{64,78,86};
 		tTable[18][64]=new int[]{64,78};
 		
-		tTable[20][52]=new int[]{52,65,53};
+		tTable[20][52]=new int[]{52,65,258,53};
 		tTable[21][64]=new int[]{64};
 		tTable[21][38]=new int[]{38};
 		tTable[21][39]=new int[]{39};
 		tTable[22][68]=new int[]{};
-		tTable[22][38]=tTable[22][39]=tTable[22][64]=new int[]{21,64,73,79};
+		tTable[22][38]=tTable[22][39]=tTable[22][64]=new int[]{21,256,64,257,73,259,79};
 		
 		tTable[24][48]=new int[]{48,21,64,73};
 		tTable[25][48]=new int[]{48,11};
@@ -173,7 +176,7 @@ public class SyntacticalAnalyzer {
 		
 		tTable[77][64]=new int[]{19,77};
 		tTable[79][48]=new int[]{24,79};
-		tTable[82][38]=tTable[82][39]=tTable[82][64]=new int[]{21,64,87};
+		tTable[82][38]=tTable[82][39]=tTable[82][64]=new int[]{21,256,64,87};
 		
 		tTable[83][64]=new int[]{64,89};
 		tTable[83][38]=new int[]{38,64,73,51,83};
@@ -183,8 +186,8 @@ public class SyntacticalAnalyzer {
 		
 		tTable[85][64]=new int[]{64,81}; //Q->id M
 		tTable[86][49]=new int[]{49,17};
-		tTable[87][45]=new int[]{45,22,46,6,51,71};		
-		tTable[87][51]=tTable[87][52]=new int[]{73,51,82};
+		tTable[87][45]=new int[]{255,45,22,46,6,253,51,71};		
+		tTable[87][51]=tTable[87][52]=new int[]{257,73,260,51,82};
 		
 		tTable[88][42]=new int[]{42,45,11,46,51};
 		tTable[88][41]=new int[]{41,45,11,46,51};
@@ -364,12 +367,15 @@ public class SyntacticalAnalyzer {
 	
 	public void derive()
 	{
-		sem.stack=new Stack<Integer>();
-		Stack stack=sem.stack;
+
+		Stack<Integer> stack=new Stack<Integer>();
+		stack.push(253);
 		stack.push(67);
 		stack.push(1);
+		sem.a1();
 		int sb;
 		Token t;
+		count=0;
 		while (true)
 		{
 			t=lA.nextToken();
@@ -381,17 +387,24 @@ public class SyntacticalAnalyzer {
 		}
 		sb= find(t);
 	//	eout.println(nt.get(stack.top()-1));
-		ArrayList<Integer> ms=new ArrayList();
+	//	ArrayList<Integer> ms=new ArrayList();
 		while (!stack.empty())
 		{
 			int top=stack.top();
-			//eout.println(nt.get(top-1)+" "+nt.get(sb-1));
+			if (top>250)
+			{
+				action(top);
+				stack.pop();
+				continue;
+			}
+				//eout.println(nt.get(top-1)+" "+nt.get(sb-1));
 			if (ts.contains(top)&&top==sb)
 			{
 				
 				
 					stack.pop();
-					ms.add(sb);
+					ms.add(t);
+					count++;
 					t= lA.nextToken();
 					//System.out.println(t.col+" "+t.row);
 					sb=find(t);
@@ -435,7 +448,8 @@ public class SyntacticalAnalyzer {
 					{
 						//System.out.println("hh");
 						stack.pop();
-						ms.add(top);
+						ms.add(t);
+						count++;
 						break;
 					}
 					t=lA.nextToken();
@@ -446,10 +460,15 @@ public class SyntacticalAnalyzer {
 			}
 			if (!ts.contains(top))
 			{
-			for (int i=0;i<ms.size();i++)
-				eout.print(nt.get(ms.get(i)-1)+" ");
+			for (int i=0;i<count;i++)
+				eout.print(show(ms.get(i))+" ");
 			for (int i=stack.size()-1;i>=0;i--)
+			{
+				if (stack.get(i)<89)
 				eout.print(nt.get(stack.get(i)-1)+" ");
+				else 
+				eout.print(stack.get(i));
+			}
 			eout.println();
 			}
 		}
@@ -470,14 +489,19 @@ public class SyntacticalAnalyzer {
 		{
 			return 67;
 		}
+		return map.get(show(t)).intValue();
+		
+		
+	}
+	
+	public String show(Token t)
+	{
 		if (t.type.equals("punctuation")||t.type.equals("operator")||t.type.equals("keyword"))
 		{
-			return map.get(t.value).intValue();
+			return t.value;
 		}
 		else
-			return map.get(t.type).intValue();
-		
-		
+			return t.type;
 	}
 	
 	public void adf(int a,int []b)
@@ -514,6 +538,31 @@ public class SyntacticalAnalyzer {
 			}
 			System.out.println();
 		}
+	}
+	public void action(int n)
+	{
+	
+		n-=250;
+		if (n==1)
+		sem.a1();
+		else if (n==2)
+		sem.a2(ms.get(count-1));
+		else if (n==3)
+		sem.a3();
+		else if (n==4)
+		sem.a4();
+		else if (n==5)
+		sem.a5(ms.get(count-1));
+		else if (n==6)
+		sem.a6(ms.get(count-1));
+		else if (n==7)
+		sem.a7(ms.get(count-1));
+		else if (n==8)
+		sem.a8(ms.get(count-1));
+		else if (n==9)
+		sem.a9();
+		else if (n==10)
+		sem.a10();
 	}
 
 }

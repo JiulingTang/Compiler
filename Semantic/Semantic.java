@@ -57,7 +57,7 @@ public class Semantic {
 	}
 	public void a4() //program a4 funcbody...
 	{
-		stack2.push(new Record(new SybTable(),1));
+		stack2.push(new Record(new SybTable(),0));
 	}
 	public void a5(Token t) // funchead-> type id a5 (fparams)
 	{
@@ -116,6 +116,24 @@ public class Semantic {
 		scope.map.put(var.name, var);
 	}
 	
+	public void a11(Token t)//add a string
+							//O ->id a11 U
+	{
+		stack2.push(new Record(t.value,4));
+	}
+	
+	public void a12(Token t)//another version to add variable
+							//U ->id a12 E ; O
+	{
+		String s=(String)stack2.top().o;
+		Var var=new Var();
+		var.dtype=s;
+		var.name=t.value;
+		stack2.pop();
+		stack2.push(new Record(var,3));
+		
+	}
+	
 	public SybTable getScope(Record r)
 	{
 		if (r.type==0)
@@ -125,6 +143,7 @@ public class Semantic {
 		else
 		return ((Func)r.o).table;
 	}
+	
 	
 }
 

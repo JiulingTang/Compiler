@@ -12,6 +12,7 @@ public class Var extends Identifier{
 	public Token t;// The token for the name of variable
 	public Var()
 	{
+		this.itype="var";
 		dim=new ArrayList<Integer>();
 	}
 	public String toString()

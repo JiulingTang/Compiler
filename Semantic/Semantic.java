@@ -56,7 +56,7 @@ public class Semantic {
 		Cla newClass=new Cla();
 		newClass.table=createTable();
 		stack2.push(new Record(newClass,1));
-		Cla c=(Cla)search(scope,idName);
+		Identifier c=search(scope,idName);
 		if (c==null)
 		{
 			
@@ -67,8 +67,9 @@ public class Semantic {
 		{
 			if (round==1)
 			writeError("\""+idName+"\"has been defined. "+"location: "+t.row+","+t.col);
-			else
+			else if (!c.def)
 			{
+				c.def=true;
 				stack2.pop();
 				stack2.push(new Record(c,1));
 			}
@@ -99,16 +100,27 @@ public class Semantic {
 		newFunc.rvalue=rt;
 		newFunc.table=new SybTable();
 		stack2.push(new Record(newFunc,2));
-		if (search(scope,idName)==null)
+		Identifier f=search(scope,idName);
+		if (f==null)
 		{
 			//System.out.println(idName);
 		
 			scope.map.put(idName,newFunc);
 			
 		}
-		else
+		else 
 		{
+			if (round==1)
 			writeError("\""+idName+"\"has been defined. "+"location: "+t.row+","+t.col);
+			else
+			{
+				if (!f.def)
+				{
+					f.def=true;
+					stack2.pop();
+					stack2.push(new Record(f,2));
+				}
+			}
 		}
 	}
 	public void a6(Token t)// type of variable
@@ -116,6 +128,11 @@ public class Semantic {
 		Var v=new Var();
 		v.dtype=t.value;
 		stack2.push(new Record(v,3));
+		if (round==2&&!checkType(t.value))
+		{
+			writeError("No such type. location: "+t.row+","+t.col);
+		}
+			
 	}
 	public void a7(Token t)// name of variable
 	{
@@ -131,7 +148,7 @@ public class Semantic {
 		Var var=(Var)stack2.top().o;
 		//System.out.println(t.value);
 		//System.out.println(t.row+" "+t.col);
-		if (Integer.parseInt(t.value)==0)
+		if (Integer.parseInt(t.value)==0&&round==1)
 		writeError("array length should be larger than 0. "+"location: "+t.row+","+t.col);
 		else
 		var.dim.add(Integer.parseInt(t.value));
@@ -141,6 +158,8 @@ public class Semantic {
 	{
 		Var var=(Var)stack2.top().o;
 		stack2.pop();
+		if (round==2)
+			return ;
 		Func f=(Func)stack2.top().o;
 		for (Var p : f.par)
 		{
@@ -158,13 +177,19 @@ public class Semantic {
 		Var var=(Var)stack2.top().o;
 		stack2.pop();
 		SybTable scope=getScope(stack2.top());
-		if (search(scope,var.name)==null)
+		Identifier v=search(scope,var.name);
+		if (v==null)
 		{
 			scope.map.put(var.name, var);
 		}
-		else
+		else 
 		{
+			if(round==1)
 			writeError("\""+var.name+"\"has been defined. "+"location: "+var.t.row+","+var.t.col);
+			else if (!v.def)
+			{
+				v.def=true;
+			}
 		}
 	}
 	
@@ -174,7 +199,7 @@ public class Semantic {
 		stack2.push(new Record(t,4));
 	}
 	
-	public void a12(Token t)//another version to add variable
+	public void a12(Token t)//another version to add variable name
 							//U ->id a12 E ; O
 	{
 		Token s=(Token)stack2.top().o;
@@ -184,14 +209,25 @@ public class Semantic {
 		var.t=t;
 		stack2.pop();
 		stack2.push(new Record(var,3));
+		if (round==2&&!checkType(var.dtype))
+		{
+			writeError("No such type. location: "+t.row+","+t.col);
+		}
+		
 		
 	}
 	
 	public void a13()// U->J R...
 	{
-		if (round==1)
+		
 			stack2.pop();
 	}
+	
+	public void a14()//For a14 type id...
+	{
+		stack2.push(new Record(new SybTable(),0));
+	}
+	
 	
 	public SybTable getScope(Record r)
 	{
@@ -218,6 +254,38 @@ public class Semantic {
 		}
 		return -1;
 	}
+	
+	public boolean checkType(String name)
+	{
+		if (name.equals("int")||name.equals("float"))
+			return true;
+		else
+		{
+			Identifier i=search(gTable,name);
+			if (i!=null&&i.itype.equals("cla"))
+				return true;
+			else
+				return false;
+		}
+		
+	}
+	
+	public boolean checkVariableDefined(String vname)
+	{
+		for (int i=stack2.size()-1;i>=0;i--)
+		{
+			Record r=stack2.get(i);
+			if (r.type<3)
+			{
+				SybTable scope=getScope(r);
+				Identifier id=search(scope,vname);
+				if (id.itype.equals("var"))
+					return true;
+			}
+		}
+		return false;
+	}
+	
 }
 
 

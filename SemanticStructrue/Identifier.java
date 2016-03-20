@@ -1,5 +1,6 @@
 package SemanticStructrue;
 
 public abstract class Identifier {
-	String itype; //identifier type
+	public String itype; //identifier type
+	public boolean def=false;
 }

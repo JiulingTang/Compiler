@@ -17,7 +17,7 @@ public class Main {
 		{
 			sA.addInput(names[i]);
 			sA.derive(1);
-			//sA.derive(2);
+			sA.derive(2);
 		}
 		
 		

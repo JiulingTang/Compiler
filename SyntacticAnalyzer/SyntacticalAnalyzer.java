@@ -196,7 +196,7 @@ public class SyntacticalAnalyzer {
 		tTable[88][36]=new int[]{36,45,21,64,26,11,51,12,51,9,46,10,51};
 		
 		tTable[89][64]=new int[]{64,262,73,260,51,83};
-		tTable[89][49]=tTable[89][52]=tTable[89][60]=new int[]{78,86,26,11,51,72};
+		tTable[89][49]=tTable[89][52]=tTable[89][60]=new int[]{263,78,86,26,11,51,72};
 		
 		tTable[81][52]=tTable[81][68]=tTable[81][49]=new int[]{78,84};//M-> J P
 		tTable[81][45]=new int[]{45,23,46};//M-> ( aparams )
@@ -365,20 +365,26 @@ public class SyntacticalAnalyzer {
 		}*/
 	}
 	
-	public void derive()
+	public void derive(int round)
 	{
 
 		Stack<Integer> stack=new Stack<Integer>();
 		stack.push(253);
 		stack.push(67);
 		stack.push(1);
+		sem.round=round;
 		sem.a1();
 		int sb;
 		Token t;
 		count=0;
 		while (true)
 		{
+			if (round==1)
 			t=lA.nextToken();
+			else if (count<ms.size())
+			t=ms.get(count);
+			else
+			t=null;
 			String v=t.value;
 			if (t==null)
 				break;
@@ -403,9 +409,15 @@ public class SyntacticalAnalyzer {
 				
 				
 					stack.pop();
+					if (round==1)
 					ms.add(t);
 					count++;
+					if (round==1)
 					t= lA.nextToken();
+					else if (count<ms.size())
+					t=ms.get(count);
+					else
+					t=null;
 					//System.out.println(t.col+" "+t.row);
 					sb=find(t);
 				
@@ -432,6 +444,7 @@ public class SyntacticalAnalyzer {
 			}
 			else 
 			{
+				if (round==1)
 				error.print(top);
 				if (t!=null)
 				error.print("Error at "+"row:"+t.row+" col:"+t.col+", ");
@@ -448,11 +461,17 @@ public class SyntacticalAnalyzer {
 					{
 						//System.out.println("hh");
 						stack.pop();
+						if (round==1)
 						ms.add(t);
 						count++;
 						break;
 					}
+					if (round==1)
 					t=lA.nextToken();
+					else if (count<ms.size())
+					t=ms.get(count);
+					else
+					t=null;
 					sb=find(t);
 						
 				}
@@ -475,7 +494,13 @@ public class SyntacticalAnalyzer {
 		}
 		while (t!=null)
 		{
+			if (round==1)
 			t=lA.nextToken();
+			else if (count<ms.size())
+			t=ms.get(count);
+			else
+			t=null;
+			if (round==1)
 			error.println("Error at "+"row:"+t.row+" col:"+t.col);
 		}
 		lA.close();
@@ -542,9 +567,9 @@ public class SyntacticalAnalyzer {
 	}
 	public void action(int n)
 	{
-		/*System.out.println(n);
+		System.out.println(n);
 		System.out.println(ms.get(count-1));
-		System.out.println(sem.stack2.top().type);*/
+		System.out.println(sem.stack2.top().type);
 		n-=250;
 		if (n==1)
 		sem.a1();
@@ -570,6 +595,8 @@ public class SyntacticalAnalyzer {
 		sem.a11(ms.get(count-1));
 		else if (n==12)
 		sem.a12(ms.get(count-1));
+		else if (n==13)
+		sem.a13();
 		
 	}
 

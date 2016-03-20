@@ -2,11 +2,14 @@ package SemanticStructrue;
 
 import java.util.ArrayList;
 
+import Token.Token;
+
 public class Var extends Identifier{
 	public String value="default";
 	public String dtype; //data type
 	public String name;
 	public ArrayList<Integer> dim;
+	public Token t;// The token for the name of variable
 	public Var()
 	{
 		dim=new ArrayList<Integer>();

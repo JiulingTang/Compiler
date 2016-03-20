@@ -157,7 +157,7 @@ public class SyntacticalAnalyzer {
 		tTable[22][68]=new int[]{};
 		tTable[22][38]=tTable[22][39]=tTable[22][64]=new int[]{21,256,64,257,73,259,79};
 		
-		tTable[24][48]=new int[]{48,21,64,73};
+		tTable[24][48]=new int[]{48,21,256,64,257,73,259};
 		tTable[25][48]=new int[]{48,11};
 		tTable[26][60]=new int[]{60};
 		
@@ -466,8 +466,9 @@ public class SyntacticalAnalyzer {
 			{
 				if (stack.get(i)<89)
 				eout.print(nt.get(stack.get(i)-1)+" ");
-				else 
-				eout.print(stack.get(i));
+				/*else 
+				eout.print(stack.get(i));*/
+			
 			}
 			eout.println();
 			}
@@ -541,9 +542,9 @@ public class SyntacticalAnalyzer {
 	}
 	public void action(int n)
 	{
-		System.out.println(n);
+		/*System.out.println(n);
 		System.out.println(ms.get(count-1));
-		System.out.println(sem.stack2.top().type);
+		System.out.println(sem.stack2.top().type);*/
 		n-=250;
 		if (n==1)
 		sem.a1();

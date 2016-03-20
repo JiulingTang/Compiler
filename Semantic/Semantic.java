@@ -20,6 +20,18 @@ public class Semantic {
 	{
 		return new SybTable(); 
 	}
+	public  void insert(SybTable tb,String id, Identifier i)
+	{
+		tb.map.put(id, i);
+	}
+	
+	public Identifier search(SybTable tb,String id)
+	{
+		if (tb.map.containsKey(id))
+			return tb.map.get(id);
+		else
+			return null;
+	}
 	public void printTable(SybTable table)
 	{
 		System.out.println(table.toString());
@@ -37,12 +49,14 @@ public class Semantic {
 	{
 		SybTable scope=(SybTable)stack2.top().o;
 		String idName=t.value;
-		if (!scope.map.containsKey(idName))
+		Cla newClass=new Cla();
+		newClass.table=createTable();
+		stack2.push(new Record(newClass,1));
+		if (search(scope,idName)==null)
 		{
-			Cla newClass=new Cla();
-			newClass.table=createTable();
+			
 			scope.map.put(idName,newClass);
-			stack2.push(new Record(newClass,1));
+			
 		}
 		else
 		{
@@ -66,14 +80,16 @@ public class Semantic {
 		stack2.pop();
 		SybTable scope=getScope(stack2.top());
 		String idName=t.value;
-		if (!scope.map.containsKey(idName))
+		Func newFunc=new Func();
+		newFunc.rvalue=rt;
+		newFunc.table=new SybTable();
+		stack2.push(new Record(newFunc,2));
+		if (search(scope,idName)==null)
 		{
 			//System.out.println(idName);
-			Func newFunc=new Func();
-			newFunc.rvalue=rt;
-			newFunc.table=new SybTable();
+		
 			scope.map.put(idName,newFunc);
-			stack2.push(new Record(newFunc,2));
+			
 		}
 		else
 		{
@@ -90,6 +106,7 @@ public class Semantic {
 	{
 		String idName=t.value;
 		Var newVar=(Var)stack2.top().o;
+		newVar.t=t;
 		newVar.name=t.value;
 		
 	}
@@ -97,6 +114,9 @@ public class Semantic {
 	public void a8 (Token t)// arraysize -> [Integer a8]
 	{
 		Var var=(Var)stack2.top().o;
+		if (Integer.parseInt(t.value)==0)
+		writeError("array length should be larger than 0. "+"location: "+t.row+","+t.col);
+		else
 		var.dim.add(Integer.parseInt(t.value));
 	}
 	
@@ -105,6 +125,14 @@ public class Semantic {
 		Var var=(Var)stack2.top().o;
 		stack2.pop();
 		Func f=(Func)stack2.top().o;
+		for (Var p : f.par)
+		{
+			if (p.name.equals(var.name))
+			{
+				writeError("parameter name has been defined. "+"location: "+var.t.row+","+var.t.col );
+				return;
+			}
+		}
 		f.par.add(var);
 	}
 	
@@ -113,22 +141,30 @@ public class Semantic {
 		Var var=(Var)stack2.top().o;
 		stack2.pop();
 		SybTable scope=getScope(stack2.top());
-		scope.map.put(var.name, var);
+		if (search(scope,var.name)==null)
+		{
+			scope.map.put(var.name, var);
+		}
+		else
+		{
+			writeError("\""+var.name+"\"has been defined. "+"location: "+var.t.row+","+var.t.col);
+		}
 	}
 	
 	public void a11(Token t)//add a string
 							//O ->id a11 U
 	{
-		stack2.push(new Record(t.value,4));
+		stack2.push(new Record(t,4));
 	}
 	
 	public void a12(Token t)//another version to add variable
 							//U ->id a12 E ; O
 	{
-		String s=(String)stack2.top().o;
+		Token s=(Token)stack2.top().o;
 		Var var=new Var();
-		var.dtype=s;
+		var.dtype=s.value;
 		var.name=t.value;
+		var.t=t;
 		stack2.pop();
 		stack2.push(new Record(var,3));
 		

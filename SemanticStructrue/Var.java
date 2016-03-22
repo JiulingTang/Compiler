@@ -23,7 +23,14 @@ public class Var extends Identifier{
 		if (dim.size()>0)
 		r+="dimention: "+dim.size()+"\r\n";
 		r+="type£º "+dtype+"\r\n";
-		r+="}";
-		return r;
+		String rr="";
+		for (int i=0;i<r.length();i++)
+		{
+			rr+=r.charAt(i);
+			if (r.charAt(i)=='\n')
+				rr+='\t';
+		}
+		rr+="\r\n}";
+		return rr;
 	}
 }

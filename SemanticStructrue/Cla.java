@@ -11,12 +11,20 @@ public class Cla extends Identifier{
 	{
 		String r;
 		r="{\r\n";
+		r=r+"type:class\r\n";
 		if (table!=null)
 		{
 		r+="scope\r\n";
 		r+=table.toString()+"\r\n";
 		}
-		r+="}";
-		return r;
+		String rr="";
+		for (int i=0;i<r.length();i++)
+		{
+			rr+=r.charAt(i);
+			if (r.charAt(i)=='\n')
+				rr+='\t';
+		}
+		rr+="\r\n}";
+		return rr;
 	}
 }

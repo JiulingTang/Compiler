@@ -1,4 +1,8 @@
 package Semantic;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 import SemanticStructrue.*;
 import SyntacticAnalyzer.Stack;
 import SyntacticAnalyzer.SyntacticalAnalyzer;
@@ -10,11 +14,25 @@ public class Semantic {
 	public Stack<Record> stack2;
 	public Stack<Token> tStack;
 	public int round;
+	private PrintStream eout;
+	private PrintStream errorOut;
+	public static String outPutFolderName="SymbolTableOutPuts";
+	public static String errorFolderName="SymbolTableError";
 	public Semantic()
 	{
 		stack =new Stack<Integer>();
 		stack2=new Stack<Record>();
 		tStack=new Stack<Token>();
+	}
+	public void addOutFile(String inputFileName)
+	{
+		try {
+			eout=new PrintStream(new File (outPutFolderName+"/"+inputFileName));
+			errorOut=new PrintStream(new File(errorFolderName+"/"+inputFileName));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public SybTable createTable()
 	{
@@ -34,11 +52,11 @@ public class Semantic {
 	}
 	public void printTable(SybTable table)
 	{
-		System.out.println(table.toString());
+		eout.println(table.toString());
 	}
 	public void writeError(String error)
 	{
-		System.out.println(error);
+		errorOut.println(error);
 	}
 	public void a1()
 	{
@@ -79,7 +97,7 @@ public class Semantic {
 					//funcbody a3
 	{
 		stack2.pop();
-		printTable(this.gTable);
+		//printTable(this.gTable);
 	}
 	public void a4() //program a4 funcbody...
 	{
@@ -170,6 +188,7 @@ public class Semantic {
 			}
 		}
 		f.par.add(var);
+		insert(f.table,var.name,var);
 	}
 	
 	public void a10()//add variable to scope
@@ -228,6 +247,31 @@ public class Semantic {
 		stack2.push(new Record(new SybTable(),0));
 	}
 	
+	public void a15()//The name of call function
+	{
+		Token t=(Token)stack2.top().o;
+		stack2.pop();
+		if (round==2)
+		{
+			if (!this.checkFuncDefiend(t.value))
+			{
+				writeError("Function is not defined. location: "+t.row+","+t.col);
+			}
+		}
+	}
+	public void a16()//The name of call value
+	{
+		Token t=(Token)stack2.top().o;
+		stack2.pop();
+		if (round==2)
+		{
+			if (!this.checkVariableDefined(t.value))
+			{
+				writeError("Variable is not defined. location: "+t.row+","+t.col);
+			}
+		}
+	}
+	
 	
 	public SybTable getScope(Record r)
 	{
@@ -279,13 +323,36 @@ public class Semantic {
 			{
 				SybTable scope=getScope(r);
 				Identifier id=search(scope,vname);
-				if (id.itype.equals("var"))
+				
+				if (id!=null&&id.itype.equals("var"))
 					return true;
 			}
 		}
 		return false;
 	}
 	
+	public boolean checkFuncDefiend(String fname)
+	{
+		for (int i=stack2.size()-1;i>=0;i--)
+		{
+			Record r=stack2.get(i);
+			if (r.type<3)
+			{
+				SybTable scope=getScope(r);
+				Identifier id=search(scope,fname);
+				if (id!=null&&id.itype.equals("func"))
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	public void writeResult()
+	{
+		printTable(gTable);
+		eout.close();
+		errorOut.close();
+	}
 }
 
 

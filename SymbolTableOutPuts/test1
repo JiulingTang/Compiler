@@ -1,0 +1,169 @@
+{
+	Utility
+	{
+	scope
+	{
+		v
+		{
+		parameter:
+		{
+		value: default
+		dimention: 1
+		type£º hh
+		}
+		return:
+		{
+		value: default
+		type£º int
+		}
+		scope:
+		{
+			a
+			{
+			value: default
+			dimention: 1
+			type£º hh
+			}
+		}
+		}
+		findMax
+		{
+		parameter:
+		{
+		value: default
+		dimention: 1
+		type£º int
+		}
+		return:
+		{
+		value: default
+		type£º int
+		}
+		scope:
+		{
+			idx
+			{
+			value: default
+			type£º int
+			}
+			maxValue
+			{
+			value: default
+			type£º int
+			}
+			array
+			{
+			value: default
+			dimention: 1
+			type£º int
+			}
+		}
+		}
+		hh
+		{
+		value: default
+		type£º int
+		}
+		findMin
+		{
+		parameter:
+		{
+		value: default
+		dimention: 1
+		type£º int
+		}
+		return:
+		{
+		value: default
+		type£º int
+		}
+		scope:
+		{
+			idx
+			{
+			value: default
+			type£º int
+			}
+			minValue
+			{
+			value: default
+			type£º int
+			}
+			array
+			{
+			value: default
+			dimention: 1
+			type£º int
+			}
+		}
+		}
+		var2
+		{
+		value: default
+		type£º float
+		}
+		var1
+		{
+		value: default
+		dimention: 6
+		type£º int
+		}
+	}
+	}
+	randomize
+	{
+	parameter:
+	return:
+	{
+	value: default
+	type£º real
+	}
+	scope:
+	{
+		value
+		{
+		value: default
+		type£º real
+		}
+	}
+	}
+	Main
+	{
+	parameter:
+	scope:
+	{
+		idx
+		{
+		value: default
+		type£º int
+		}
+		arrayUtility
+		{
+		value: default
+		dimention: 4
+		type£º Utility
+		}
+		utility
+		{
+		value: default
+		type£º Utility
+		}
+		sample
+		{
+		value: default
+		dimention: 1
+		type£º int
+		}
+		minValue
+		{
+		value: default
+		type£º int
+		}
+		maxValue
+		{
+		value: default
+		type£º int
+		}
+	}
+	}
+}

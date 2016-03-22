@@ -24,6 +24,7 @@ public class SyntacticalAnalyzer {
 	public int n=89;
 	public int count;
 	public Semantic sem;
+	
 	ArrayList <Token> ms;
 	public SyntacticalAnalyzer()
 	{
@@ -184,7 +185,7 @@ public class SyntacticalAnalyzer {
 		tTable[83][40]=tTable[83][41]=tTable[83][33]=tTable[83][36]=tTable[83][42]=new int[]{88,72};
 		
 		
-		tTable[85][64]=new int[]{64,81}; //Q->id M
+		tTable[85][64]=new int[]{64,261,81}; //Q->id M
 		tTable[86][49]=new int[]{49,17};
 		tTable[87][45]=new int[]{255,45,22,46,6,51,71};		
 		tTable[87][51]=tTable[87][52]=new int[]{257,73,260,51,82};
@@ -193,13 +194,13 @@ public class SyntacticalAnalyzer {
 		tTable[88][41]=new int[]{41,45,11,46,51};
 		tTable[88][40]=new int[]{40,45,17,46,51};
 		tTable[88][33]=new int[]{33,45,11,46,34,10,35,10,51};
-		tTable[88][36]=new int[]{36,264,45,21,256,64,257,26,11,51,12,51,9,46,10,253,51};
+		tTable[88][36]=new int[]{36,264,45,21,256,64,257,260,26,11,51,12,51,9,46,10,253,51};
 		
 		tTable[89][64]=new int[]{64,262,73,260,51,83};
 		tTable[89][49]=tTable[89][52]=tTable[89][60]=new int[]{263,78,86,26,11,51,72};
 		
-		tTable[81][52]=tTable[81][68]=tTable[81][49]=new int[]{78,84};//M-> J P
-		tTable[81][45]=new int[]{45,23,46};//M-> ( aparams )
+		tTable[81][52]=tTable[81][68]=tTable[81][49]=new int[]{266,78,84};//M-> J P
+		tTable[81][45]=new int[]{265,45,23,46};//M-> ( aparams )
 		
 		tTable[78][52]=new int[]{19,78};//J -> indice J
 		tTable[78][68]=new int[]{};//J -> EPSILON
@@ -348,6 +349,7 @@ public class SyntacticalAnalyzer {
 	public void addInput(String fileName)
 	{
 		lA.addInput("testCases/"+fileName);
+		sem.addOutFile(fileName);
 		try {
 			eout=new PrintStream(new File ("outputs/"+fileName));
 			error=new PrintStream(new File("errors/"+fileName));
@@ -407,7 +409,7 @@ public class SyntacticalAnalyzer {
 			if (ts.contains(top)&&top==sb)
 			{
 				
-				
+					
 					stack.pop();
 					if (round==1)
 					ms.add(t);
@@ -444,8 +446,6 @@ public class SyntacticalAnalyzer {
 			}
 			else 
 			{
-				if (round==1)
-				error.print(top);
 				if (t!=null)
 				error.print("Error at "+"row:"+t.row+" col:"+t.col+", ");
 				else
@@ -469,7 +469,7 @@ public class SyntacticalAnalyzer {
 					if (round==1)
 					t=lA.nextToken();
 					else if (count<ms.size())
-					t=ms.get(count);
+					t=ms.get(count++);
 					else
 					t=null;
 					sb=find(t);
@@ -477,7 +477,7 @@ public class SyntacticalAnalyzer {
 				}
 				continue;
 			}
-			if (!ts.contains(top))
+			if (round==1&&!ts.contains(top))
 			{
 			for (int i=0;i<count;i++)
 				eout.print(show(ms.get(i))+" ");
@@ -494,10 +494,11 @@ public class SyntacticalAnalyzer {
 		}
 		while (t!=null)
 		{
+			
 			if (round==1)
 			t=lA.nextToken();
 			else if (count<ms.size())
-			t=ms.get(count);
+			t=ms.get(count++);
 			else
 			t=null;
 			if (round==1)
@@ -506,7 +507,8 @@ public class SyntacticalAnalyzer {
 		lA.close();
 		eout.close();
 		error.close();
-		//System.out.println(ms.size());
+		if (round==2)
+			sem.writeResult();
 	}
 	
 	public int find(Token t)
@@ -599,6 +601,10 @@ public class SyntacticalAnalyzer {
 		sem.a13();
 		else if (n==14)
 		sem.a14();
+		else if (n==15)
+		sem.a15();
+		else if (n==16)
+		sem.a16();
 		
 	}
 

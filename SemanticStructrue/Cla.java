@@ -2,6 +2,7 @@ package SemanticStructrue;
 
 public class Cla extends Identifier{
 	public SybTable table;
+	public String name;
 	public Cla()
 	{
 		this.itype="cla";

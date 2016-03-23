@@ -6,6 +6,7 @@ public class Func extends Identifier{
 	public ArrayList<Var> par; //parameters
 	public SybTable table;
 	public Var rvalue;
+	public String name;
 	public  Func()
 	{
 		this.itype="func";

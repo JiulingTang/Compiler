@@ -77,6 +77,7 @@ public class Semantic {
 		Cla newClass=new Cla();
 		newClass.table=createTable();
 		stack2.push(new Record(newClass,1));
+		newClass.name=idName;
 		Identifier c=search(scope,idName);
 		if (c==null)
 		{
@@ -118,6 +119,7 @@ public class Semantic {
 		SybTable scope=getScope(stack2.top());
 		String idName=t.value;
 		Func newFunc=new Func();
+		newFunc.name=idName;
 		newFunc.rvalue=rt;
 		newFunc.table=new SybTable();
 		stack2.push(new Record(newFunc,2));
@@ -151,7 +153,7 @@ public class Semantic {
 		stack2.push(new Record(v,3));
 		if (round==2&&!checkType(t.value))
 		{
-			writeError("No such type. location: "+t.row+","+t.col);
+			writeError("No type "+v.dtype+". location: "+t.row+","+t.col);
 		}
 			
 	}
@@ -233,7 +235,7 @@ public class Semantic {
 		stack2.push(new Record(var,3));
 		if (round==2&&!checkType(var.dtype))
 		{
-			writeError("No such type. location: "+t.row+","+t.col);
+			writeError("No type "+var.dtype+". location: "+t.row+","+t.col);
 		}
 		
 		
@@ -265,7 +267,11 @@ public class Semantic {
 				{
 					Var cv=(Var)r.o;
 					Cla cla=(Cla)search(gTable,cv.dtype);
-					Identifier id=search(cla.table,t.value);
+					Identifier id;
+					if (cla!=null)
+					id=search(cla.table,t.value);
+					else
+					id=null;
 					stack2.pop();
 					if (id!=null&&id.itype.equals("func"))
 					{	
@@ -273,8 +279,8 @@ public class Semantic {
 					}
 					else
 					{
-					writeError("Function is not defined. location: "+t.row+","+t.col);
-					addError(11);
+					writeError("Member "+t.value+" is not defined. location: "+t.row+","+t.col);
+					addError(10);
 					}
 				}
 				else
@@ -282,7 +288,7 @@ public class Semantic {
 
 					if (!this.checkFuncDefiend(t.value))
 					{
-						writeError("Function is not defined. location: "+t.row+","+t.col);
+						writeError("Function "+t.value+" is not defined. location: "+t.row+","+t.col);
 						addError(11);
 					}
 					else
@@ -312,7 +318,11 @@ public class Semantic {
 					
 					Cla cla=(Cla)search(gTable,cv.dtype);
 					//System.out.println(t.value+" "+cv.dtype);
-					Identifier id=search(cla.table,t.value);
+					Identifier id;
+					if (cla!=null)
+					id=search(cla.table,t.value);
+					else
+					id=null;
 					stack2.pop();
 					if (id!=null&&id.itype.equals("var"))
 					{
@@ -323,7 +333,7 @@ public class Semantic {
 					}
 					else
 					{
-					writeError("Variable is not defined. location: "+t.row+","+t.col);
+					writeError("Member "+t.value+" is not defined. location: "+t.row+","+t.col);
 					addError(11);
 					}
 				}
@@ -332,7 +342,7 @@ public class Semantic {
 
 					if (!this.checkVariableDefined(t.value))
 					{
-						writeError("Variable is not defined. location: "+t.row+","+t.col);
+						writeError("Variable "+t.value+" is not defined. location: "+t.row+","+t.col);
 						addError(11);
 					}
 					else

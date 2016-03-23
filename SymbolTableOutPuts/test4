@@ -9,12 +9,14 @@ Global:
 			{
 				dimention: 1
 				type£º float
+				name in generated code: b
 				
 			}
 			a
 			{
 				dimention: 1
 				type£º float
+				name in generated code: a
 				
 			}
 			sub
@@ -24,16 +26,19 @@ Global:
 				{
 					dimention: 1
 					type£º float
+					name in generated code: c
 					
 				}
 				{
 					dimention: 1
 					type£º float
+					name in generated code: d
 					
 				}
 				return:
 				{
 					type£º float
+					name in generated code: null
 					
 				}
 				symbolTable:
@@ -41,18 +46,21 @@ Global:
 					r
 					{
 						type£º float
+						name in generated code: r
 						
 					}
 					d
 					{
 						dimention: 1
 						type£º float
+						name in generated code: d
 						
 					}
 					c
 					{
 						dimention: 1
 						type£º float
+						name in generated code: c
 						
 					}
 				}
@@ -69,11 +77,13 @@ Global:
 			b
 			{
 				type£º float
+				name in generated code: b
 				
 			}
 			a
 			{
 				type£º float
+				name in generated code: a
 				
 			}
 			test1
@@ -83,6 +93,7 @@ Global:
 				return:
 				{
 					type£º float
+					name in generated code: null
 					
 				}
 				symbolTable:
@@ -96,15 +107,18 @@ Global:
 				parameter:
 				{
 					type£º float
+					name in generated code: c
 					
 				}
 				{
 					type£º float
+					name in generated code: d
 					
 				}
 				return:
 				{
 					type£º float
+					name in generated code: null
 					
 				}
 				symbolTable:
@@ -112,11 +126,13 @@ Global:
 					d
 					{
 						type£º float
+						name in generated code: d
 						
 					}
 					c
 					{
 						type£º float
+						name in generated code: c
 						
 					}
 				}
@@ -125,6 +141,7 @@ Global:
 			o
 			{
 				type£º Op2
+				name in generated code: o
 				
 			}
 			div
@@ -133,15 +150,18 @@ Global:
 				parameter:
 				{
 					type£º float
+					name in generated code: c
 					
 				}
 				{
 					type£º float
+					name in generated code: d
 					
 				}
 				return:
 				{
 					type£º float
+					name in generated code: null
 					
 				}
 				symbolTable:
@@ -149,11 +169,13 @@ Global:
 					d
 					{
 						type£º float
+						name in generated code: d
 						
 					}
 					c
 					{
 						type£º float
+						name in generated code: c
 						
 					}
 				}
@@ -168,15 +190,18 @@ Global:
 		parameter:
 		{
 			type£º float
+			name in generated code: c
 			
 		}
 		{
 			type£º float
+			name in generated code: d
 			
 		}
 		return:
 		{
 			type£º float
+			name in generated code: null
 			
 		}
 		symbolTable:
@@ -184,11 +209,13 @@ Global:
 			d
 			{
 				type£º float
+				name in generated code: d
 				
 			}
 			c
 			{
 				type£º float
+				name in generated code: c
 				
 			}
 		}
@@ -201,11 +228,13 @@ Global:
 		{
 			dimention: 1
 			type£º Op
+			name in generated code: b
 			
 		}
 		return:
 		{
 			type£º float
+			name in generated code: null
 			
 		}
 		symbolTable:
@@ -214,6 +243,7 @@ Global:
 			{
 				dimention: 1
 				type£º Op
+				name in generated code: b
 				
 			}
 		}
@@ -228,33 +258,39 @@ Global:
 			a
 			{
 				type£º Op2
+				name in generated code: a
 				
 			}
 			sub
 			{
 				type£º float
+				name in generated code: sub
 				
 			}
 			e
 			{
 				type£º float
+				name in generated code: e
 				
 			}
 			d
 			{
 				dimention: 1
 				type£º int
+				name in generated code: d
 				
 			}
 			o
 			{
 				type£º Op
+				name in generated code: o
 				
 			}
 			c
 			{
 				dimention: 1
 				type£º int
+				name in generated code: c
 				
 			}
 		}

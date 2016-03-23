@@ -21,7 +21,7 @@ class Op
 	float test1()
 	{
 		return (o.a);
-	}
+	};
 	
 };
 
@@ -53,12 +53,16 @@ program
 	e=o.o.sub(1.1,2.1);
 };
 
-float sub(float c,float d)
-{	
-	return (c-d);
-};
+
 
 float f(Op b[2])
 {
+	float t;
+	t=sub(1.0,2.0);
 	return ((b[0].a)+(b[1].b));
+};
+
+float sub(float c,float d)
+{	
+	return (c-d);
 };

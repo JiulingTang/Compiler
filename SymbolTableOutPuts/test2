@@ -12,11 +12,13 @@ Global:
 				{
 					dimention: 1
 					type£º int
+					name in generated code: array
 					
 				}
 				return:
 				{
 					type£º int
+					name in generated code: null
 					
 				}
 				symbolTable:
@@ -24,17 +26,20 @@ Global:
 					idx
 					{
 						type£º int
+						name in generated code: idx
 						
 					}
 					maxValue
 					{
 						type£º int
+						name in generated code: maxValue
 						
 					}
 					array
 					{
 						dimention: 1
 						type£º int
+						name in generated code: array
 						
 					}
 				}
@@ -47,11 +52,13 @@ Global:
 				{
 					dimention: 1
 					type£º int
+					name in generated code: array
 					
 				}
 				return:
 				{
 					type£º int
+					name in generated code: null
 					
 				}
 				symbolTable:
@@ -59,17 +66,20 @@ Global:
 					idx
 					{
 						type£º int
+						name in generated code: idx
 						
 					}
 					minValue
 					{
 						type£º int
+						name in generated code: minValue
 						
 					}
 					array
 					{
 						dimention: 1
 						type£º int
+						name in generated code: array
 						
 					}
 				}
@@ -78,12 +88,14 @@ Global:
 			var2
 			{
 				type£º float
+				name in generated code: var2
 				
 			}
 			var1
 			{
 				dimention: 7
 				type£º int
+				name in generated code: var1
 				
 			}
 		}
@@ -96,6 +108,7 @@ Global:
 		return:
 		{
 			type£º real
+			name in generated code: null
 			
 		}
 		symbolTable:
@@ -103,6 +116,7 @@ Global:
 			value
 			{
 				type£º real
+				name in generated code: value
 				
 			}
 		}
@@ -117,33 +131,39 @@ Global:
 			idx
 			{
 				type£º int
+				name in generated code: idx
 				
 			}
 			arrayUtility
 			{
 				dimention: 4
 				type£º Utility
+				name in generated code: arrayUtility
 				
 			}
 			utility
 			{
 				type£º Utility
+				name in generated code: utility
 				
 			}
 			sample
 			{
 				dimention: 1
 				type£º int
+				name in generated code: sample
 				
 			}
 			minValue
 			{
 				type£º int
+				name in generated code: minValue
 				
 			}
 			maxValue
 			{
 				type£º int
+				name in generated code: maxValue
 				
 			}
 		}

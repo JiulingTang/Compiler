@@ -1,0 +1,336 @@
+Global:
+{
+	iDriver
+	{
+		type:class
+		symbolTable
+		{
+			add
+			{
+				type:function
+				parameter:
+				{
+					type£º int
+					name in generated code: a
+					
+				}
+				{
+					type£º int
+					name in generated code: b
+					
+				}
+				return:
+				{
+					type£º int
+					name in generated code: null
+					
+				}
+				symbolTable:
+				{
+					b
+					{
+						type£º int
+						name in generated code: b
+						
+					}
+					a
+					{
+						type£º int
+						name in generated code: a
+						
+					}
+				}
+				
+			}
+			addArray
+			{
+				type:function
+				parameter:
+				{
+					dimention: 1
+					type£º int
+					name in generated code: a
+					
+				}
+				{
+					dimention: 1
+					type£º int
+					name in generated code: b
+					
+				}
+				{
+					type£º int
+					name in generated code: n
+					
+				}
+				return:
+				{
+					type£º int
+					name in generated code: null
+					
+				}
+				symbolTable:
+				{
+					b
+					{
+						dimention: 1
+						type£º int
+						name in generated code: b
+						
+					}
+					a
+					{
+						dimention: 1
+						type£º int
+						name in generated code: a
+						
+					}
+					c
+					{
+						dimention: 1
+						type£º int
+						name in generated code: c
+						
+					}
+					n
+					{
+						type£º int
+						name in generated code: n
+						
+					}
+				}
+				
+			}
+		}
+		
+	}
+	output2
+	{
+		type:function
+		parameter:
+		{
+			type£º float
+			name in generated code: k
+			
+		}
+		return:
+		{
+			type£º float
+			name in generated code: null
+			
+		}
+		symbolTable:
+		{
+			k
+			{
+				type£º float
+				name in generated code: k
+				
+			}
+		}
+		
+	}
+	Main
+	{
+		type:function
+		parameter:
+		symbolTable:
+		{
+			r4
+			{
+				type£º int
+				name in generated code: r4
+				
+			}
+			r3
+			{
+				type£º int
+				name in generated code: r3
+				
+			}
+			r2
+			{
+				type£º int
+				name in generated code: r2
+				
+			}
+			r1
+			{
+				type£º int
+				name in generated code: r1
+				
+			}
+			dr
+			{
+				type£º iDriver
+				name in generated code: dr
+				
+			}
+			fr
+			{
+				type£º fDriver
+				name in generated code: fr
+				
+			}
+			d
+			{
+				dimention: 1
+				type£º float
+				name in generated code: d
+				
+			}
+			c
+			{
+				dimention: 1
+				type£º float
+				name in generated code: c
+				
+			}
+			b
+			{
+				dimention: 1
+				type£º int
+				name in generated code: b
+				
+			}
+			a
+			{
+				dimention: 1
+				type£º int
+				name in generated code: a
+				
+			}
+		}
+		
+	}
+	fDriver
+	{
+		type:class
+		symbolTable
+		{
+			add
+			{
+				type:function
+				parameter:
+				{
+					type£º int
+					name in generated code: a
+					
+				}
+				{
+					type£º int
+					name in generated code: b
+					
+				}
+				return:
+				{
+					type£º float
+					name in generated code: null
+					
+				}
+				symbolTable:
+				{
+					b
+					{
+						type£º int
+						name in generated code: b
+						
+					}
+					a
+					{
+						type£º int
+						name in generated code: a
+						
+					}
+				}
+				
+			}
+			addArray
+			{
+				type:function
+				parameter:
+				{
+					dimention: 1
+					type£º float
+					name in generated code: a
+					
+				}
+				{
+					dimention: 1
+					type£º float
+					name in generated code: b
+					
+				}
+				{
+					type£º int
+					name in generated code: n
+					
+				}
+				return:
+				{
+					type£º float
+					name in generated code: null
+					
+				}
+				symbolTable:
+				{
+					b
+					{
+						dimention: 1
+						type£º float
+						name in generated code: b
+						
+					}
+					a
+					{
+						dimention: 1
+						type£º float
+						name in generated code: a
+						
+					}
+					c
+					{
+						dimention: 1
+						type£º float
+						name in generated code: c
+						
+					}
+					n
+					{
+						type£º int
+						name in generated code: n
+						
+					}
+				}
+				
+			}
+		}
+		
+	}
+	output1
+	{
+		type:function
+		parameter:
+		{
+			type£º int
+			name in generated code: k
+			
+		}
+		return:
+		{
+			type£º int
+			name in generated code: null
+			
+		}
+		symbolTable:
+		{
+			k
+			{
+				type£º int
+				name in generated code: k
+				
+			}
+		}
+		
+	}
+}

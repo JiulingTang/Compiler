@@ -1,0 +1,78 @@
+class iDriver{
+	int add(int a,int b)
+	{
+		return (a+b);
+	};
+	
+	int addArray(int a[100],int b[100],int n)
+	{
+		int c[100];
+		for (int i=0;i<n;i=i+1)
+		{
+			c[i]=a[i]+b[i];
+		};
+		for (int i=0;i<n;i=i+1)
+		put(c[i]);;
+	};
+	
+	int add(int a,int b)
+	{
+		return (a+b);
+	};
+};
+
+class fDriver{
+	float add(int a,int b)
+	{
+		return (a+b);
+	};
+	
+	float addArray(float a[100],float b[100],int n)
+	{
+		float c[100];
+		for (int i=0;i<n;i=i+1)
+		{
+			c[i]=a[i]+b[i];
+		};
+		for (int i=0;i<n;i=i+1)
+		put(c[i]);;
+	};
+	float add(int a,int b)
+	{
+		return (a+b);
+	};
+};
+
+program{
+	int a[110];
+	int b[100];
+	float c[100];
+	float d[100];
+	int r1;
+	int r2;
+	int r3;
+	int r4;
+	iDriver dr;
+	fDriver fr;
+	int r1;
+	int r2;
+	int r3;
+	int r4;
+	r1=output1(dr.add(a[0],b[0]));
+	r2=output2(fr.add(c[0],d[0]));
+	r3=dr.addArray(a,b);
+	r4=fr.addArray(c,d);
+	r5=dr.sub(a[0],b[0]);
+	
+};
+
+int output1(int k)
+{
+	put(k);
+	return (k);
+};
+
+float output2 (float k)
+{	put(k);
+	return (k);
+};

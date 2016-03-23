@@ -23,6 +23,7 @@ public class Var extends Identifier{
 		if (dim.size()>0)
 		r+="dimention: "+dim.size()+"\r\n";
 		r+="type£º "+dtype+"\r\n";
+		r+="name in generated code: "+name+"\r\n"; 
 		String rr="";
 		for (int i=0;i<r.length();i++)
 		{

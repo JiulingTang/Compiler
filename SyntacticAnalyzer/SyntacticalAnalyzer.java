@@ -388,9 +388,10 @@ public class SyntacticalAnalyzer {
 			t=ms.get(count);
 			else
 			t=null;
-			String v=t.value;
+			
 			if (t==null)
 				break;
+			String v=t.value;
 			if(!v.equals("//")&&!t.equals("/*")&&!t.equals("*/"))
 				break;
 		}
@@ -478,7 +479,7 @@ public class SyntacticalAnalyzer {
 				}
 				continue;
 			}
-			/*if (round==1&&!ts.contains(top))
+			if (round==1&&!ts.contains(top))
 			{
 			for (int i=0;i<count;i++)
 				eout.print(show(ms.get(i))+" ");
@@ -490,7 +491,7 @@ public class SyntacticalAnalyzer {
 			
 			}
 			eout.println();
-			}*/
+			}
 		}
 		while (t!=null)
 		{

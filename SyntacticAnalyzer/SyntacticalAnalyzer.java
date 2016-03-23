@@ -369,7 +369,8 @@ public class SyntacticalAnalyzer {
 	
 	public void derive(int round)
 	{
-
+		if (round==1)
+			ms=new ArrayList();
 		Stack<Integer> stack=new Stack<Integer>();
 		stack.push(253);
 		stack.push(67);
@@ -517,6 +518,7 @@ public class SyntacticalAnalyzer {
 		{
 			return 67;
 		}
+		//System.out.println(t.value);
 		return map.get(show(t)).intValue();
 		
 		

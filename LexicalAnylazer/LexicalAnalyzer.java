@@ -313,7 +313,7 @@ public class LexicalAnalyzer {
 					if (nc=='/')
 					{
 						com2=false;
-						return new Token("*/","punctuation",rowNum,colNum-1);
+						return nextToken();
 					}
 				}
 				
@@ -379,7 +379,13 @@ public class LexicalAnalyzer {
 			if (state==0)
 				s="";
 			if (token!=null)
-				return token;
+			{
+				if (token.value.equals("//")||token.value.equals("/*")||token.value.equals("*/"))
+				{
+					return nextToken();
+				}
+				else return token;
+			}
 		}
 		if (finalState(state))
 		{
@@ -404,8 +410,15 @@ public class LexicalAnalyzer {
 					e.printStackTrace();
 				}
 		}
-			
-			return token;
+		if (token!=null)	
+		if (token.value.equals("//")||token.value.equals("/*")||token.value.equals("*/"))
+		{
+			return nextToken();
+		}
+		else
+		return token;
+		else
+			return null;
 	
 	}
 	

@@ -107,7 +107,7 @@
 		return:
 		{
 			value: default
-			type£º float
+			type£º real
 			
 		}
 		scope:
@@ -115,7 +115,7 @@
 			value
 			{
 				value: default
-				type£º float
+				type£º real
 				
 			}
 		}

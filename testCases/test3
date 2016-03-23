@@ -1,0 +1,64 @@
+class Op
+{
+	float a;
+	float b;
+	Op2 o;
+	float add(float c,float d)
+	{
+		return (c+d);
+	};
+	
+	float div(float c,float d)
+	{
+		if (d<>0)
+		then return (c/d);
+		else
+		return (1000000000.0);;
+		
+		
+	};
+	
+	float test1()
+	{
+		return (o.a);
+	}
+	
+};
+
+class Op2
+{
+	float a[100];
+	float b[100];
+	float sub(float c[100],float d[100])
+	{
+		float r;
+		r=0;
+		for (int i=0;i<100;i=i+1)
+		r=r+c-d;;
+		return (r);
+	};
+	
+};
+
+program
+{
+	Op2 a;
+	Op o;
+	int c[100];
+	int d[100];
+	float e;
+	float sub;
+	e=a.sub(c,d);
+	//e=sub(1.0,2.1);
+	e=o.o.sub(1.1,2.1);
+};
+
+float sub(float c,float d)
+{	
+	return (c-d);
+};
+
+float f(Op b[2])
+{
+	return ((b[0].a)+(b[1].b));
+};

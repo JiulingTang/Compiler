@@ -443,6 +443,8 @@ public class Semantic {
 				
 				if (id!=null&&id.itype.equals("var"))
 					return true;
+				else if (id!=null)
+					return false;
 			}
 		}
 		return false;
@@ -459,6 +461,8 @@ public class Semantic {
 				Identifier id=search(scope,fname);
 				if (id!=null&&id.itype.equals("func"))
 					return true;
+				else if (id!=null)
+					return false;
 			}
 		}
 		return false;

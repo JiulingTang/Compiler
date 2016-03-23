@@ -1,0 +1,298 @@
+{
+	Op2
+	{
+		type:class
+		scope
+		{
+			b
+			{
+				value: default
+				dimention: 1
+				type£º float
+				
+			}
+			a
+			{
+				value: default
+				dimention: 1
+				type£º float
+				
+			}
+			sub
+			{
+				type:function
+				parameter:
+				{
+					value: default
+					dimention: 1
+					type£º float
+					
+				}
+				{
+					value: default
+					dimention: 1
+					type£º float
+					
+				}
+				return:
+				{
+					value: default
+					type£º float
+					
+				}
+				scope:
+				{
+					r
+					{
+						value: default
+						type£º float
+						
+					}
+					d
+					{
+						value: default
+						dimention: 1
+						type£º float
+						
+					}
+					c
+					{
+						value: default
+						dimention: 1
+						type£º float
+						
+					}
+				}
+				
+			}
+		}
+		
+	}
+	Op
+	{
+		type:class
+		scope
+		{
+			b
+			{
+				value: default
+				type£º float
+				
+			}
+			a
+			{
+				value: default
+				type£º float
+				
+			}
+			test1
+			{
+				type:function
+				parameter:
+				return:
+				{
+					value: default
+					type£º float
+					
+				}
+				scope:
+				{
+				}
+				
+			}
+			add
+			{
+				type:function
+				parameter:
+				{
+					value: default
+					type£º float
+					
+				}
+				{
+					value: default
+					type£º float
+					
+				}
+				return:
+				{
+					value: default
+					type£º float
+					
+				}
+				scope:
+				{
+					d
+					{
+						value: default
+						type£º float
+						
+					}
+					c
+					{
+						value: default
+						type£º float
+						
+					}
+				}
+				
+			}
+			o
+			{
+				value: default
+				type£º Op2
+				
+			}
+			div
+			{
+				type:function
+				parameter:
+				{
+					value: default
+					type£º float
+					
+				}
+				{
+					value: default
+					type£º float
+					
+				}
+				return:
+				{
+					value: default
+					type£º float
+					
+				}
+				scope:
+				{
+					d
+					{
+						value: default
+						type£º float
+						
+					}
+					c
+					{
+						value: default
+						type£º float
+						
+					}
+				}
+				
+			}
+		}
+		
+	}
+	sub
+	{
+		type:function
+		parameter:
+		{
+			value: default
+			type£º float
+			
+		}
+		{
+			value: default
+			type£º float
+			
+		}
+		return:
+		{
+			value: default
+			type£º float
+			
+		}
+		scope:
+		{
+			d
+			{
+				value: default
+				type£º float
+				
+			}
+			c
+			{
+				value: default
+				type£º float
+				
+			}
+		}
+		
+	}
+	f
+	{
+		type:function
+		parameter:
+		{
+			value: default
+			dimention: 1
+			type£º Op
+			
+		}
+		return:
+		{
+			value: default
+			type£º float
+			
+		}
+		scope:
+		{
+			b
+			{
+				value: default
+				dimention: 1
+				type£º Op
+				
+			}
+		}
+		
+	}
+	Main
+	{
+		type:function
+		parameter:
+		scope:
+		{
+			a
+			{
+				value: default
+				type£º Op2
+				
+			}
+			sub
+			{
+				value: default
+				type£º float
+				
+			}
+			e
+			{
+				value: default
+				type£º float
+				
+			}
+			d
+			{
+				value: default
+				dimention: 1
+				type£º int
+				
+			}
+			o
+			{
+				value: default
+				type£º Op
+				
+			}
+			c
+			{
+				value: default
+				dimention: 1
+				type£º int
+				
+			}
+		}
+		
+	}
+}

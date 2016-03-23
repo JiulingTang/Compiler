@@ -1,6 +1,6 @@
 // example valid program 
 
-1 class Utility {
+ class Utility {
 
 	int var1[4][5][7][8][9][1][0];
 	float var2;
@@ -30,7 +30,7 @@
 			if(array[idx] < minValue) then {
 				minValue = array[idx];
 			}
-			else{};
+			else{idx=findMax();};
 		};
 		return (minValue);
 	};

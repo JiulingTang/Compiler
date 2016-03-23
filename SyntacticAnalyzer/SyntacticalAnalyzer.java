@@ -129,9 +129,9 @@ public class SyntacticalAnalyzer {
 		tTable[8][41]=new int[]{41,45,11,46,51};
 		tTable[8][40]=new int[]{40,45,17,46,51};
 		tTable[8][33]=new int[]{33,45,11,46,34,10,35,10,51};
-		tTable[8][36]=new int[]{36,45,21,64,26,11,51,12,51,9,46,10,51};
+		tTable[8][36]=new int[]{36,269,45,21,256,64,257,260,26,11,51,12,51,9,46,10,253,51};
 		
-		tTable[9][64]=new int[]{17,26,11};
+		tTable[9][64]=new int[]{17,267,26,11};
 		
 		tTable[10][68]=new int[]{};
 		tTable[10][36]=tTable[10][33]=tTable[10][40]=tTable[10][41]=tTable[10][42]=tTable[10][64]=new int[]{8};
@@ -142,13 +142,13 @@ public class SyntacticalAnalyzer {
 		tTable[14][56]=new int[]{56};
 		
 		tTable[16][44]=tTable[16][56]=new int[]{14,16};//factor -> sign factor
-		tTable[16][64]=new int[]{85};//factor->Q
+		tTable[16][64]=new int[]{85,267};//factor->Q
 		tTable[16][31]=new int[]{31,16};//factor->not factor
 		tTable[16][65]=new int[]{65};//factor->integer
 		tTable[16][66]=new int[]{66};//factor->double
 		tTable[16][45]=new int[]{45,13,46};//factor->( arithexpr )
 		
-		tTable[17][64]=new int[]{64,78,86};
+		tTable[17][64]=new int[]{64,268,266,78,86};
 		tTable[18][64]=new int[]{64,78};
 		
 		tTable[20][52]=new int[]{52,65,258,53};
@@ -185,8 +185,8 @@ public class SyntacticalAnalyzer {
 		tTable[83][40]=tTable[83][41]=tTable[83][33]=tTable[83][36]=tTable[83][42]=new int[]{88,72};
 		
 		
-		tTable[85][64]=new int[]{64,261,81}; //Q->id M
-		tTable[86][49]=new int[]{49,17};
+		tTable[85][64]=new int[]{64,268,81}; //Q->id M
+		tTable[86][49]=new int[]{49,270,17};
 		tTable[87][45]=new int[]{255,45,22,46,6,51,71};		
 		tTable[87][51]=tTable[87][52]=new int[]{257,73,260,51,82};
 		
@@ -197,7 +197,7 @@ public class SyntacticalAnalyzer {
 		tTable[88][36]=new int[]{36,264,45,21,256,64,257,260,26,11,51,12,51,9,46,10,253,51};
 		
 		tTable[89][64]=new int[]{64,262,73,260,51,83};
-		tTable[89][49]=tTable[89][52]=tTable[89][60]=new int[]{263,78,86,26,11,51,72};
+		tTable[89][49]=tTable[89][52]=tTable[89][60]=new int[]{263,266,78,86,267,26,11,51,72};
 		
 		tTable[81][52]=tTable[81][68]=tTable[81][49]=new int[]{266,78,84};//M-> J P
 		tTable[81][45]=new int[]{265,45,23,46};//M-> ( aparams )
@@ -226,7 +226,7 @@ public class SyntacticalAnalyzer {
 		tTable[28][32]=new int[]{32};
 		
 		tTable[84][68]=new int[]{};//P->EPSILON
-		tTable[84][49]=new int[]{49,85};//P-> . Q
+		tTable[84][49]=new int[]{49,270,85};//P-> . Q
 		
 		tTable[23][68]=new int[]{};//aparams->EPSILON
 		tTable[23][45]=tTable[23][65]=tTable[23][66]=tTable[23][31]=tTable[23][56]=tTable[23][44]=tTable[23][64]=new int[]{11,80};//aparams -> expr L 
@@ -507,7 +507,7 @@ public class SyntacticalAnalyzer {
 		lA.close();
 		eout.close();
 		error.close();
-		if (round==2)
+		if (round==1)
 			sem.writeResult();
 	}
 	
@@ -570,7 +570,9 @@ public class SyntacticalAnalyzer {
 	public void action(int n)
 	{
 		/*System.out.println(n);
+		if (count<ms.size())
 		System.out.println(ms.get(count-1));
+		
 		System.out.println(sem.stack2.top().type);*/
 		n-=250;
 		if (n==1)
@@ -605,6 +607,14 @@ public class SyntacticalAnalyzer {
 		sem.a15();
 		else if (n==16)
 		sem.a16();
+		else if (n==17)
+		sem.a17();
+		else if (n==18)
+		sem.a18(ms.get(count-1));
+		else if (n==19)
+		sem.a19();
+		else if (n==20)
+		sem.a20();
 		
 	}
 

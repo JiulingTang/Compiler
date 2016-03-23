@@ -18,6 +18,7 @@ public class Semantic {
 	private PrintStream errorOut;
 	public static String outPutFolderName="SymbolTableOutPuts";
 	public static String errorFolderName="SymbolTableError";
+	String fileName;
 	public Semantic()
 	{
 		stack =new Stack<Integer>();
@@ -26,6 +27,7 @@ public class Semantic {
 	}
 	public void addOutFile(String inputFileName)
 	{
+		fileName=inputFileName;
 		try {
 			eout=new PrintStream(new File (outPutFolderName+"/"+inputFileName));
 			//errorOut=new PrintStream(new File(errorFolderName+"/"+inputFileName));
@@ -56,7 +58,8 @@ public class Semantic {
 	}
 	public void writeError(String error)
 	{
-		System.out.println(error);
+		System.out.println(this.fileName+":"+error);
+		//eout.println(error);
 	}
 	public void a1()
 	{
@@ -470,6 +473,7 @@ public class Semantic {
 	
 	public void writeResult()
 	{
+		eout.println("Global:");
 		printTable(gTable);
 		eout.close();
 		//errorOut.close();

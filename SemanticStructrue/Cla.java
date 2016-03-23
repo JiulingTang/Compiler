@@ -14,7 +14,7 @@ public class Cla extends Identifier{
 		r=r+"type:class\r\n";
 		if (table!=null)
 		{
-		r+="scope\r\n";
+		r+="symbolTable\r\n";
 		r+=table.toString()+"\r\n";
 		}
 		String rr="";

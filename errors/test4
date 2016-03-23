@@ -1,17 +1,2 @@
-45Error at row:7 col:16, ( is expected
-46Error at row:7 col:19, ) is expected
-51Error at row:10 col:5, ; is expected
-45Error at row:13 col:21, ( is expected
-46Error at row:13 col:24, ) is expected
-45Error at row:15 col:16, ( is expected
-46Error at row:15 col:19, ) is expected
-51Error at row:18 col:5, ; is expected
-51Error at row:19 col:1, ; is expected
-73Error at row:27 col:16, 
-86Error at row:28 col:29, 
-26Error at row:28 col:31, 
-81Error at row:29 col:10, 
-46Error at row:29 col:16, ) is expected
-45Error at row:30 col:16, ( is expected
-46Error at row:30 col:17, ) is expected
-51Error at row:32 col:1, ; is expected
+54 31: Contain invalid Chracter '
+54 34: Contain invalid Chracter '

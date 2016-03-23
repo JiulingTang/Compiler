@@ -478,7 +478,7 @@ public class SyntacticalAnalyzer {
 				}
 				continue;
 			}
-			if (round==1&&!ts.contains(top))
+			/*if (round==1&&!ts.contains(top))
 			{
 			for (int i=0;i<count;i++)
 				eout.print(show(ms.get(i))+" ");
@@ -486,12 +486,11 @@ public class SyntacticalAnalyzer {
 			{
 				if (stack.get(i)<89)
 				eout.print(nt.get(stack.get(i)-1)+" ");
-				/*else 
-				eout.print(stack.get(i));*/
+				
 			
 			}
 			eout.println();
-			}
+			}*/
 		}
 		while (t!=null)
 		{

@@ -29,7 +29,7 @@ public class Func extends Identifier{
 		}
 		if (table!=null)
 		{
-			r+="scope:\r\n";
+			r+="symbolTable:\r\n";
 			r+=table.toString()+"\r\n";
 		}
 		String rr="";

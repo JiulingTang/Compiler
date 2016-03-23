@@ -1,42 +1,38 @@
+Global:
 {
 	Utility
 	{
 		type:class
-		scope
+		symbolTable
 		{
 			findMax
 			{
 				type:function
 				parameter:
 				{
-					value: default
 					dimention: 1
 					type£º int
 					
 				}
 				return:
 				{
-					value: default
 					type£º int
 					
 				}
-				scope:
+				symbolTable:
 				{
 					idx
 					{
-						value: default
 						type£º int
 						
 					}
 					maxValue
 					{
-						value: default
 						type£º int
 						
 					}
 					array
 					{
-						value: default
 						dimention: 1
 						type£º int
 						
@@ -49,34 +45,29 @@
 				type:function
 				parameter:
 				{
-					value: default
 					dimention: 1
 					type£º int
 					
 				}
 				return:
 				{
-					value: default
 					type£º int
 					
 				}
-				scope:
+				symbolTable:
 				{
 					idx
 					{
-						value: default
 						type£º int
 						
 					}
 					minValue
 					{
-						value: default
 						type£º int
 						
 					}
 					array
 					{
-						value: default
 						dimention: 1
 						type£º int
 						
@@ -86,13 +77,11 @@
 			}
 			var2
 			{
-				value: default
 				type£º float
 				
 			}
 			var1
 			{
-				value: default
 				dimention: 7
 				type£º int
 				
@@ -106,15 +95,13 @@
 		parameter:
 		return:
 		{
-			value: default
 			type£º real
 			
 		}
-		scope:
+		symbolTable:
 		{
 			value
 			{
-				value: default
 				type£º real
 				
 			}
@@ -125,43 +112,37 @@
 	{
 		type:function
 		parameter:
-		scope:
+		symbolTable:
 		{
 			idx
 			{
-				value: default
 				type£º int
 				
 			}
 			arrayUtility
 			{
-				value: default
 				dimention: 4
 				type£º Utility
 				
 			}
 			utility
 			{
-				value: default
 				type£º Utility
 				
 			}
 			sample
 			{
-				value: default
 				dimention: 1
 				type£º int
 				
 			}
 			minValue
 			{
-				value: default
 				type£º int
 				
 			}
 			maxValue
 			{
-				value: default
 				type£º int
 				
 			}

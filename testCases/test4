@@ -37,7 +37,6 @@ class Op2
 		r=r+c-d;;
 		return (r);
 	};
-	
 };
 
 program

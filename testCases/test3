@@ -60,9 +60,14 @@ float f(Op b[2])
 	float t;
 	t=sub(1.0,2.0);
 	return ((b[0].a)+(b[1].b));
+	
 };
 
 float sub(float c,float d)
 {	
 	return (c-d);
 };
+
+/*int q()
+{
+};*/

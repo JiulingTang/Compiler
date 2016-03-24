@@ -1,0 +1,19 @@
+class c1
+{
+	int a[2][2];
+	float b[2][3][4][5];
+	int f()
+	{
+	};
+};
+
+program
+{
+	int a;
+	c1 b;
+};
+
+int f(float c[2][3])
+{
+	float a[2][3][4][5];
+};

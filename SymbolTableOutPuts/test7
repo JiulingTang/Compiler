@@ -1,0 +1,96 @@
+Global:
+{
+	c1
+	{
+		type:class
+		symbolTable
+		{
+			b
+			{
+				dimention: 4
+				type£º float
+				name in generated code: b
+				
+			}
+			a
+			{
+				dimention: 2
+				type£º int
+				name in generated code: a
+				
+			}
+			f
+			{
+				type:function
+				parameter:
+				return:
+				{
+					type£º int
+					name in generated code: null
+					
+				}
+				symbolTable:
+				{
+				}
+				
+			}
+		}
+		
+	}
+	f
+	{
+		type:function
+		parameter:
+		{
+			dimention: 2
+			type£º float
+			name in generated code: c
+			
+		}
+		return:
+		{
+			type£º int
+			name in generated code: null
+			
+		}
+		symbolTable:
+		{
+			a
+			{
+				dimention: 4
+				type£º float
+				name in generated code: a
+				
+			}
+			c
+			{
+				dimention: 2
+				type£º float
+				name in generated code: c
+				
+			}
+		}
+		
+	}
+	Main
+	{
+		type:function
+		parameter:
+		symbolTable:
+		{
+			b
+			{
+				type£º c1
+				name in generated code: b
+				
+			}
+			a
+			{
+				type£º int
+				name in generated code: a
+				
+			}
+		}
+		
+	}
+}

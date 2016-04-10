@@ -403,6 +403,35 @@ public class Semantic {
 		
 	}
 	
+	/*The below action is for assign4*/
+	public void a21(Token t)//Add a constant to stack
+	{
+		if (round==2)
+		{
+			Var var = null;
+			var.value=t.value;
+			var.dtype=t.type;
+			var.t=t;
+			stack2.push(new Record(var,3));
+		}
+	}
+	
+	/*Check not type*/
+	public void a22()
+	{
+		Var var=(Var)stack2.top().o;
+		if (var.dtype.equals("float"));
+		writeError("Type do not match, need int. location£º"+var.t.row+", "+var.t.col);
+	}
+	
+	/*Check relop type*/
+	public void a23()
+	{
+		Var num2=(Var)stack2.top().o;
+		Var num1=(Var)stack2.get(stack2.size()-3).o;
+		
+	}
+	 
 	public SybTable getScope(Record r)
 	{
 		if (r.type==0)
@@ -497,6 +526,20 @@ public class Semantic {
 	public void addError(int i)
 	{
 		stack2.push(new Record(new Object(),i));
+	}
+	
+	public boolean isInt(Var var)
+	{
+		return var.dtype.equals("int");
+	}
+	
+	public boolean isFloat(Var var)
+	{
+		
+	}
+	public boolean isObject(Var var)
+	{
+		return !(var.dtype.equals("int")||var.dtype.equals("float"));
 	}
 }
 

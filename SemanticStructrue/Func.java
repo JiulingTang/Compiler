@@ -2,11 +2,16 @@ package SemanticStructrue;
 
 import java.util.ArrayList;
 
+import SemanticStructrue.Var.Error;
+
 public class Func extends Identifier{
 	public ArrayList<Var> par; //parameters
 	public SybTable table;
 	public Var rvalue;
 	public String name;
+	public static enum Error{
+		Match,ParameterNotMatch,ParameterNumberNotMacth
+	}
 	public  Func()
 	{
 		this.itype="func";
@@ -43,5 +48,22 @@ public class Func extends Identifier{
 		rr+="\r\n}";
 		return rr;
 	
+	}
+	
+	public static Error match(Func a,Func b) //Check if two function macth
+	{
+		if (a.par==null&&b.par==null)
+			return Error.Match;
+		if (a.par==null&&b.par!=null)
+			return Error.ParameterNumberNotMacth;
+		if (b.par==null&&a.par!=null)
+			return Error.ParameterNumberNotMacth;
+		if (a.par.size()!=b.par.size())
+			return Error.ParameterNumberNotMacth;
+		for (int i=0;i<a.par.size();i++)
+			if (Var.match(a.par.get(i),b.par.get(i))!=Var.Error.Match)
+					return Error.ParameterNotMatch;
+		return Error.Match;
+			
 	}
 }

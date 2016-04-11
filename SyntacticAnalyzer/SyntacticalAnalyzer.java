@@ -353,8 +353,8 @@ public class SyntacticalAnalyzer {
 		lA.addInput("testCases/"+fileName);
 		sem.addOutFile(fileName);
 		try {
-			eout=new PrintStream(new File ("outputs/"+fileName));
-			error=new PrintStream(new File("errors/"+fileName));
+			eout=new PrintStream(new File ("semanticOutputs/"+fileName));
+			error=new PrintStream(new File("semanticErrors/"+fileName));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

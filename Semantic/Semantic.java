@@ -654,8 +654,7 @@ public class Semantic {
 		Var num1=(Var)getLastK(3).o;
 		if (isObject(num1)||isObject(num2)||isArray(num1)||isArray(num2))
 		{
-			System.out.println(num1.dtype);
-			System.out.println(num2.dtype);
+			
 			writeError("Type do not match for operator "+t.value+", need int or float. location£º"+t.row+", "+t.col);
 			popN(3);
 			this.addError(13);

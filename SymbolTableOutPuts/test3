@@ -261,21 +261,36 @@ Global:
 		parameter:
 		symbolTable:
 		{
-			a
+			o
 			{
-				type£º Op2
-				name in generated code: a
+				type£º Op
+				name in generated code: o
 				
 			}
-			sub
+			h
 			{
+				type£º int
+				name in generated code: h
+				
+			}
+			g
+			{
+				dimention: 2
 				type£º float
-				name in generated code: sub
+				name in generated code: g
+				
+			}
+			f
+			{
+				dimention: 1
+				type£º float
+				name in generated code: f
 				
 			}
 			e
 			{
-				type£º float
+				dimention: 1
+				type£º int
 				name in generated code: e
 				
 			}
@@ -286,17 +301,98 @@ Global:
 				name in generated code: d
 				
 			}
-			o
-			{
-				type£º Op
-				name in generated code: o
-				
-			}
 			c
 			{
 				dimention: 1
 				type£º int
 				name in generated code: c
+				
+			}
+			b2
+			{
+				type£º int
+				name in generated code: b2
+				
+			}
+			b1
+			{
+				type£º int
+				name in generated code: b1
+				
+			}
+			a
+			{
+				type£º Op2
+				name in generated code: a
+				
+			}
+		}
+		
+	}
+	Op3
+	{
+		type:class
+		symbolTable
+		{
+			b
+			{
+				dimention: 2
+				type£º float
+				name in generated code: b
+				
+			}
+			a
+			{
+				dimention: 2
+				type£º float
+				name in generated code: a
+				
+			}
+			add
+			{
+				type:function
+				parameter:
+				{
+					dimention: 2
+					type£º float
+					name in generated code: a
+					
+				}
+				{
+					dimention: 2
+					type£º float
+					name in generated code: b
+					
+				}
+				return:
+				{
+					type£º int
+					name in generated code: null
+					
+				}
+				symbolTable:
+				{
+					b
+					{
+						dimention: 2
+						type£º float
+						name in generated code: b
+						
+					}
+					a
+					{
+						dimention: 2
+						type£º float
+						name in generated code: a
+						
+					}
+					sum
+					{
+						type£º int
+						name in generated code: sum
+						
+					}
+				}
 				
 			}
 		}

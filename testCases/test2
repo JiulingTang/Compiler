@@ -15,7 +15,7 @@ class Utility {
 			if(array[idx] > maxValue) then {
 				maxValue = array[idx];
 			}
-			else {idx=findMin();};
+			else {idx=findMin();}; //function number of parameter not match
 		};
 		
 		return (maxValue);
@@ -29,14 +29,14 @@ class Utility {
 			if(array[idx] < maxValue) then {
 				maxValue = array[idx];
 			}
-			else{a=findMax();};
+			else{a=findMax();};//parameter number not match
 		};
 		return (minValue);
 	};
 	
 	float var1()
 	{
-		return (var1);
+		return (var1);// check return type
 	};
 };
 
@@ -66,10 +66,11 @@ program {
 	put(minValue);
 };
 
-real randomize() {
+real randomize() { //no class real
 
 	real value;
 	value = 100 * (2 + 3.0 / 7.0006);
 	value = 1.05 + ((2.04 * 2.47) - 3.0) + 7.0006 ;
 	return (value);
 };
+/*

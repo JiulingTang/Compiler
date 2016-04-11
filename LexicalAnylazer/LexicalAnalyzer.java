@@ -29,6 +29,7 @@ public class LexicalAnalyzer {
 	private Hashtable<Integer,String> fStateMap;
 	private FileReader in;
 	private FileWriter eout;//Out stream for error file
+	private FileWriter out;
 	private Set<String> keyWords;
 	private int count;
 	private void addTrans(int cState,char ch,int nState)
@@ -384,7 +385,12 @@ public class LexicalAnalyzer {
 				{
 					return nextToken();
 				}
-				else return token;
+				else 
+				{
+					this.writeToken(token);
+				
+					return token;
+				}
 			}
 		}
 		if (finalState(state))
@@ -416,7 +422,10 @@ public class LexicalAnalyzer {
 			return nextToken();
 		}
 		else
-		return token;
+		{
+			this.writeToken(token);
+			return token;
+		}
 		else
 			return null;
 	
@@ -428,6 +437,7 @@ public class LexicalAnalyzer {
 			in=new FileReader(fileName);
 			File f=new File(fileName);
 			eout=new FileWriter("errors/"+f.getName());
+			out=new FileWriter("Lexicaloutputs/"+f.getName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("no file");
@@ -463,7 +473,9 @@ public class LexicalAnalyzer {
 		{
 			try{
 				Integer.parseInt(s);
-				return new Token(s,t,startRow,startCol);
+				Token token=new Token(s,t,startRow,startCol);
+				this.writeToken(token);
+				return token;
 			}
 			catch (Exception e){
 				try {
@@ -476,7 +488,12 @@ public class LexicalAnalyzer {
 			
 		}
 		else
-		return new Token(s,t,startRow,startCol);
+		{
+		
+			Token token=new Token(s,t,startRow,startCol);
+			this.writeToken(token);
+			return token;
+		}
 		try {
 			eout.flush();
 		} catch (IOException e) {
@@ -492,6 +509,17 @@ public class LexicalAnalyzer {
 		try {
 			in.close();
 			eout.close();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeToken(Token token)
+	{
+		try {
+			out.write(token.toString()+"\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

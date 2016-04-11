@@ -1,0 +1,64 @@
+A progbody $ 
+classdecl A progbody $ 
+class id { N } ; A progbody $ 
+class id { type id S } ; A progbody $ 
+class id { int id S } ; A progbody $ 
+class id { int id E ; N } ; A progbody $ 
+class id { int id arraysize E ; N } ; A progbody $ 
+class id { int id [ integer ] E ; N } ; A progbody $ 
+class id { int id [ integer ] arraysize E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; type id S } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id S } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id arraysize E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] arraysize E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] arraysize E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] arraysize E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] E ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; N } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; type id S } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id S } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( fparams ) funcbody ; C } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) funcbody ; C } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { O } ; C } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; C } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; A progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; progbody $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; funcdef C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; funchead funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; type id ( fparams ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( fparams ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( type id E K ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id E K ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id arraysize E K ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] E K ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] arraysize E K ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] E K ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] K ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) funcbody ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id arraysize E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] arraysize E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] arraysize E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] [ integer ] E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] [ integer ] arraysize E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] [ integer ] [ integer ] E ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] [ integer ] [ integer ] ; O } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] [ integer ] [ integer ] ; } ; C $ 
+class id { int id [ integer ] [ integer ] ; float id [ integer ] [ integer ] [ integer ] [ integer ] ; int id ( ) { } ; } ; program { int id ; id id ; } ; int id ( float id [ integer ] [ integer ] ) { float id [ integer ] [ integer ] [ integer ] [ integer ] ; } ; $ 

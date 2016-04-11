@@ -10,6 +10,9 @@ public class Var extends Identifier{
 	public String name;
 	public ArrayList<Integer> dim;
 	public Token t;// The token for the name of variable
+	public boolean isArray;
+	public Var pp;
+	public int isCons;
 	public static enum Error{
 		Match,TypeNotMatch,DimensionNotMatch
 	}
@@ -41,15 +44,15 @@ public class Var extends Identifier{
 	
 	public static Error match(Var a,Var b) //Check if two vairbale macth
 	{
-		if (a.dim==null&&b.dim==null)
-			return Error.Match;
 		if (!a.dtype.equals(b.dtype))
 			return Error.TypeNotMatch;
+		if (a.dim==null&&b.dim==null)
+			return Error.Match;
 		if (a.dim==null&&b.dim!=null)
 			return Error.DimensionNotMatch;
 		if (b.dim==null&&a.dim!=null)
 			return Error.DimensionNotMatch;
-		if (a.dim.size()==b.dim.size())
+		if (a.dim.size()!=b.dim.size())
 			return Error.DimensionNotMatch;
 		return Error.Match;
 	}

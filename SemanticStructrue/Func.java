@@ -3,12 +3,14 @@ package SemanticStructrue;
 import java.util.ArrayList;
 
 import SemanticStructrue.Var.Error;
+import Token.Token;
 
 public class Func extends Identifier{
 	public ArrayList<Var> par; //parameters
 	public SybTable table;
 	public Var rvalue;
 	public String name;
+	public Token t;
 	public static enum Error{
 		Match,ParameterNotMatch,ParameterNumberNotMacth
 	}
@@ -61,8 +63,19 @@ public class Func extends Identifier{
 		if (a.par.size()!=b.par.size())
 			return Error.ParameterNumberNotMacth;
 		for (int i=0;i<a.par.size();i++)
-			if (Var.match(a.par.get(i),b.par.get(i))!=Var.Error.Match)
+		{
+			if (b.par.get(i).pp==null)
+			{
+				if (a.par.get(i).dim.size()!=0)
 					return Error.ParameterNotMatch;
+			}
+			else
+			{
+				int size=b.par.get(i).pp.dim.size()-b.par.get(i).dim.size();
+				if (a.par.get(i).dim.size()!=size)
+					return Error.ParameterNotMatch;
+			}
+		}
 		return Error.Match;
 			
 	}

@@ -253,118 +253,182 @@ public class Semantic {
 		stack2.push(new Record(new SybTable(),0));
 	}
 	
-	public void a15()//The name of call function
-	{
-		
-		if (round==2)
-		{
-			Token t=(Token)stack2.top().o;
-			stack2.pop();
-				Record r=stack2.top();
-				if (r.type==11)
-					return;
-				if (r.type==5)
-				{
-					Var cv=(Var)r.o;
-					Cla cla=(Cla)search(gTable,cv.dtype);
-					Identifier id;
-					if (cla!=null)
-					id=search(cla.table,t.value);
-					else
-					id=null;
-					stack2.pop();
-					if (id!=null&&id.itype.equals("func"))
-					{	
-						stack2.push(new Record(new Func(),2));
-					}
-					else
-					{
-					writeError("Member "+t.value+" is not defined. location: "+t.row+","+t.col);
-					addError(10);
-					}
-				}
-				else
-				{
-
-					if (!this.checkFuncDefiend(t.value))
-					{
-						writeError("Function "+t.value+" is not defined. location: "+t.row+","+t.col);
-						addError(11);
-					}
-					else
-						
-						stack2.push(new Record(new Func(),2));//need modify
-					
-				}
-			
-		}
-	}
-	public void a16()//The name of call value
+	public void a15()//Checking of called function
 	{
 		
 		if (round==2)
 		{
 			Record r2=stack2.top();
-			Token t=(Token)r2.o;
-			stack2.pop();
-				Record r=stack2.top();
-				if (r.type==11)
+			Record r=this.getLastK(2);
+			if (r.type==15)
+			{
+				this.popN(2);
+				this.addError(13);
+				return;
+			}
+			if (r.type==5)
 				{
-					return;
-				}
-				if (r.type==5)
-				{
+					this.popN(2);
+					if (isError(r2))
+					{
+						this.addError(13);
+					}
 					Var cv=(Var)r.o;
-					
+					Func f=(Func)r2.o;
 					Cla cla=(Cla)search(gTable,cv.dtype);
-					//System.out.println(t.value+" "+cv.dtype);
 					Identifier id;
 					if (cla!=null)
-					id=search(cla.table,t.value);
+					id=search(cla.table,f.name);
 					else
 					id=null;
-					stack2.pop();
-					if (id!=null&&id.itype.equals("var"))
-					{
-						Var ncv=new Var();
-						ncv.dtype=((Var)id).dtype;
-						stack2.push(new Record(ncv,3));
-						//System.out.println("hh");
+					if (id!=null&&id.itype.equals("func"))
+					{	
+						Func.Error e=Func.match((Func)id, f);
+						if (e==Func.Error.ParameterNotMatch)
+						{
+							writeError("parameter type not match. location: "+f.t.row+","+f.t.col);
+							this.addError(13);
+						}
+						else if (e==Func.Error.ParameterNumberNotMacth)
+						{	
+							writeError("parameter number not match. location: "+f.t.row+","+f.t.col);
+							this.addError(13);
+						}
+						else
+						{
+							f.rvalue=new Var();
+							f.rvalue.dtype=((Func)id).rvalue.dtype;
+							stack2.push(new Record(f.rvalue,3));
+						}
 					}
 					else
 					{
-					writeError("Member "+t.value+" is not defined. location: "+t.row+","+t.col);
-					addError(11);
+					writeError("Member "+f.name+" is not defined. location: "+f.t.row+","+f.t.col);
+					addError(13);
 					}
 				}
 				else
 				{
-
-					if (!this.checkVariableDefined(t.value))
+					this.popN(1);
+					if (isError(r2))
 					{
-						writeError("Variable "+t.value+" is not defined. location: "+t.row+","+t.col);
-						addError(11);
+						this.addError(12);
+					}
+					Func f=(Func)r2.o;
+					Func id=this.checkFuncDefiend(f.name);
+					if (id==null)
+					{
+						writeError("Function "+f.name+" is not defined. location: "+f.t.row+","+f.t.col);
+						addError(13);
 					}
 					else
 					{
-						Var ncv=new Var();
-						for (int i=stack2.size()-1;i>=0;i--)
+						Func.Error e=Func.match((Func)id, f);
+						if (e==Func.Error.ParameterNotMatch)
 						{
-							Record r3=stack2.get(i);
-							if (r3.type<3)
-							{
-								SybTable scope=getScope(r3);
-								Identifier id=search(scope,t.value);
-								//System.out.println(t.value);
-								if (id!=null&&id.itype.equals("var"))
-								{
-									ncv.dtype=((Var)id).dtype;
-								
-								stack2.push(new Record(ncv,3));
-								break;
-								}
-							}
+							writeError("parameter type not match. location: "+f.t.row+","+f.t.col);
+							this.addError(12);
 						}
+						else if (e==Func.Error.ParameterNumberNotMacth)
+						{	
+							writeError("parameter number not match. location: "+f.t.row+","+f.t.col);
+							this.addError(12);
+						}
+						else
+						{
+							f.rvalue=new Var();//need modify
+							f.rvalue.dtype=((Func)id).rvalue.dtype;
+							stack2.push(new Record(f.rvalue,3));
+						}
+						
+					}
+					
+				}
+			
+		}
+	}
+	public void a16()//The checking of called value
+	{
+		
+		if (round==2)
+		{
+
+			Record r2=stack2.top();
+			Record r=this.getLastK(2);
+				if (r.type==15)
+				{
+					this.popN(2);
+					this.addError(13);
+					return;
+				}
+				else if (r.type==5)
+				{
+					
+					this.popN(2);
+					if (isError(r2))
+					{
+						this.addError(13);
+						return ;
+					}
+					Var v=(Var)r2.o;
+					Var cv=(Var)r.o;
+					Cla cla=(Cla)search(gTable,cv.dtype);
+					
+					Identifier id;
+					if (cla!=null)
+					id=search(cla.table,v.name);
+					else
+					id=null;
+					if (id!=null&&id.itype.equals("var"))
+					{
+						Var pv=(Var)id;
+						if (pv.dim.size()<v.dim.size())
+						{
+							writeError("Dimension of variable do not match type. location: "+v.t.row+","+v.t.col);
+							this.addError(13);
+						}
+						else if (pv.dim.size()>v.dim.size())
+							v.isArray=true;
+						v.pp=pv;
+						v.dtype=((Var)id).dtype;
+						stack2.push(new Record(v,3));
+						//System.out.println("hh");
+					}
+					else
+					{
+					writeError("Member "+v.name+" is not defined. location: "+v.t.row+","+v.t.col);
+					addError(13);
+					}
+				}
+				else
+				{
+					this.popN(1);
+					if (isError(r2))
+					{
+						this.addError(13);
+						return ;
+					}
+					Var v=(Var)r2.o;
+					Var gv=this.checkVariableDefined(v.name);
+					if (gv==null)
+					{
+						writeError("Variable "+v.name+" is not defined. location: "+v.t.row+","+v.t.col);
+						addError(13);
+					}
+					else
+					{
+
+						
+						if (gv.dim.size()<v.dim.size())
+						{
+							writeError("Dimension of variable do not match type. location: "+v.t.row+","+v.t.col);
+							this.addError(13);
+						}
+						else if (gv.dim.size()>v.dim.size())
+							v.isArray=true;
+						v.dtype=gv.dtype;
+						v.pp=gv;
+						stack2.push(new Record(v,3));
 						
 					}
 					
@@ -394,44 +458,360 @@ public class Semantic {
 	
 	public void a20()//when meet '.'
 	{
-		Record r=stack2.top();
-		if (isError(r))
+		if (round==2)
 		{
-			r.type=11;
+			Record r=stack2.top();
+			if (isError(r))
+			{
+				r.type=15;
+			}
+			else
+			{
+				Var v=(Var)r.o;
+				if (isArray(v))
+				{
+					stack2.pop();
+					this.addError(15);
+				}
+				r.type=5;
+			}
 		}
-		r.type=5;
 		
 	}
 	
+	
+	public void a21()//new called function
+	{
+		Func f=new Func();
+		if (checkError(1))
+		{
+			
+			this.popN(1);
+			this.addError(12);
+		}
+		else
+		{
+			
+			Token t=(Token)stack2.top().o;
+			this.popN(1);
+			f.t=t;
+			f.name=t.value;
+			stack2.push(new Record(f,2));
+		}
+	}
+	
+	public void a22()//new called variable
+	{
+		Var v=new Var();
+		if (checkError(1))
+		{
+			
+			this.popN(1);
+			this.addError(13);
+		}
+		else
+		{
+			
+			Token t=(Token)stack2.top().o;
+			this.popN(1);
+			v.t=t;
+			v.name=t.value;
+			stack2.push(new Record(v,3));
+		}
+	}
+	
+	
 	/*The below action is for assign4*/
-	public void a21(Token t)//Add a constant to stack
+	public void a23(Token t)//Add a constant to stack
 	{
 		if (round==2)
 		{
-			Var var = null;
+			Var var = new Var();
 			var.value=t.value;
-			var.dtype=t.type;
+			if (t.type.equals("integer"))
+				var.dtype="int";
+			if (t.type.endsWith("double"))
+				var.dtype="float";
 			var.t=t;
+			var.value=t.value;
+			var.isCons=1;
 			stack2.push(new Record(var,3));
 		}
 	}
 	
 	/*Check not type*/
-	public void a22()
+	public void a24()
 	{
+		if (!checkError(2))
+		{	
 		Var var=(Var)stack2.top().o;
-		if (var.dtype.equals("float"));
-		writeError("Type do not match, need int. location£º"+var.t.row+", "+var.t.col);
+		if (!isInt(var)||isArray(var))
+		{
+			this.popN(2);
+			this.addError(14);
+			this.addError(13);
+			writeError("Type do not match for operator not, need int. location£º"+var.t.row+", "+var.t.col);
+		}
+		}
+		unary();
 	}
 	
+
+	
 	/*Check relop type*/
-	public void a23()
+	public void a25()
 	{
+		if (!checkError(3))
+		{
 		Var num2=(Var)stack2.top().o;
-		Var num1=(Var)stack2.get(stack2.size()-3).o;
+		Token t=(Token)getLastK(2).o;
+		Var num1=(Var)getLastK(3).o;
+		if (isObject(num1)||isObject(num2)||isArray(num1)||isArray(num2))
+		{
+			writeError("Type do not match for operator "+t.value+", need int. location£º"+t.row+", "+t.col);
+			popN(3);
+			this.addError(13);
+			this.addError(14);
+			this.addError(13);
+		}
+		}
+		binary();
+	}
+	/*Check addop type*/
+	public void a26()
+	{
+		if (!checkError(3))
+		{
+		Var num2=(Var)stack2.top().o;
+		Token t=(Token)getLastK(2).o;
+		Var num1=(Var)getLastK(3).o;
+		if (t.value.equals("+")||t.value.equals("-"))
+		{
+			if (isObject(num1)||isObject(num2)||isArray(num1)||isArray(num2))
+			{
+				writeError("Type do not match for operator "+t.value+", need int or float. location£º"+t.row+", "+t.col);
+				popN(3);
+				this.addError(13);
+				this.addError(14);
+				this.addError(13);
+			}
+		}
+		else
+		{
+			if (!isInt(num1)||!isInt(num2)||isArray(num1)||isArray(num2))
+			{
+				writeError("Type do not match for operator "+t.value+", need int. location£º"+t.row+", "+t.col);
+				popN(3);
+				this.addError(13);
+				this.addError(14);
+				this.addError(13);
+			}
+		}
+		}
+		binary();
+	}
+	/*Check mulop type*/
+	public void a27()
+	{
+		if (!checkError(3))
+		{	
+		Var num2=(Var)stack2.top().o;
+		Token t=(Token)getLastK(2).o;
+		Var num1=(Var)getLastK(3).o;
+		if (t.value.equals("*")||t.value.equals("/"))
+		{
+			if (isObject(num1)||isObject(num2)||isArray(num1)||isArray(num2))
+			{
+				writeError("Type do not match for operator "+t.value+", need int or float. location£º"+t.row+", "+t.col);
+				popN(3);
+				this.addError(13);
+				this.addError(14);
+				this.addError(13);
+			}
+		}
+		else
+		{
+			if (!isInt(num1)||!isInt(num2)||isArray(num1)||isArray(num2))
+			{
+				writeError("Type do not match for operator "+t.value+", need int. location£º"+t.row+", "+t.col);
+				popN(3);
+				this.addError(13);
+				this.addError(14);
+				this.addError(13);
+			}
+		}
+		}
+		binary();
+	}
+	
+	/*check assignop */
+	public void a28()
+	{
+		if (!checkError(3))
+		{	
+		Var num2=(Var)stack2.top().o;
+		Token t=(Token)getLastK(2).o;
+		Var num1=(Var)getLastK(3).o;
+		if (isObject(num1)||isObject(num2)||isArray(num1)||isArray(num2))
+		{
+			System.out.println(num1.dtype);
+			System.out.println(num2.dtype);
+			writeError("Type do not match for operator "+t.value+", need int or float. location£º"+t.row+", "+t.col);
+			popN(3);
+			this.addError(13);
+		}
+		else
+		{
+			popN(3);
+			stack2.push(new Record(num1,3));
+		}
+		}
+		else
+		{
+		this.popN(3);
+		this.addError(13);
+		}
+		
 		
 	}
-	 
+	
+	/*Check sign type*/
+	public void a29()
+	{
+		if (!checkError(2))
+		{
+		Var var=(Var)stack2.top().o;
+		Token t=(Token)getLastK(2).o;
+		if (isObject(var)||isArray(var))
+		{
+			this.popN(2);
+			this.addError(14);
+			this.addError(13);
+			writeError("Type do not match for operator "+t.value+" . location£º"+var.t.row+", "+var.t.col);
+		}
+		}
+		unary();
+	}
+	
+	/*add dimension to variable call*/
+	public void a30()
+	{
+		if (this.checkError(2))
+		{
+			this.popN(2);
+			this.addError(13);
+			return;
+		}
+		
+		Var v=(Var)stack2.top().o;
+		Var v2=(Var)this.getLastK(2).o;
+		this.popN(2);
+		if (!isInt(v))
+		{
+				writeError("Array index should be int at location: "+v.t.row+","+v.t.col);
+				this.addError(13);
+				
+			}
+			else
+			{
+				v2.dim.add(1);
+				stack2.push(new Record(v2,3));
+					
+			}
+		
+		
+	}
+	/*add parameter to called function*/
+	public void a31()
+	{
+		if (this.checkError(2))
+		{
+			this.popN(2);
+			this.addError(12);
+			return;
+		}
+		Var v=(Var)stack2.top().o;
+		Func f=(Func)this.getLastK(2).o;
+		this.popN(2);
+		f.par.add(v);
+		stack2.push(new Record(f,2));
+	}
+	
+	/*check return type*/
+	public void a32()
+	{
+		if (this.checkError(2))
+		{
+			return;
+		}
+		Var v=(Var)stack2.top().o;
+		Func f=(Func)this.getLastK(2).o;
+		if (Var.match(f.rvalue, v)!=Var.Error.Match)
+		{
+			writeError("return type don't match, location: "+v.t.row+","+v.t.col);
+		}
+		else
+		{
+			f.rvalue=v;
+		}
+	}
+	
+	public void unary()
+	{
+		if (!this.checkError(2))
+		{
+			Token t=(Token)this.getLastK(2).o;
+			Var num=(Var)stack2.top().o;
+			Var v=new Var();
+			if (t.equals("not"))
+			{
+				v.dtype="int";
+			}
+			else
+			{
+				v.dtype=num.dtype;
+			}
+			this.popN(2);
+			stack2.push(new Record(v,3));
+			v.t=t;
+		}
+		else
+		{
+			this.popN(2);
+			this.addError(13);
+		}
+	}
+	
+	public void binary()
+	{
+		if (!this.checkError(3))
+		{
+			Token t=(Token)this.getLastK(2).o;
+			Var num2=(Var)stack2.top().o;
+			Var num1=(Var)this.getLastK(3).o;
+			Var v=new Var();
+			if (t.equals("and")||t.equals("or"))
+			{
+				v.dtype="int";
+			}
+			else
+			{
+				if (num1.dtype.equals("float")||num2.dtype.equals("float"))
+					v.dtype="float";
+				else
+					v.dtype="int";
+			}
+			this.popN(3);
+			v.t=num1.t;
+			stack2.push(new Record(v,3));
+		}
+		else
+		{
+			this.popN(3);
+			this.addError(13);
+		}
+	}
+	
 	public SybTable getScope(Record r)
 	{
 		if (r.type==0)
@@ -473,7 +853,7 @@ public class Semantic {
 		
 	}
 	
-	public boolean checkVariableDefined(String vname)
+	public Var checkVariableDefined(String vname)
 	{
 		for (int i=stack2.size()-1;i>=0;i--)
 		{
@@ -484,15 +864,15 @@ public class Semantic {
 				Identifier id=search(scope,vname);
 				
 				if (id!=null&&id.itype.equals("var"))
-					return true;
+					return (Var)id;
 				else if (id!=null)
-					return false;
+					return null;
 			}
 		}
-		return false;
+		return null;
 	}
 	
-	public boolean checkFuncDefiend(String fname)
+	public Func checkFuncDefiend(String fname)
 	{
 		for (int i=stack2.size()-1;i>=0;i--)
 		{
@@ -502,12 +882,12 @@ public class Semantic {
 				SybTable scope=getScope(r);
 				Identifier id=search(scope,fname);
 				if (id!=null&&id.itype.equals("func"))
-					return true;
+					return (Func)id;
 				else if (id!=null)
-					return false;
+					return null;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public void writeResult()
@@ -520,7 +900,7 @@ public class Semantic {
 	
 	public boolean isError(Record r)
 	{
-		return r.type==10;//10 means an error record on the stack
+		return r.type>=10;//10 means an error record on the stack
 	}
 	
 	public void addError(int i)
@@ -535,11 +915,35 @@ public class Semantic {
 	
 	public boolean isFloat(Var var)
 	{
-		
+		return var.dtype.equals("float");
 	}
 	public boolean isObject(Var var)
 	{
-		return !(var.dtype.equals("int")||var.dtype.equals("float"));
+		return !(isInt(var)||isFloat(var));
+	}
+	
+	public boolean checkError(int n)//check the error in stack
+	{
+		for (int i=stack2.size()-1;i>=stack2.size()-n;i--)
+			if (isError(stack2.get(i)))
+				return true;
+		return false;
+	}
+	
+	public Record getLastK(int k)//get the last k record in stack
+	{
+		return stack2.get(stack2.size()-k);
+	}
+	
+	public void popN(int n)//pop n record from stack
+	{
+		for (int i=0;i<n;i++)
+			stack2.pop();
+	}
+	
+	public boolean isArray(Var v)
+	{
+		return v.isArray;
 	}
 }
 

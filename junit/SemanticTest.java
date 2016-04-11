@@ -57,14 +57,14 @@ public class SemanticTest {
 	@Test
 	public void testCheckVariableDefined() {
 		sem.insert(sem.gTable, "v", new Var());
-		assertTrue(sem.checkVariableDefined("v"));
+		assertTrue(sem.checkVariableDefined("v")!=null);
 	}
 
 	@Test
 	public void testCheckFuncDefiend() {
 		sem.insert(sem.gTable, "f", new Func());
-		assertTrue(sem.checkFuncDefiend("f"));
-		assertFalse(sem.checkVariableDefined("f"));
+		assertTrue(sem.checkFuncDefiend("f")!=null);
+		assertFalse(sem.checkVariableDefined("f")!=null);
 	}
 
 }

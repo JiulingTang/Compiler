@@ -136,6 +136,12 @@ Global:
 		parameter:
 		symbolTable:
 		{
+			r5
+			{
+				type£º float
+				name in generated code: r5
+				
+			}
 			r4
 			{
 				type£º int
@@ -198,6 +204,12 @@ Global:
 				dimention: 1
 				type£º int
 				name in generated code: a
+				
+			}
+			r6
+			{
+				type£º float
+				name in generated code: r6
 				
 			}
 		}

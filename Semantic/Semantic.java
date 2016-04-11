@@ -272,6 +272,7 @@ public class Semantic {
 					if (isError(r2))
 					{
 						this.addError(13);
+						return;
 					}
 					Var cv=(Var)r.o;
 					Func f=(Func)r2.o;
@@ -312,7 +313,8 @@ public class Semantic {
 					this.popN(1);
 					if (isError(r2))
 					{
-						this.addError(12);
+						this.addError(13);
+						return;
 					}
 					Func f=(Func)r2.o;
 					Func id=this.checkFuncDefiend(f.name);
@@ -423,13 +425,17 @@ public class Semantic {
 						{
 							writeError("Dimension of variable do not match type. location: "+v.t.row+","+v.t.col);
 							this.addError(13);
+							return;
 						}
-						else if (gv.dim.size()>v.dim.size())
+						else
+							{
+							if (gv.dim.size()>v.dim.size())
+							
 							v.isArray=true;
 						v.dtype=gv.dtype;
 						v.pp=gv;
 						stack2.push(new Record(v,3));
-						
+							}
 					}
 					
 				}

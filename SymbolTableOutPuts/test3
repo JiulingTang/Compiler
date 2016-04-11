@@ -267,6 +267,12 @@ Global:
 				name in generated code: o
 				
 			}
+			m
+			{
+				type£º flot
+				name in generated code: m
+				
+			}
 			h
 			{
 				type£º int

@@ -573,14 +573,21 @@ public class SyntacticalAnalyzer {
 	}
 	public void action(int n,int round)
 	{
-		/*System.out.println(n);
+		System.out.println(n);
 		if (count<ms.size())
 		System.out.println(ms.get(count-1));
 		
-		Record r=sem.stack2.top();
+		for(int i=1;i<=3;i++)
+		{
+		if (sem.stack2.size()<i)
+			continue;
+		Record r=sem.getLastK(i);
 		System.out.println(r.type);
 		if (r.type==3)
-		System.out.println(((Var)r.o).name);*/
+		System.out.println(((Var)r.o).name);
+		if (r.type==4)
+			System.out.println(((Token)r.o).value);
+		}
 		n-=250;
 		if (n==1)
 		sem.a1();

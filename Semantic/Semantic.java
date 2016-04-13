@@ -843,6 +843,39 @@ public class Semantic {
 		}
 	}
 	
+	//after if
+	public void a38()
+	{
+		this.codeGenerater.ifState();
+	}
+	
+	//meet then
+	public void a39()
+	{
+		if (!checkError(1))
+		{
+			Var v=(Var)stack2.top().o;
+			if (!isInt(v))
+			{
+				this.writeError("Need int. location: "+v.t.row+","+v.t.col);
+				this.popN(1);
+				this.addError(13);
+			}
+			this.codeGenerater.then(v);
+		}
+	}
+	//meet else
+	public void a40()
+	{
+		this.codeGenerater.elseAct();
+	}
+	
+	public void a41()
+	{
+		this.codeGenerater.endIf();
+	}
+	
+	
 	public void unary()
 	{
 		if (!this.checkError(2))

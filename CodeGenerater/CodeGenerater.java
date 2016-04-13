@@ -33,6 +33,8 @@ public class CodeGenerater {
 		mainCode="";
 		symbolSet=new HashSet();
 		tmpSymbolSet=new HashSet();
+		this.elseStack=new Stack<String>();
+		this.endIfStack=new Stack<String>();
 		try {
 			eout=new FileWriter(new File(fileName));
 		} catch (IOException e) {
@@ -975,7 +977,7 @@ public class CodeGenerater {
 		return tname;
 	}
 	
-	public void ifState(Var v)
+	public void ifState()
 	{
 		String r="";
 		String endLable=this.nextEndIfLable();

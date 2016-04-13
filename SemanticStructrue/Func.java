@@ -11,6 +11,7 @@ public class Func extends Identifier{
 	public Var rvalue;
 	public String name;
 	public Token t;
+	public String lable;
 	public static enum Error{
 		Match,ParameterNotMatch,ParameterNumberNotMacth
 	}
@@ -23,6 +24,8 @@ public class Func extends Identifier{
 	public String toString()
 	{
 		String r="{\r\n";
+		if (this.lable!=null)
+		r=r+"lable in generated code";
 		r=r+"type:function\r\n";
 		r=r+"parameter:\r\n";
 		if (par!=null)

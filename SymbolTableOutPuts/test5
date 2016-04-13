@@ -127,6 +127,12 @@ Global:
 				name in generated code: k
 				
 			}
+			r
+			{
+				type£º int
+				name in generated code: r
+				
+			}
 		}
 		
 	}
@@ -242,6 +248,12 @@ Global:
 						name in generated code: a
 						
 					}
+					aa
+					{
+						type£º float
+						name in generated code: aa
+						
+					}
 				}
 				
 			}
@@ -328,6 +340,12 @@ Global:
 			{
 				type£º int
 				name in generated code: k
+				
+			}
+			r
+			{
+				type£º int
+				name in generated code: r
 				
 			}
 		}

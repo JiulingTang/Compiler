@@ -3,6 +3,7 @@ package SemanticStructrue;
 public class Cla extends Identifier{
 	public SybTable table;
 	public String name;
+	public int size;
 	public Cla()
 	{
 		this.itype="cla";
@@ -28,4 +29,20 @@ public class Cla extends Identifier{
 		rr+="\r\n}";
 		return rr;
 	}
+	public int countSize()
+	{
+		int sum=0;
+		for (Identifier id: table.map.values())
+		{
+			if (id.isVar())
+			{
+				((Var)id).memberOffset=sum;
+				sum+=((Var)id).countSize();
+			}
+		}
+		size=sum;
+		return sum;
+	}
+	
+	
 }

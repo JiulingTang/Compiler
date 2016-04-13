@@ -1,5 +1,6 @@
 package SyntacticAnalyzer;
 
+import CodeGenerater.CodeGenerater;
 import LexicalAnylazer.*;
 import Semantic.Semantic;
 import SemanticStructrue.Record;
@@ -119,7 +120,7 @@ public class SyntacticalAnalyzer {
 		}
 		
 		tTable[1][43]=tTable[1][37]=new int[]{69,3};
-		tTable[2][37]=new int[]{37,64,252,54,82,55,253,51};
+		tTable[2][37]=new int[]{37,64,252,54,82,55,283,253,51};
 		tTable[3][43]=new int[]{43,254,6,51,71};
 		tTable[4][38]=tTable[4][39]=tTable[4][64]=new int[]{21,256,64,255,45,22,46};
 		tTable[5][38]=tTable[5][39]=tTable[5][64]=new int[]{4,6,51};
@@ -128,8 +129,8 @@ public class SyntacticalAnalyzer {
 		
 		tTable[8][64]=new int[]{9,51};
 		tTable[8][42]=new int[]{42,45,11,282,46,267,51};
-		tTable[8][41]=new int[]{41,45,11,46,267,51};
-		tTable[8][40]=new int[]{40,45,17,46,267,51};
+		tTable[8][41]=new int[]{41,45,11,287,46,267,51};
+		tTable[8][40]=new int[]{40,45,17,286,46,267,51};
 		tTable[8][33]=new int[]{33,45,11,267,46,34,10,35,10,51};
 		tTable[8][36]=new int[]{36,269,45,21,256,64,257,260,268,272,266,26,11,278,267,51,12,267,51,9,46,10,253,51};
 		
@@ -193,8 +194,8 @@ public class SyntacticalAnalyzer {
 		tTable[87][51]=tTable[87][52]=new int[]{257,73,260,51,82};
 		
 		tTable[88][42]=new int[]{42,45,11,282,46,267,51};
-		tTable[88][41]=new int[]{41,45,11,46,267,51};
-		tTable[88][40]=new int[]{40,45,17,46,267,51};
+		tTable[88][41]=new int[]{41,45,11,287,46,267,51};
+		tTable[88][40]=new int[]{40,45,17,286,46,267,51};
 		tTable[88][33]=new int[]{33,45,11,267,46,34,10,35,10,51};
 		tTable[88][36]=new int[]{36,264,45,21,256,64,257,260,268,272,266,26,11,278,267,51,12,267,51,9,46,10,253,51};
 		
@@ -371,6 +372,8 @@ public class SyntacticalAnalyzer {
 	
 	public void derive(int round)
 	{
+		if (round==2)
+			sem.codeGenerater=new CodeGenerater();
 		if (round==1)
 			ms=new ArrayList();
 		Stack<Integer> stack=new Stack<Integer>();
@@ -510,8 +513,11 @@ public class SyntacticalAnalyzer {
 		lA.close();
 		eout.close();
 		error.close();
-		if (round==1)
+		if (round==2)
+		{
 			sem.writeResult();
+			sem.codeGenerater.output();
+		}
 	}
 	
 	public int find(Token t)
@@ -573,7 +579,7 @@ public class SyntacticalAnalyzer {
 	}
 	public void action(int n,int round)
 	{
-		System.out.println(n);
+		/*System.out.println(n);
 		if (count<ms.size())
 		System.out.println(ms.get(count-1));
 		
@@ -587,7 +593,7 @@ public class SyntacticalAnalyzer {
 		System.out.println(((Var)r.o).name);
 		if (r.type==4)
 			System.out.println(((Token)r.o).value);
-		}
+		}*/
 		n-=250;
 		if (n==1)
 		sem.a1();
@@ -656,7 +662,10 @@ public class SyntacticalAnalyzer {
 		sem.a31();
 		else if (n==32)
 		sem.a32();
-			
+		else if (n==36)
+		sem.a36();
+		else if (n==37)
+		sem.a37();
 		
 	}
 

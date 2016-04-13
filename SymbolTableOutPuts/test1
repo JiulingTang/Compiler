@@ -7,18 +7,16 @@ Global:
 		{
 			findMax
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				{
 					dimention: 1
 					type£º int
-					name in generated code: array
 					
 				}
 				return:
 				{
 					type£º int
-					name in generated code: null
 					
 				}
 				symbolTable:
@@ -26,20 +24,17 @@ Global:
 					idx
 					{
 						type£º int
-						name in generated code: idx
 						
 					}
 					maxValue
 					{
 						type£º int
-						name in generated code: maxValue
 						
 					}
 					array
 					{
 						dimention: 1
 						type£º int
-						name in generated code: array
 						
 					}
 				}
@@ -47,18 +42,16 @@ Global:
 			}
 			findMin
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				{
 					dimention: 1
 					type£º int
-					name in generated code: array
 					
 				}
 				return:
 				{
 					type£º int
-					name in generated code: null
 					
 				}
 				symbolTable:
@@ -66,20 +59,17 @@ Global:
 					idx
 					{
 						type£º int
-						name in generated code: idx
 						
 					}
 					minValue
 					{
 						type£º int
-						name in generated code: minValue
 						
 					}
 					array
 					{
 						dimention: 1
 						type£º int
-						name in generated code: array
 						
 					}
 				}
@@ -88,14 +78,12 @@ Global:
 			var2
 			{
 				type£º float
-				name in generated code: var2
 				
 			}
 			var1
 			{
 				dimention: 7
 				type£º int
-				name in generated code: var1
 				
 			}
 		}
@@ -103,12 +91,11 @@ Global:
 	}
 	randomize
 	{
-		type:function
+		lable in generated codetype:function
 		parameter:
 		return:
 		{
 			type£º float
-			name in generated code: null
 			
 		}
 		symbolTable:
@@ -116,7 +103,6 @@ Global:
 			value
 			{
 				type£º float
-				name in generated code: value
 				
 			}
 		}
@@ -124,46 +110,46 @@ Global:
 	}
 	Main
 	{
-		type:function
+		lable in generated codetype:function
 		parameter:
 		symbolTable:
 		{
 			idx
 			{
 				type£º int
-				name in generated code: idx
+				location in generated code: idx
 				
 			}
 			arrayUtility
 			{
 				dimention: 4
 				type£º Utility
-				name in generated code: arrayUtility
+				location in generated code: arrayUtility
 				
 			}
 			utility
 			{
 				type£º Utility
-				name in generated code: utility
+				location in generated code: utility
 				
 			}
 			sample
 			{
 				dimention: 1
 				type£º int
-				name in generated code: sample
+				location in generated code: sample
 				
 			}
 			minValue
 			{
 				type£º int
-				name in generated code: minValue
+				location in generated code: minValue
 				
 			}
 			maxValue
 			{
 				type£º int
-				name in generated code: maxValue
+				location in generated code: maxValue
 				
 			}
 		}

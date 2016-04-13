@@ -1,0 +1,91 @@
+Global:
+{
+	c2
+	{
+		type:class
+		symbolTable
+		{
+			b
+			{
+				type£º int
+				1
+				0
+			}
+			a
+			{
+				dimention: 2
+				type£º c1
+				1440
+				1
+			}
+		}
+		
+	}
+	c1
+	{
+		type:class
+		symbolTable
+		{
+			a
+			{
+				dimention: 6
+				type£º int
+				240
+				0
+			}
+		}
+		
+	}
+	Main
+	{
+		type:function
+		parameter:
+		symbolTable:
+		{
+			b
+			{
+				type£º int
+				location in generated code: b
+				1
+				0
+			}
+			a
+			{
+				type£º int
+				location in generated code: a
+				1
+				0
+			}
+			f
+			{
+				dimention: 2
+				type£º c2
+				location in generated code: f
+				8646
+				0
+			}
+			e
+			{
+				type£º c2
+				location in generated code: e
+				1441
+				0
+			}
+			d
+			{
+				type£º int
+				location in generated code: d
+				1
+				0
+			}
+			c
+			{
+				type£º int
+				location in generated code: c
+				1
+				0
+			}
+		}
+		
+	}
+}

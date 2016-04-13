@@ -1,0 +1,34 @@
+class c1
+{
+	int a[2][3][4][5][1][2];
+};
+class c2
+{
+	c1 a[2][3];
+	int b;
+};
+program
+{
+	int a;
+	int b;
+	int c;
+	int d;
+	c2 e;
+	c2 f[2][3];
+	get(e.b);
+	get(e.a[0][0].a[1][0][0][0][0][0]);
+	get(a);
+	put(a);
+	get(b);
+	put(b);
+	get(c);
+	put(c);
+	get(d);
+	put(d);
+	a=b+c-d;
+	c=b*d;
+	d=f[1][2].b+c*f[1][2].a[0][2].a[1][1][1][1][1][1];
+	a=2+3*4;
+	put(a);
+	put(c);
+};

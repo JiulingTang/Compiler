@@ -5,6 +5,12 @@ Global:
 		type:class
 		symbolTable
 		{
+			idx
+			{
+				type£º int
+				name in generated code: idx
+				
+			}
 			findMax
 			{
 				type:function
@@ -23,12 +29,6 @@ Global:
 				}
 				symbolTable:
 				{
-					idx
-					{
-						type£º int
-						name in generated code: idx
-						
-					}
 					maxValue
 					{
 						type£º int
@@ -63,12 +63,6 @@ Global:
 				}
 				symbolTable:
 				{
-					idx
-					{
-						type£º int
-						name in generated code: idx
-						
-					}
 					minValue
 					{
 						type£º int

@@ -3,13 +3,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
+import CodeGenerater.CodeGenerater;
 import SemanticStructrue.*;
 import SyntacticAnalyzer.Stack;
 import SyntacticAnalyzer.SyntacticalAnalyzer;
 import Token.Token;
 
 public class Semantic {
-	public SybTable gTable;// global table
+	public static SybTable gTable;// global table
 	public Stack<Integer> stack;
 	public Stack<Record> stack2;
 	public Stack<Token> tStack;
@@ -18,7 +19,8 @@ public class Semantic {
 	private PrintStream errorOut;
 	public static String outPutFolderName="SymbolTableOutPuts";
 	public static String errorFolderName="SymbolTableError";
-	String fileName;
+	public CodeGenerater codeGenerater;
+	public String fileName;
 	public Semantic()
 	{
 		stack =new Stack<Integer>();
@@ -205,6 +207,8 @@ public class Semantic {
 		if (v==null)
 		{
 			scope.map.put(var.name, var);
+			if (this.codeGenerater!=null&&inMain())
+				this.codeGenerater.defineVariable(var);
 		}
 		else 
 		{
@@ -213,6 +217,8 @@ public class Semantic {
 			else if (!v.def)
 			{
 				v.def=true;
+				if (this.codeGenerater!=null&&inMain())
+				this.codeGenerater.defineVariable((Var)v);
 			}
 		}
 	}
@@ -391,10 +397,13 @@ public class Semantic {
 						}
 						else if (pv.dim.size()>v.dim.size())
 							v.isArray=true;
+						
 						v.pp=pv;
 						v.dtype=((Var)id).dtype;
+						this.codeGenerater.getInfoFromParent(cv,pv,v);
 						stack2.push(new Record(v,3));
 						//System.out.println("hh");
+						
 					}
 					else
 					{
@@ -434,6 +443,7 @@ public class Semantic {
 							v.isArray=true;
 						v.dtype=gv.dtype;
 						v.pp=gv;
+						this.codeGenerater.getInfoFromPro(gv, v);
 						stack2.push(new Record(v,3));
 							}
 					}
@@ -668,6 +678,8 @@ public class Semantic {
 		else
 		{
 			popN(3);
+			if (this.codeGenerater!=null)
+				this.codeGenerater.assign(num1, num2);
 			stack2.push(new Record(num1,3));
 		}
 		}
@@ -719,7 +731,7 @@ public class Semantic {
 			}
 			else
 			{
-				v2.dim.add(1);
+				v2.dim.add(Integer.parseInt(v.value));
 				stack2.push(new Record(v2,3));
 					
 			}
@@ -761,6 +773,76 @@ public class Semantic {
 		}
 	}
 	
+	
+	// below action is for code generation
+	/*after a class definition*/
+	public void a33()
+	{
+		if (!this.checkError(1))
+		{
+			Cla cla=(Cla)stack2.top().o;
+			this.codeGenerater.defineClass(cla);
+		}
+	}
+	
+	/*aftet function definition*/
+	public void a34()
+	{
+		if (!this.checkError(1))
+		{
+			Func f=(Func)stack2.top().o;
+			this.codeGenerater.defineFunc(f);
+		}
+	}
+	
+	/*after variable definition*/
+	public void a35()
+	{
+		if (!this.checkError(1))
+		{
+			Var v=(Var)stack2.top().o;
+			if (inMain())
+			{
+				this.codeGenerater.defineVariable(v);
+			}
+				
+		}
+	}
+	
+	//after gets
+	public void a36()
+	{
+		
+		if (!this.checkError(1))
+		{
+			Var v=(Var)stack2.top().o;
+			if (v.isCons==1)
+			{
+				this.popN(1);
+				this.addError(13);
+				this.writeError("constant is forbidden. lcation: "+v.t.row+","+v.t.col);
+				return;
+			}
+			if (this.codeGenerater!=null)
+			{
+				this.codeGenerater.getv(v);
+			}
+		}
+	}
+	
+	//after put
+	public void a37()
+	{
+		if (!this.checkError(1))
+		{
+			Var v=(Var)stack2.top().o;
+			if (this.codeGenerater!=null)
+			{
+				this.codeGenerater.putv(v);
+			}
+		}
+	}
+	
 	public void unary()
 	{
 		if (!this.checkError(2))
@@ -777,6 +859,24 @@ public class Semantic {
 				v.dtype=num.dtype;
 			}
 			this.popN(2);
+			if (num.isCons==1)
+			{
+				v.isCons=1;
+				if (t.value.equals("+"))
+					v.value=num.value;
+				else if (t.value.equals("-"))
+				{
+					if (isFloat(num))
+					v.value=Double.toString((Double.parseDouble(num.value)*(-1)));
+					else if (isInt(num))
+					v.value=Integer.toString((Integer.parseInt(num.value)*(-1)));
+				}
+				else if (t.value.equals("not"))
+					v.value=Integer.toString(not(Integer.parseInt(num.value)));
+			}
+			else
+				this.codeGenerater.unary(v, num,t);
+			
 			stack2.push(new Record(v,3));
 			v.t=t;
 		}
@@ -808,6 +908,44 @@ public class Semantic {
 			}
 			this.popN(3);
 			v.t=num1.t;
+			if (num1.isCons==1&&num2.isCons==1)
+			{
+				v.isCons=1;
+				double value1=Double.parseDouble(num1.value);
+				double value2=Double.parseDouble(num2.value);
+				double value3 = 0;
+				if (t.value.equals("+"))
+					value3=value1+value2;
+				if (t.value.equals("-"))
+					value3=value1-value2;
+				if (t.value.equals("*"))
+					value3=value1*value2;
+				if (t.value.equals("/"))
+					value3=value1/value2;
+				if (t.value.equals(">"))
+					value3=value1>value2?1:0;
+				if (t.value.equals("<"))
+					value3=value1<value2?1:0;
+				if (t.value.equals(">="))
+					value3=value1>=value2?1:0;
+				if (t.value.equals("<="))
+					value3=value1<=value2?1:0;
+				if (t.value.equals("=="))
+					value3=value1==value2?1:0;
+				if (isInt(v))
+				{
+					v.value=Integer.toString((int)value3);
+				}
+				else
+				{
+					v.value=Double.toString(value3);
+				}
+				
+			}
+			else
+			{
+				this.codeGenerater.binary(v, num1, num2, t);
+			}
 			stack2.push(new Record(v,3));
 		}
 		else
@@ -949,6 +1087,18 @@ public class Semantic {
 	public boolean isArray(Var v)
 	{
 		return v.isArray;
+	}
+	
+	public boolean inMain()
+	{
+		return stack2.get(1).type==0;
+	}
+	
+	public int not(int k)
+	{
+		if (k>0)
+			return 0;
+		else return 1;
 	}
 }
 

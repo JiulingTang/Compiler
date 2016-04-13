@@ -1,34 +1,31 @@
-class c1
-{
-	int a[2][3][4][5][1][2];
-};
-class c2
-{
-	c1 a[2][3];
-	int b;
-};
 program
 {
 	int a;
 	int b;
 	int c;
 	int d;
-	c2 e;
-	c2 f[2][3];
-	get(e.b);
-	get(e.a[0][0].a[1][0][0][0][0][0]);
+	a=1;
+	b=0;
+	c=1;
+	d=0;
+	put(a or b);
+	put(a and 1);
+	put(not c);
+	put(a and d);
 	get(a);
-	put(a);
+	a=a-48;
 	get(b);
-	put(b);
+	b=b-48;
 	get(c);
-	put(c);
+	c=c-48;
 	get(d);
+	d=d-48;
+	put(a>=b);
+	put(a<c);
+	put(a+b);
+	put(2.0<3.0);
+	put(2<a);
+	d=a-1;
 	put(d);
-	a=b+c-d;
-	c=b*d;
-	d=f[1][2].b+c*f[1][2].a[0][2].a[1][1][1][1][1][1];
-	a=2+3*4;
-	put(a);
-	put(c);
+	put(a*b+2>c-d);
 };

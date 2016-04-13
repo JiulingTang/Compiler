@@ -430,7 +430,8 @@ public class SyntacticalAnalyzer {
 					//System.out.println(t.col+" "+t.row);
 					sb=find(t);
 				
-				
+
+					
 			}
 			else if (tTable[top][sb]!=null)
 			{

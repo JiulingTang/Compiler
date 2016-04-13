@@ -12,6 +12,7 @@ import SemanticStructrue.Func;
 import SemanticStructrue.Identifier;
 import SemanticStructrue.Location;
 import SemanticStructrue.Var;
+import SyntacticAnalyzer.Stack;
 import Token.Token;
 
 public class CodeGenerater {
@@ -23,6 +24,8 @@ public class CodeGenerater {
 	public HashSet<String> lableSet;
 	public String fileName="code.txt";
 	public FileWriter eout;
+	public Stack<String> elseStack;
+	public Stack<String> endIfStack;
 	public CodeGenerater()
 	{
 		defCode="";
@@ -228,6 +231,41 @@ public class CodeGenerater {
 		return "or R"+k1+",R"+k2+",R"+k3+"\r\n";
 	}
 	
+	public String noti(int k1,int i)
+	{
+		return "noti "+"R"+k1+","+i;
+	}
+	
+	public String andi(int k1,int k2,int i)
+	{
+		return "andi"+" R"+k1+",R"+k2+","+i+"\r\n"; 
+	}
+	
+	public String ori(int k1,int k2,int i)
+	{
+		return "ori"+" R"+k1+",R"+k2+","+i+"\r\n";
+	}
+	
+	public String cgt(int k1,int k2,int k3)
+	{
+		return "cgt R"+k1+",R"+k2+",R"+k3+"\r\n";
+	}
+	
+	public String cgti(int k1,int k2,int i)
+	{
+		return "cgti R"+k1+",R"+k2+","+i+"\r\n"; 
+	}
+	
+	public String cge(int k1,int k2,int k3)
+	{
+		return "cge R"+k1+",R"+k2+",R"+k3+"\r\n";
+	}
+	
+	public String cgei(int k1,int k2,int i)
+	{
+		return "cgei R"+k1+",R"+k2+","+i+"\r\n"; 
+	}
+	
 	public String load(int k1,Location l)
 	{
 		if (l.offset==0)
@@ -241,11 +279,6 @@ public class CodeGenerater {
 			return r;
 		}
 			
-	}
-	
-	public String larger(Location l1,Location l2 )
-	{
-		return null;
 	}
 	
 	public String carry(Location l,int k1)
@@ -466,14 +499,12 @@ public class CodeGenerater {
 		return tmp;
 	}
 	
-	public Location andl(Location l1,Location l2)
+	public Location andll(Location l1,Location l2)
 	{
-		return notl(orl(l1,l2));
-				
-				
+		return notl(orll(notl(l1),notl(l2)));		
 	}
 	
-	public Location orl(Location l1,Location l2)
+	public Location orll(Location l1,Location l2)
 	{
 		Location tmp=this.nextTmp();
 		String lable=this.nextLabel();
@@ -492,6 +523,119 @@ public class CodeGenerater {
 		return tmp;
 		
 	}
+	
+	public Location noti(int i)
+	{
+		Location tmp=this.nextTmp();
+		String lable=this.nextLabel();
+		String endLable=this.nextNotEndLable();
+		String r=""+
+				addi(1,0,i)+
+				"bz R1,"+lable+"\r\n"+
+				carry(tmp,0)+
+				"j "+endLable+"\r\n"+
+				lable+" "+addi(1,0,1)+
+				carry(tmp,1)+
+				endLable+"\r\n";
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location andli(Location l1,int i)
+	{
+		return notl(orll(notl(l1),noti(i)));		
+	}
+	
+	public Location orli(Location l1,int i)
+	{
+		Location tmp=this.nextTmp();
+		String lable=this.nextLabel();
+		String endLable=this.nextOrEndLable();
+		String r=""+
+		load(1,l1)+
+		addi(2,0,i)+
+		or(3,1,2)+
+		"bz R3,"+lable+"\r\n"+
+		lable+" "+addi(1,0,1)+
+		carry(tmp,1)+
+		"j "+endLable+"\r\n"+
+		carry(tmp,0)+
+		endLable+"\r\n";
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location greaterll(Location l1,Location l2)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		load(2,l2)+
+		cgt(3,1,2)+
+		carry(tmp,3);
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location greaterli(Location l1,int i)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		cgti(2,1,i)+
+		carry(tmp,2);
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location greaterEqll(Location l1,Location l2)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		load(2,l2)+
+		cge(3,1,2)+
+		carry(tmp,3);
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location greaterEqli(Location l1,int i)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		cgei(2,1,i)+
+		carry(tmp,2);
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location greaterli2(int i,Location l1)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		addi(1,0,i)+
+		load(2,l1)+
+		cgt(3,1,2)+
+		carry(tmp,3);
+		this.writeCode(r);
+		return tmp;
+		
+	}
+	
+	public Location greaterEqli2(int i,Location l1)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		addi(1,0,i)+
+		load(2,l1)+
+		cge(3,1,2)+
+		carry(tmp,3);
+		this.writeCode(r);
+		return tmp;
+	}
+	
 	public void assign(Var num1,Var num2)
 	{
 		if (num2.isCons==1)
@@ -533,7 +677,19 @@ public class CodeGenerater {
 	
 	public void unary(Var v,Var num,Token t)
 	{
-		
+		Location l = null;
+		if (num.isCons==1)
+		{
+			if (t.value.equals("not"))
+				l=this.noti(Integer.parseInt(t.value));
+		}
+		else
+		{
+			if (t.value.equals("not"))
+				l=this.notl(num.location);
+		}
+			
+		v.location=l;
 	}
 	
 	public void binary(Var v,Var num1,Var num2,Token t)
@@ -552,6 +708,18 @@ public class CodeGenerater {
 				location=this.mulli(num1.location, Integer.parseInt(num2.value));
 			else if (t.value.equals("/"))
 				location=this.divli(num1.location, Integer.parseInt(num2.value));
+			else if (t.value.equals(">"))
+				location=this.greaterli(num1.location, Integer.parseInt(num2.value));
+			else if (t.value.equals(">="))
+				location=this.greaterEqli(num1.location, Integer.parseInt(num2.value));
+			else if (t.value.equals("<"))
+				location=this.greaterli2(Integer.parseInt(num2.value), num1.location);
+			else if (t.value.equals("<="))
+				location=this.greaterEqli2(Integer.parseInt(num2.value), num1.location);
+			else if (t.value.equals("or"))
+				location=this.orli(num1.location, Integer.parseInt(num2.value));
+			else if (t.value.equals("and"))
+				location=this.andli(num1.location, Integer.parseInt(num2.value));
 		}
 		else 
 		if (num1.isCons==1)
@@ -564,6 +732,18 @@ public class CodeGenerater {
 				location=this.mulli(num2.location, Integer.parseInt(num1.value));
 			else if (t.value.equals("/"))
 				location=this.divli2(Integer.parseInt(num1.value),num2.location);
+			else if (t.value.equals("<"))
+				location=this.greaterli(num2.location, Integer.parseInt(num1.value));
+			else if (t.value.equals("<="))
+				location=this.greaterEqli(num2.location, Integer.parseInt(num1.value));
+			else if (t.value.equals(">"))
+				location=this.greaterli2(Integer.parseInt(num1.value), num2.location);
+			else if (t.value.equals(">="))
+				location=this.greaterEqli2(Integer.parseInt(num1.value), num2.location);
+			else if (t.value.equals("or"))
+				location=this.orli(num2.location, Integer.parseInt(num1.value));
+			else if (t.value.equals("and"))
+				location=this.andli(num2.location, Integer.parseInt(num1.value));
 		}
 		else 
 		{
@@ -575,6 +755,18 @@ public class CodeGenerater {
 				location=this.mulll(num1.location, num2.location);
 			else if (t.value.equals("/"))
 				location=this.divll(num1.location, num2.location);
+			else if (t.value.equals(">"))
+				location=this.greaterll(num1.location, num2.location);
+			else if (t.value.equals(">="))
+				location=this.greaterEqll(num1.location, num2.location);
+			else if (t.value.equals("<"))
+				location=this.greaterll(num2.location, num1.location);
+			else if (t.value.equals("<="))
+				location=this.greaterEqll(num2.location, num1.location);
+			else if (t.value.equals("or"))
+				location=this.orll(num1.location, num2.location);
+			else if (t.value.equals("and"))
+				location=this.andll(num1.location, num2.location);
 			
 		}
 		v.location=location;
@@ -752,5 +944,79 @@ public class CodeGenerater {
 		return tname;
 	}
 	
+	public String nextElseLable()
+	{
+		int i;
+		String tname=null;
+		for ( i=0;;i++)
+		{
+			tname="else"+i;
+			if (!this.symbolSet.contains(tname))
+			{
+				this.symbolSet.add(tname);
+				break;
+			}
+		}
+		return tname;
+	}
+	public String nextEndIfLable()
+	{
+		int i;
+		String tname=null;
+		for ( i=0;;i++)
+		{
+			tname="endif"+i;
+			if (!this.symbolSet.contains(tname))
+			{
+				this.symbolSet.add(tname);
+				break;
+			}
+		}
+		return tname;
+	}
 	
+	public void ifState(Var v)
+	{
+		String r="";
+		String endLable=this.nextEndIfLable();
+		String elseLable=this.nextElseLable();
+		elseStack.push(elseLable);
+		endIfStack.push(endLable);
+	}
+	
+	public void elseAct()
+	{
+		String endLable=this.endIfStack.top();
+		String elseLable=this.elseStack.top();
+		String r=""+
+		"j "+endLable+"\r\n"+
+		elseLable+" ";
+		this.writeCode(r);
+		this.elseStack.pop();
+		
+		
+	}
+	
+	public void endIf()
+	{
+		String endLable=this.endIfStack.top();
+		String r=""+
+		endLable+" ";
+		this.writeCode(r);
+		this.endIfStack.pop();
+	}	
+	
+	public void then(Var v)
+	{
+		String elseLable=this.elseStack.top();
+		String r="";
+		if (v.isCons==1)
+		r=r+
+		addi(1,0,Integer.parseInt(v.value))+"\r\n";
+		else
+		r=r+load(1,v.location);
+		r=r+
+		"bz R1,"+elseLable+"\r\n";
+		this.writeCode(r);
+	}
 }

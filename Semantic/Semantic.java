@@ -922,16 +922,6 @@ public class Semantic {
 					value3=value1*value2;
 				if (t.value.equals("/"))
 					value3=value1/value2;
-				if (t.value.equals(">"))
-					value3=value1>value2?1:0;
-				if (t.value.equals("<"))
-					value3=value1<value2?1:0;
-				if (t.value.equals(">="))
-					value3=value1>=value2?1:0;
-				if (t.value.equals("<="))
-					value3=value1<=value2?1:0;
-				if (t.value.equals("=="))
-					value3=value1==value2?1:0;
 				if (isInt(v))
 				{
 					v.value=Integer.toString((int)value3);
@@ -940,6 +930,23 @@ public class Semantic {
 				{
 					v.value=Double.toString(value3);
 				}
+				int value4 = 0;
+				if (t.value.equals(">"))
+					value4=value1>value2?1:0;
+				if (t.value.equals("<"))
+					value4=value1<value2?1:0;
+				if (t.value.equals(">="))
+					value4=value1>=value2?1:0;
+				if (t.value.equals("<="))
+					value4=value1<=value2?1:0;
+				if (t.value.equals("=="))
+					value4=value1==value2?1:0;
+				if (t.value.equals("and"))
+					value4=and((int)value1,(int)value2);
+				if (t.value.equals("or"))
+					value4=or((int)value1,(int)value2);
+				v.value=Integer.toString(value4);
+				
 				
 			}
 			else
@@ -1099,6 +1106,22 @@ public class Semantic {
 		if (k>0)
 			return 0;
 		else return 1;
+	}
+	
+	public int or(int k1,int k2 )
+	{
+		if (k1>0||k2>0)
+			return 1;
+		else
+			return 0;
+	}	
+	
+	public int and(int k1,int k2)
+	{
+		if (k1>0&&k2>0)
+			return 1;
+		else
+			return 0;
 	}
 }
 

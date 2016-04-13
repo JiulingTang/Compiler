@@ -215,7 +215,17 @@ public class CodeGenerater {
 	
 	public String not(int k1,int k2)
 	{
-		return "not R"+k1+"R"+k2;
+		return "not R"+k1+",R"+k2+"\r\n";
+	}
+	
+	public String and(int k1,int k2,int k3)
+	{
+		return "and R"+k1+",R"+k2+",R"+k3+"\r\n";
+	}
+	
+	public String or(int k1,int k2,int k3)
+	{
+		return "or R"+k1+",R"+k2+",R"+k3+"\r\n";
 	}
 	
 	public String load(int k1,Location l)
@@ -231,6 +241,11 @@ public class CodeGenerater {
 			return r;
 		}
 			
+	}
+	
+	public String larger(Location l1,Location l2 )
+	{
+		return null;
 	}
 	
 	public String carry(Location l,int k1)
@@ -441,7 +456,7 @@ public class CodeGenerater {
 		String endLable=this.nextNotEndLable();
 		String r=""+
 				load (1,l)+
-				"bnz R1,"+lable+"\r\n"+
+				"bz R1,"+lable+"\r\n"+
 				carry(tmp,0)+
 				"j "+endLable+"\r\n"+
 				lable+" "+addi(1,0,1)+
@@ -451,8 +466,32 @@ public class CodeGenerater {
 		return tmp;
 	}
 	
+	public Location andl(Location l1,Location l2)
+	{
+		return notl(orl(l1,l2));
+				
+				
+	}
 	
-	
+	public Location orl(Location l1,Location l2)
+	{
+		Location tmp=this.nextTmp();
+		String lable=this.nextLabel();
+		String endLable=this.nextOrEndLable();
+		String r=""+
+		load(1,l1)+
+		load(2,l2)+
+		or(3,1,2)+
+		"bz R3,"+lable+"\r\n"+
+		lable+" "+addi(1,0,1)+
+		carry(tmp,1)+
+		"j "+endLable+"\r\n"+
+		carry(tmp,0)+
+		endLable+"\r\n";
+		this.writeCode(r);
+		return tmp;
+		
+	}
 	public void assign(Var num1,Var num2)
 	{
 		if (num2.isCons==1)

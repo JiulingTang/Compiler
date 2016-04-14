@@ -20,6 +20,14 @@ Global:
 				1
 				0
 			}
+			e
+			{
+				dimention: 2
+				type£º int
+				location in generated code: e
+				9
+				0
+			}
 			d
 			{
 				type£º int

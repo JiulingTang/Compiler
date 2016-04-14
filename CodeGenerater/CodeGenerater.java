@@ -26,6 +26,8 @@ public class CodeGenerater {
 	public FileWriter eout;
 	public Stack<String> elseStack;
 	public Stack<String> endIfStack;
+	public Stack<String> forStack;
+	public Stack<String> endforStack;
 	public CodeGenerater()
 	{
 		defCode="";
@@ -33,8 +35,12 @@ public class CodeGenerater {
 		mainCode="";
 		symbolSet=new HashSet();
 		tmpSymbolSet=new HashSet();
+		symbolSet.add("j");
+		symbolSet.add("dw");
 		this.elseStack=new Stack<String>();
 		this.endIfStack=new Stack<String>();
+		this.forStack=new Stack<String>();
+		this.endforStack=new Stack<String>();
 		try {
 			eout=new FileWriter(new File(fileName));
 		} catch (IOException e) {
@@ -77,7 +83,7 @@ public class CodeGenerater {
 		}
 		else
 		{
-			ndf=s+" ref "+size;
+			ndf=s+" res "+4*size;
 		}
 		this.writeDef(ndf);
 	}
@@ -276,7 +282,7 @@ public class CodeGenerater {
 		{
 			String r="";
 			r=r+
-			  addi(10,0,l.offset)+
+			  addi(10,0,4*l.offset)+
 			  lw(k1,l.startLable,10);
 			return r;
 		}
@@ -292,7 +298,7 @@ public class CodeGenerater {
 		{
 			String r="";
 			r=r+
-			  addi(10,0,l.offset)+
+			  addi(10,0,4*l.offset)+
 			  sw(10,l.startLable,k1);
 			return r;
 		}
@@ -1021,4 +1027,76 @@ public class CodeGenerater {
 		"bz R1,"+elseLable+"\r\n";
 		this.writeCode(r);
 	}
+	
+	public String nextForLable()
+	{
+		int i;
+		String tname=null;
+		for ( i=0;;i++)
+		{
+			tname="for"+i;
+			if (!this.symbolSet.contains(tname))
+			{
+				this.symbolSet.add(tname);
+				break;
+			}
+		}
+		return tname;
+	}
+	
+	public String nextEndForLable()
+	{
+		int i;
+		String tname=null;
+		for ( i=0;;i++)
+		{
+			tname="endfor"+i;
+			if (!this.symbolSet.contains(tname))
+			{
+				this.symbolSet.add(tname);
+				break;
+			}
+		}
+		return tname;
+	}
+	
+	public void forStart()
+	{
+		String forlable=this.nextForLable();
+		String endLable=this.nextAndEndLable();
+		this.forStack.push(forlable);
+		this.endforStack.push(endLable);
+		String r=forlable+" ";
+		this.writeCode(r);
+	}
+	
+	public void checkFor(Var v)
+	{
+		String r = null;
+		String endLable=this.endforStack.top();
+		if (v.isCons==1)
+			r=""+
+			addi(1,0,Integer.parseInt(v.value))+"\r\n"+
+			"bz R1,"+endLable+"\r\n";
+		else
+			r=""+
+			load(1,v.location)+
+			"bz R1,"+endLable+"\r\n";
+		this.writeCode(r);
+	}
+	
+	public void endFor()
+	{
+		String forLable=this.forStack.top();
+		String endLable=this.endforStack.top();
+		String r=null;
+		r=""+
+		"j "+forLable+"\r\n"+
+		endLable+" ";
+		this.writeCode(r);
+		this.forStack.pop();
+		this.endforStack.pop();
+	}
+	
+	
 }

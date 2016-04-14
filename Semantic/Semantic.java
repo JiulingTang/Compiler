@@ -875,6 +875,35 @@ public class Semantic {
 		this.codeGenerater.endIf();
 	}
 	
+	//for begin
+	public void a42()
+	{
+		
+		this.codeGenerater.forStart();
+	}
+	
+	//for loop check condition
+	public void a43()
+	{
+		if (!checkError(1))
+		{
+			Var v=(Var)stack2.top().o;
+			if (!isInt(v))
+			{
+				this.writeError("Need int. location: "+v.t.row+","+v.t.col);
+				this.popN(1);
+				this.addError(13);
+			}
+			this.codeGenerater.checkFor(v);
+		}
+
+	}
+	
+	//end for
+	public void a44()
+	{
+		this.codeGenerater.endFor();
+	}
 	
 	public void unary()
 	{

@@ -1,5 +1,194 @@
 Global:
 {
+	class2
+	{
+		type:class
+		symbolTable
+		{
+			b
+			{
+				type£º int
+				location in generated code: b4
+				1
+				0
+			}
+			a
+			{
+				dimention: 2
+				type£º int
+				location in generated code: a5
+				4
+				1
+			}
+		}
+		
+	}
+	SUB
+	{
+		lable in generated codetype:function
+		parameter:
+		{
+			type£º int
+			location in generated code: a3
+			1
+			0
+		}
+		{
+			type£º int
+			location in generated code: b3
+			1
+			0
+		}
+		return:
+		{
+			type£º int
+			location in generated code: ret3
+			1
+			0
+		}
+		symbolTable:
+		{
+			b
+			{
+				type£º int
+				location in generated code: b3
+				1
+				0
+			}
+			a
+			{
+				type£º int
+				location in generated code: a3
+				1
+				0
+			}
+			c
+			{
+				type£º int
+				location in generated code: c3
+				1
+				0
+			}
+		}
+		
+	}
+	class1
+	{
+		type:class
+		symbolTable
+		{
+			a
+			{
+				type£º class2
+				location in generated code: a4
+				5
+				0
+			}
+		}
+		
+	}
+	sum
+	{
+		lable in generated codetype:function
+		parameter:
+		{
+			type£º int
+			location in generated code: h
+			1
+			0
+		}
+		{
+			type£º int
+			location in generated code: b2
+			1
+			0
+		}
+		return:
+		{
+			type£º int
+			location in generated code: ret1
+			1
+			0
+		}
+		symbolTable:
+		{
+			b
+			{
+				type£º int
+				location in generated code: b2
+				1
+				0
+			}
+			h
+			{
+				type£º int
+				location in generated code: h
+				1
+				0
+			}
+		}
+		
+	}
+	f
+	{
+		lable in generated codetype:function
+		parameter:
+		{
+			dimention: 2
+			type£º int
+			location in generated code: d1
+			4
+			0
+		}
+		return:
+		{
+			type£º int
+			location in generated code: ret
+			1
+			0
+		}
+		symbolTable:
+		{
+			d
+			{
+				dimention: 2
+				type£º int
+				location in generated code: d1
+				4
+				0
+			}
+		}
+		
+	}
+	inc
+	{
+		lable in generated codetype:function
+		parameter:
+		{
+			type£º int
+			location in generated code: p1
+			1
+			0
+		}
+		return:
+		{
+			type£º int
+			location in generated code: ret2
+			1
+			0
+		}
+		symbolTable:
+		{
+			p
+			{
+				type£º int
+				location in generated code: p1
+				1
+				0
+			}
+		}
+		
+	}
 	Main
 	{
 		type:function
@@ -9,36 +198,43 @@ Global:
 			b
 			{
 				type£º int
-				location in generated code: b
+				location in generated code: b5
 				1
 				0
 			}
 			a
 			{
 				type£º int
-				location in generated code: a
+				location in generated code: a6
 				1
+				0
+			}
+			p
+			{
+				type£º class1
+				location in generated code: p2
+				5
 				0
 			}
 			e
 			{
 				dimention: 2
 				type£º int
-				location in generated code: e
-				9
+				location in generated code: e1
+				4
 				0
 			}
 			d
 			{
 				type£º int
-				location in generated code: d
+				location in generated code: d2
 				1
 				0
 			}
 			c
 			{
 				type£º int
-				location in generated code: c
+				location in generated code: c2
 				1
 				0
 			}

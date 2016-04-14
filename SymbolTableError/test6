@@ -1,0 +1,23 @@
+"add"has been defined. location: 18,9
+"add"has been defined. location: 40,11
+"r1"has been defined. location: 57,9
+"r2"has been defined. location: 58,9
+"r3"has been defined. location: 59,9
+"r4"has been defined. location: 60,9
+"add"has been defined. location: 18,9
+Variable a is not defined. location: 20,17
+Variable b is not defined. location: 20,19
+return type don't match, location: 27,17
+"add"has been defined. location: 40,11
+Variable a is not defined. location: 42,17
+Variable b is not defined. location: 42,19
+Type do not match for operator =, need int or float. location£º64, 7
+parameter number not match. location: 65,19
+parameter type not match. location: 66,19
+parameter number not match. location: 67,11
+parameter number not match. location: 68,11
+Dimension of variable do not match type. location: 69,20
+Type do not match for operator or, need int. location£º70, 11
+Type do not match for operator not, need int. location£º71, 12
+Type do not match for operator and, need int. location£º72, 11
+Type do not match for operator =, need int or float. location£º73, 7

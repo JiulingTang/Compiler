@@ -1,0 +1,9 @@
+"b1"has been defined. location: 68,9
+Need int. location: 13,13
+return type don't match, location: 23,19
+Type do not match for operator +, need int or float. location£º37, 12
+Type do not match for operator +, need int or float. location£º53, 20
+No type flot. location: 70,10
+parameter type not match. location: 76,11
+Type do not match for operator or, need int. location£º77, 45
+Variable sub is not defined. location: 77,61

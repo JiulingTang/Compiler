@@ -1,22 +1,50 @@
-a dw 0
+a res 0
+a1 res 16
 b dw 0
+a2 dw 0
+b1 dw 0
 c dw 0
 d dw 0
-e res 36
+e res 16
+p res 20
+i dw 0
+i1 dw 0
+j1 dw 0
+d1 res 16
+ret dw 0
+h dw 0
+b2 dw 0
+ret1 dw 0
+p1 dw 0
+ret2 dw 0
+a3 dw 0
+b3 dw 0
+ret3 dw 0
+c1 dw 0
+a4 res 20
+a5 res 16
+b4 dw 0
+a6 dw 0
+b5 dw 0
+c2 dw 0
+d2 dw 0
+e1 res 16
+p2 res 20
 tmp0 dw 0
 tmp1 dw 0
-i dw 0
 tmp2 dw 0
+i2 dw 0
 tmp3 dw 0
-j1 dw 0
 tmp4 dw 0
 tmp5 dw 0
 tmp6 dw 0
 tmp7 dw 0
 tmp8 dw 0
 tmp9 dw 0
+i3 dw 0
 tmp10 dw 0
 tmp11 dw 0
+j2 dw 0
 tmp12 dw 0
 tmp13 dw 0
 tmp14 dw 0
@@ -38,274 +66,402 @@ tmp29 dw 0
 tmp30 dw 0
 tmp31 dw 0
 tmp32 dw 0
+tmp33 dw 0
+tmp34 dw 0
+tmp35 dw 0
+tmp36 dw 0
+tmp37 dw 0
+tmp38 dw 0
+tmp39 dw 0
+tmp40 dw 0
+tmp41 dw 0
+tmp42 dw 0
+c3 dw 0
+tmp43 dw 0
 entry
-addi R1,R0,0
-sw a(R0),R1
+addi R1,R0,10
+sw a6(R0),R1
+addi R1,R0,20
+sw b5(R0),R1
+addi R1,R0,30
+sw c2(R0),R1
 addi R1,R0,1
-sw b(R0),R1
+sw d2(R0),R1
 addi R1,R0,0
-sw c(R0),R1
-addi R1,R0,0
-sw d(R0),R1
-sub R1,R1,R1
-lw R1,e(R0)
-putc R1
-lw R1,a(R0)
-lw R2,b(R0)
-cgt R3,R1,R2
-sw tmp0(R0),R3
-lw R1,tmp0(R0)
-bz R1,else0
-lw R1,d(R0)
-lw R2,c(R0)
-cge R3,R1,R2
-sw tmp1(R0),R3
-lw R1,tmp1(R0)
-bz R1,else1
-sub R1,R1,R1
-lw R1,c(R0)
-putc R1
-j endif1
-else1 sub R1,R1,R1
-lw R1,d(R0)
-putc R1
-endif1 j endif0
-else0 sub R1,R1,R1
-lw R1,a(R0)
-putc R1
-endif0 addi R1,R0,3
-sw e(R0),R1
-addi R1,R0,1
 addi R10,R0,4
-sw e(R10),R1
+sw p2(R10),R1
+addi R1,R0,1
+addi R10,R0,8
+sw p2(R10),R1
 addi R1,R0,1
 addi R10,R0,12
-sw e(R10),R1
+sw p2(R10),R1
 addi R1,R0,2
 addi R10,R0,16
-sw e(R10),R1
-sub R1,R1,R1
-lw R1,c(R0)
-putc R1
-addi R1,R0,0
-sw i(R0),R1
-for0 addi R1,R0,10
-lw R2,i(R0)
-cgt R3,R1,R2
+sw p2(R10),R1
+addi R10,R0,4
+lw R1,p2(R10)
+addi R10,R0,8
+lw R2,p2(R10)
+add R3,R1,R2
+sw tmp0(R0),R3
+lw R1,tmp0(R0)
+addi R10,R0,12
+lw R2,p2(R10)
+add R3,R1,R2
+sw tmp1(R0),R3
+lw R1,tmp1(R0)
+addi R10,R0,16
+lw R2,p2(R10)
+add R3,R1,R2
 sw tmp2(R0),R3
 lw R1,tmp2(R0)
-bz R1,endAnd0
-lw R1,i(R0)
-addi R2,R1,1
-sw tmp3(R0),R2
-lw R1,tmp3(R0)
-sw i(R0),R1
+sw p2(R0),R1
+addi R1,R0,3
+sw e1(R0),R1
+addi R1,R0,1
+addi R10,R0,4
+sw e1(R10),R1
+addi R1,R0,1
+addi R10,R0,8
+sw e1(R10),R1
+addi R1,R0,2
+addi R10,R0,12
+sw e1(R10),R1
+lw R1,e1(R0)
+sw d1(R0),R1
+addi R10,R0,4
+lw R1,e1(R10)
+addi R10,R0,4
+sw d1(R10),R1
+addi R10,R0,8
+lw R1,e1(R10)
+addi R10,R0,8
+sw d1(R10),R1
+addi R10,R0,12
+lw R1,e1(R10)
+addi R10,R0,12
+sw d1(R10),R1
+jl R15,f
+sub R1,R1,R1
+lw R1,ret(R0)
+putc R1
 addi R1,R0,0
-sw j1(R0),R1
-for1 addi R1,R0,9
-lw R2,j1(R0)
-cge R3,R1,R2
-sw tmp4(R0),R3
+sw i2(R0),R1
+for0 addi R1,R0,100
+lw R2,i2(R0)
+cgt R3,R1,R2
+sw tmp3(R0),R3
+lw R1,tmp3(R0)
+bz R1,endAnd0
+lw R1,i2(R0)
+addi R2,R1,1
+sw tmp4(R0),R2
 lw R1,tmp4(R0)
-bz R1,endAnd1
-lw R1,j1(R0)
+sw i2(R0),R1
+lw R1,d2(R0)
 addi R2,R1,1
 sw tmp5(R0),R2
 lw R1,tmp5(R0)
-sw j1(R0),R1
-lw R1,i(R0)
-subi R2,R1,1
-sw tmp6(R0),R2
+sw d2(R0),R1
+j for0
+endAnd0 sub R1,R1,R1
+lw R1,d2(R0)
+putc R1
+lw R1,a6(R0)
+lw R2,b5(R0)
+mul R3,R1,R2
+sw tmp6(R0),R3
 lw R1,tmp6(R0)
-muli R2,R1,10
-sw tmp7(R0),R2
-lw R1,a(R0)
-lw R2,tmp7(R0)
-add R3,R1,R2
+lw R2,d2(R0)
+div R3,R1,R2
+sw tmp7(R0),R3
+lw R1,tmp7(R0)
+sw a3(R0),R1
+lw R1,d2(R0)
+sw b3(R0),R1
+jl R15,SUB
+sub R1,R1,R1
+lw R1,ret3(R0)
+putc R1
+lw R1,a6(R0)
+lw R2,b5(R0)
+cgt R3,R1,R2
 sw tmp8(R0),R3
 lw R1,tmp8(R0)
-lw R2,j1(R0)
-add R3,R1,R2
+bz R1,else0
+lw R1,d2(R0)
+lw R2,c2(R0)
+cge R3,R1,R2
 sw tmp9(R0),R3
 lw R1,tmp9(R0)
-sw a(R0),R1
-j for1
-endAnd1 j for0
-endAnd0 sub R1,R1,R1
-lw R1,a(R0)
+bz R1,else1
+sub R1,R1,R1
+lw R1,c2(R0)
 putc R1
-lw R1,a(R0)
-lw R2,b(R0)
+j endif1
+else1 sub R1,R1,R1
+lw R1,d2(R0)
+putc R1
+endif1 j endif0
+else0 sub R1,R1,R1
+lw R1,a6(R0)
+putc R1
+endif0 sub R1,R1,R1
+lw R1,c2(R0)
+putc R1
+addi R1,R0,0
+sw i3(R0),R1
+for1 addi R1,R0,10
+lw R2,i3(R0)
+cgt R3,R1,R2
+sw tmp10(R0),R3
+lw R1,tmp10(R0)
+bz R1,endAnd1
+lw R1,i3(R0)
+addi R2,R1,1
+sw tmp11(R0),R2
+lw R1,tmp11(R0)
+sw i3(R0),R1
+addi R1,R0,0
+sw j2(R0),R1
+for2 addi R1,R0,9
+lw R2,j2(R0)
+cge R3,R1,R2
+sw tmp12(R0),R3
+lw R1,tmp12(R0)
+bz R1,endAnd2
+lw R1,j2(R0)
+addi R2,R1,1
+sw tmp13(R0),R2
+lw R1,tmp13(R0)
+sw j2(R0),R1
+lw R1,i3(R0)
+subi R2,R1,1
+sw tmp14(R0),R2
+lw R1,tmp14(R0)
+muli R2,R1,10
+sw tmp15(R0),R2
+lw R1,a6(R0)
+lw R2,tmp15(R0)
+add R3,R1,R2
+sw tmp16(R0),R3
+lw R1,tmp16(R0)
+lw R2,j2(R0)
+add R3,R1,R2
+sw tmp17(R0),R3
+lw R1,tmp17(R0)
+sw a6(R0),R1
+j for2
+endAnd2 j for1
+endAnd1 sub R1,R1,R1
+lw R1,a6(R0)
+putc R1
+lw R1,a6(R0)
+lw R2,b5(R0)
 or R3,R1,R2
 bz R3,lable0
-lable0 addi R1,R0,1
-sw tmp10(R0),R1
+addi R1,R0,1
+sw tmp18(R0),R1
 j endOr0
-sw tmp10(R0),R0
+lable0 sw tmp18(R0),R0
 endOr0
 sub R1,R1,R1
-lw R1,tmp10(R0)
+lw R1,tmp18(R0)
 putc R1
-lw R1,a(R0)
+lw R1,a6(R0)
 bz R1,lable1
-sw tmp11(R0),R0
+sw tmp19(R0),R0
 j endNot0
 lable1 addi R1,R0,1
-sw tmp11(R0),R1
+sw tmp19(R0),R1
 endNot0
 addi R1,R0,1
 bz R1,lable2
-sw tmp12(R0),R0
+sw tmp20(R0),R0
 j endNot1
 lable2 addi R1,R0,1
-sw tmp12(R0),R1
+sw tmp20(R0),R1
 endNot1
-lw R1,tmp11(R0)
-lw R2,tmp12(R0)
+lw R1,tmp19(R0)
+lw R2,tmp20(R0)
 or R3,R1,R2
 bz R3,lable3
-lable3 addi R1,R0,1
-sw tmp13(R0),R1
+addi R1,R0,1
+sw tmp21(R0),R1
 j endOr1
-sw tmp13(R0),R0
+lable3 sw tmp21(R0),R0
 endOr1
-lw R1,tmp13(R0)
+lw R1,tmp21(R0)
 bz R1,lable4
-sw tmp14(R0),R0
+sw tmp22(R0),R0
 j endNot2
 lable4 addi R1,R0,1
-sw tmp14(R0),R1
+sw tmp22(R0),R1
 endNot2
 sub R1,R1,R1
-lw R1,tmp14(R0)
+lw R1,tmp22(R0)
 putc R1
-lw R1,c(R0)
+lw R1,c2(R0)
 bz R1,lable5
-sw tmp15(R0),R0
+sw tmp23(R0),R0
 j endNot3
 lable5 addi R1,R0,1
-sw tmp15(R0),R1
+sw tmp23(R0),R1
 endNot3
 sub R1,R1,R1
-lw R1,tmp15(R0)
+lw R1,tmp23(R0)
 putc R1
-lw R1,a(R0)
+lw R1,a6(R0)
 bz R1,lable6
-sw tmp16(R0),R0
+sw tmp24(R0),R0
 j endNot4
 lable6 addi R1,R0,1
-sw tmp16(R0),R1
+sw tmp24(R0),R1
 endNot4
-lw R1,d(R0)
+lw R1,d2(R0)
 bz R1,lable7
-sw tmp17(R0),R0
+sw tmp25(R0),R0
 j endNot5
 lable7 addi R1,R0,1
-sw tmp17(R0),R1
+sw tmp25(R0),R1
 endNot5
-lw R1,tmp16(R0)
-lw R2,tmp17(R0)
+lw R1,tmp24(R0)
+lw R2,tmp25(R0)
 or R3,R1,R2
 bz R3,lable8
-lable8 addi R1,R0,1
-sw tmp18(R0),R1
+addi R1,R0,1
+sw tmp26(R0),R1
 j endOr2
-sw tmp18(R0),R0
+lable8 sw tmp26(R0),R0
 endOr2
-lw R1,tmp18(R0)
+lw R1,tmp26(R0)
 bz R1,lable9
-sw tmp19(R0),R0
+sw tmp27(R0),R0
 j endNot6
 lable9 addi R1,R0,1
-sw tmp19(R0),R1
+sw tmp27(R0),R1
 endNot6
-sub R1,R1,R1
-lw R1,tmp19(R0)
-putc R1
-sub R1,R1,R1
-getc R1
-sw a(R0),R1
-lw R1,a(R0)
-subi R2,R1,48
-sw tmp20(R0),R2
-lw R1,tmp20(R0)
-sw a(R0),R1
-sub R1,R1,R1
-getc R1
-sw b(R0),R1
-lw R1,b(R0)
-subi R2,R1,48
-sw tmp21(R0),R2
-lw R1,tmp21(R0)
-sw b(R0),R1
-sub R1,R1,R1
-getc R1
-sw c(R0),R1
-lw R1,c(R0)
-subi R2,R1,48
-sw tmp22(R0),R2
-lw R1,tmp22(R0)
-sw c(R0),R1
-sub R1,R1,R1
-getc R1
-sw d(R0),R1
-lw R1,d(R0)
-subi R2,R1,48
-sw tmp23(R0),R2
-lw R1,tmp23(R0)
-sw d(R0),R1
-lw R1,a(R0)
-lw R2,b(R0)
-cge R3,R1,R2
-sw tmp24(R0),R3
-sub R1,R1,R1
-lw R1,tmp24(R0)
-putc R1
-lw R1,c(R0)
-lw R2,a(R0)
-cgt R3,R1,R2
-sw tmp25(R0),R3
-sub R1,R1,R1
-lw R1,tmp25(R0)
-putc R1
-lw R1,a(R0)
-lw R2,b(R0)
-add R3,R1,R2
-sw tmp26(R0),R3
-sub R1,R1,R1
-lw R1,tmp26(R0)
-putc R1
-addi R1,R0,1
-putc R1
-lw R1,a(R0)
-cgti R2,R1,2
-sw tmp27(R0),R2
 sub R1,R1,R1
 lw R1,tmp27(R0)
 putc R1
-lw R1,a(R0)
-subi R2,R1,1
+sub R1,R1,R1
+getc R1
+sw a6(R0),R1
+lw R1,a6(R0)
+subi R2,R1,48
 sw tmp28(R0),R2
 lw R1,tmp28(R0)
-sw d(R0),R1
+sw a6(R0),R1
 sub R1,R1,R1
-lw R1,d(R0)
-putc R1
-lw R1,a(R0)
-lw R2,b(R0)
-mul R3,R1,R2
-sw tmp29(R0),R3
+getc R1
+sw b5(R0),R1
+lw R1,b5(R0)
+subi R2,R1,48
+sw tmp29(R0),R2
 lw R1,tmp29(R0)
-addi R2,R1,2
+sw b5(R0),R1
+sub R1,R1,R1
+getc R1
+sw c2(R0),R1
+lw R1,c2(R0)
+subi R2,R1,48
 sw tmp30(R0),R2
-lw R1,c(R0)
-lw R2,d(R0)
-sub R3,R1,R2
-sw tmp31(R0),R3
 lw R1,tmp30(R0)
-lw R2,tmp31(R0)
-cgt R3,R1,R2
+sw c2(R0),R1
+sub R1,R1,R1
+getc R1
+sw d2(R0),R1
+lw R1,d2(R0)
+subi R2,R1,48
+sw tmp31(R0),R2
+lw R1,tmp31(R0)
+sw d2(R0),R1
+lw R1,a6(R0)
+lw R2,b5(R0)
+cge R3,R1,R2
 sw tmp32(R0),R3
 sub R1,R1,R1
 lw R1,tmp32(R0)
 putc R1
+lw R1,c2(R0)
+lw R2,a6(R0)
+cgt R3,R1,R2
+sw tmp33(R0),R3
+sub R1,R1,R1
+lw R1,tmp33(R0)
+putc R1
+lw R1,a6(R0)
+lw R2,b5(R0)
+add R3,R1,R2
+sw tmp34(R0),R3
+sub R1,R1,R1
+lw R1,tmp34(R0)
+putc R1
+addi R1,R0,1
+putc R1
+lw R1,a6(R0)
+cgti R2,R1,2
+sw tmp35(R0),R2
+sub R1,R1,R1
+lw R1,tmp35(R0)
+putc R1
+lw R1,a6(R0)
+subi R2,R1,1
+sw tmp36(R0),R2
+lw R1,tmp36(R0)
+sw d2(R0),R1
+sub R1,R1,R1
+lw R1,d2(R0)
+putc R1
+lw R1,a6(R0)
+lw R2,b5(R0)
+mul R3,R1,R2
+sw tmp37(R0),R3
+lw R1,tmp37(R0)
+addi R2,R1,2
+sw tmp38(R0),R2
+lw R1,c2(R0)
+lw R2,d2(R0)
+sub R3,R1,R2
+sw tmp39(R0),R3
+lw R1,tmp38(R0)
+lw R2,tmp39(R0)
+cgt R3,R1,R2
+sw tmp40(R0),R3
+sub R1,R1,R1
+lw R1,tmp40(R0)
+putc R1
+f sub R1,R1,R1
+addi R10,R0,12
+lw R1,d1(R10)
+putc R1
+sub R1,R1,R1
+addi R10,R0,8
+lw R1,d1(R10)
+putc R1
+lw R1,d1(R0)
+sw ret(R0),R1
+jr R15
+sum lw R1,h(R0)
+lw R2,b2(R0)
+add R3,R1,R2
+sw tmp41(R0),R3
+lw R1,tmp41(R0)
+sw ret1(R0),R1
+jr R15
+inc lw R1,p1(R0)
+addi R2,R1,1
+sw tmp42(R0),R2
+lw R1,tmp42(R0)
+sw ret2(R0),R1
+jr R15
+SUB lw R1,a3(R0)
+lw R2,b3(R0)
+sub R3,R1,R2
+sw tmp43(R0),R3
+lw R1,tmp43(R0)
+sw c3(R0),R1
+lw R1,c3(R0)
+sw ret3(R0),R1
+jr R15

@@ -9,59 +9,67 @@ Global:
 			{
 				dimention: 1
 				type£º float
-				name in generated code: b
-				
+				location in generated code: b1
+				200
+				0
 			}
 			a
 			{
 				dimention: 1
 				type£º float
-				name in generated code: a
-				
+				location in generated code: a1
+				200
+				200
 			}
 			sub
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				{
 					dimention: 1
 					type£º float
-					name in generated code: c
-					
+					location in generated code: c2
+					200
+					0
 				}
 				{
 					dimention: 1
 					type£º float
-					name in generated code: d
-					
+					location in generated code: d2
+					200
+					0
 				}
 				return:
 				{
 					type£º float
-					name in generated code: null
-					
+					location in generated code: ret6
+					2
+					0
 				}
 				symbolTable:
 				{
 					r
 					{
 						type£º float
-						name in generated code: r
-						
+						location in generated code: r
+						2
+						0
 					}
 					d
 					{
 						dimention: 1
 						type£º float
-						name in generated code: d
-						
+						location in generated code: d2
+						200
+						0
 					}
 					c
 					{
 						dimention: 1
 						type£º float
-						name in generated code: c
-						
+						location in generated code: c2
+						200
+						0
 					}
 				}
 				
@@ -77,24 +85,27 @@ Global:
 			b
 			{
 				type£º float
-				name in generated code: b
-				
+				location in generated code: b
+				2
+				0
 			}
 			a
 			{
 				type£º float
-				name in generated code: a
-				
+				location in generated code: a
+				2
+				2
 			}
 			test1
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				return:
 				{
 					type£º float
-					name in generated code: null
-					
+					location in generated code: null2
+					2
+					0
 				}
 				symbolTable:
 				{
@@ -103,37 +114,42 @@ Global:
 			}
 			add
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				{
 					type£º float
-					name in generated code: c
-					
+					location in generated code: c
+					2
+					0
 				}
 				{
 					type£º float
-					name in generated code: d
-					
+					location in generated code: d
+					2
+					0
 				}
 				return:
 				{
 					type£º float
-					name in generated code: null
-					
+					location in generated code: ret4
+					2
+					0
 				}
 				symbolTable:
 				{
 					d
 					{
 						type£º float
-						name in generated code: d
-						
+						location in generated code: d
+						2
+						0
 					}
 					c
 					{
 						type£º float
-						name in generated code: c
-						
+						location in generated code: c
+						2
+						0
 					}
 				}
 				
@@ -141,42 +157,48 @@ Global:
 			o
 			{
 				type£º Op2
-				name in generated code: o
-				
+				location in generated code: o
+				400
+				4
 			}
 			div
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				{
 					type£º float
-					name in generated code: c
-					
+					location in generated code: c1
+					2
+					0
 				}
 				{
 					type£º float
-					name in generated code: d
-					
+					location in generated code: d1
+					2
+					0
 				}
 				return:
 				{
 					type£º float
-					name in generated code: null
-					
+					location in generated code: ret5
+					2
+					0
 				}
 				symbolTable:
 				{
 					d
 					{
 						type£º float
-						name in generated code: d
-						
+						location in generated code: d1
+						2
+						0
 					}
 					c
 					{
 						type£º float
-						name in generated code: c
-						
+						location in generated code: c1
+						2
+						0
 					}
 				}
 				
@@ -186,56 +208,63 @@ Global:
 	}
 	sub
 	{
-		type:function
+		lable in generated codetype:function
 		parameter:
 		{
 			type£º float
-			name in generated code: c
-			
+			location in generated code: c4
+			2
+			0
 		}
 		{
 			type£º float
-			name in generated code: d
-			
+			location in generated code: d4
+			2
+			0
 		}
 		return:
 		{
 			type£º float
-			name in generated code: null
-			
+			location in generated code: ret9
+			2
+			0
 		}
 		symbolTable:
 		{
 			d
 			{
 				type£º float
-				name in generated code: d
-				
+				location in generated code: d4
+				2
+				0
 			}
 			c
 			{
 				type£º float
-				name in generated code: c
-				
+				location in generated code: c4
+				2
+				0
 			}
 		}
 		
 	}
 	f
 	{
-		type:function
+		lable in generated codetype:function
 		parameter:
 		{
 			dimention: 1
 			type£º Op
-			name in generated code: b
-			
+			location in generated code: b4
+			808
+			0
 		}
 		return:
 		{
 			type£º float
-			name in generated code: null
-			
+			location in generated code: ret8
+			2
+			0
 		}
 		symbolTable:
 		{
@@ -243,14 +272,16 @@ Global:
 			{
 				dimention: 1
 				type£º Op
-				name in generated code: b
-				
+				location in generated code: b4
+				808
+				0
 			}
 			t
 			{
 				type£º float
-				name in generated code: t
-				
+				location in generated code: t4
+				2
+				0
 			}
 		}
 		
@@ -264,73 +295,84 @@ Global:
 			o
 			{
 				type£º Op
-				name in generated code: o
-				
+				location in generated code: o2
+				404
+				0
 			}
 			m
 			{
 				type£º flot
-				name in generated code: m
-				
+				location in generated code: m1
+				0
+				0
 			}
 			h
 			{
 				type£º int
-				name in generated code: h
-				
+				location in generated code: h1
+				1
+				0
 			}
 			g
 			{
 				dimention: 2
 				type£º float
-				name in generated code: g
-				
+				location in generated code: g1
+				20000
+				0
 			}
 			f
 			{
 				dimention: 1
 				type£º float
-				name in generated code: f
-				
+				location in generated code: f2
+				200
+				0
 			}
 			e
 			{
 				dimention: 1
 				type£º int
-				name in generated code: e
-				
+				location in generated code: e1
+				100
+				0
 			}
 			d
 			{
 				dimention: 1
 				type£º int
-				name in generated code: d
-				
+				location in generated code: d5
+				100
+				0
 			}
 			c
 			{
 				dimention: 1
 				type£º int
-				name in generated code: c
-				
+				location in generated code: c5
+				100
+				0
 			}
 			b2
 			{
 				type£º int
-				name in generated code: b2
-				
+				location in generated code: b22
+				1
+				0
 			}
 			b1
 			{
 				type£º int
-				name in generated code: b1
-				
+				location in generated code: b12
+				1
+				0
 			}
 			a
 			{
 				type£º Op2
-				name in generated code: a
-				
+				location in generated code: a5
+				400
+				0
 			}
 		}
 		
@@ -344,37 +386,42 @@ Global:
 			{
 				dimention: 2
 				type£º float
-				name in generated code: b
-				
+				location in generated code: b2
+				800
+				0
 			}
 			a
 			{
 				dimention: 2
 				type£º float
-				name in generated code: a
-				
+				location in generated code: a2
+				800
+				0
 			}
 			add
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				{
 					dimention: 2
 					type£º float
-					name in generated code: a
-					
+					location in generated code: a3
+					800
+					0
 				}
 				{
 					dimention: 2
 					type£º float
-					name in generated code: b
-					
+					location in generated code: b3
+					800
+					0
 				}
 				return:
 				{
 					type£º int
-					name in generated code: null
-					
+					location in generated code: ret7
+					1
+					0
 				}
 				symbolTable:
 				{
@@ -382,21 +429,24 @@ Global:
 					{
 						dimention: 2
 						type£º float
-						name in generated code: b
-						
+						location in generated code: b3
+						800
+						0
 					}
 					a
 					{
 						dimention: 2
 						type£º float
-						name in generated code: a
-						
+						location in generated code: a3
+						800
+						0
 					}
 					sum
 					{
 						type£º int
-						name in generated code: sum
-						
+						location in generated code: sum
+						1
+						0
 					}
 				}
 				

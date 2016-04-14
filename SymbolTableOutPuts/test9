@@ -1,0 +1,40 @@
+Global:
+{
+	Main
+	{
+		type:function
+		parameter:
+		symbolTable:
+		{
+			b
+			{
+				type£º int
+				location in generated code: b
+				1
+				0
+			}
+			a
+			{
+				type£º int
+				location in generated code: a
+				1
+				0
+			}
+			d
+			{
+				type£º int
+				location in generated code: d
+				1
+				0
+			}
+			c
+			{
+				type£º int
+				location in generated code: c
+				1
+				0
+			}
+		}
+		
+	}
+}

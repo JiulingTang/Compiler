@@ -122,7 +122,7 @@ public class SyntacticalAnalyzer {
 		tTable[1][43]=tTable[1][37]=new int[]{69,3};
 		tTable[2][37]=new int[]{37,64,252,54,82,55,283,253,51};
 		tTable[3][43]=new int[]{43,254,6,51,71};
-		tTable[4][38]=tTable[4][39]=tTable[4][64]=new int[]{21,256,64,255,45,22,46};
+		tTable[4][38]=tTable[4][39]=tTable[4][64]=new int[]{21,256,64,255,45,22,295,46};
 		tTable[5][38]=tTable[5][39]=tTable[5][64]=new int[]{4,6,51};
 		tTable[6][54]=new int[]{54,83,55,253};
 		tTable[7][38]=tTable[7][39]=tTable[7][64]=new int[]{21,256,64,257,73,259,51};
@@ -190,7 +190,7 @@ public class SyntacticalAnalyzer {
 		
 		tTable[85][64]=new int[]{64,268,81}; //Q->id M
 		tTable[86][49]=new int[]{49,270,17};
-		tTable[87][45]=new int[]{255,45,22,46,6,51,71};		
+		tTable[87][45]=new int[]{255,45,22,295,46,6,51,71};		
 		tTable[87][51]=tTable[87][52]=new int[]{257,73,260,51,82};
 		
 		tTable[88][42]=new int[]{42,45,11,282,46,267,51};
@@ -372,8 +372,7 @@ public class SyntacticalAnalyzer {
 	
 	public void derive(int round)
 	{
-		if (round==2)
-			sem.codeGenerater=new CodeGenerater();
+		
 		if (round==1)
 			ms=new ArrayList();
 		Stack<Integer> stack=new Stack<Integer>();
@@ -580,10 +579,11 @@ public class SyntacticalAnalyzer {
 	}
 	public void action(int n,int round)
 	{
-		/*System.out.println(n);
+		System.out.println(n);
 		if (count<ms.size())
 		System.out.println(ms.get(count-1));
-		
+		if (count<ms.size())
+			System.out.println(ms.get(count-1).row+" "+ms.get(count-1).col);
 		for(int i=1;i<=3;i++)
 		{
 		if (sem.stack2.size()<i)
@@ -594,7 +594,7 @@ public class SyntacticalAnalyzer {
 		System.out.println(((Var)r.o).name);
 		if (r.type==4)
 			System.out.println(((Token)r.o).value);
-		}*/
+		}
 		n-=250;
 		if (n==1)
 		sem.a1();
@@ -636,7 +636,8 @@ public class SyntacticalAnalyzer {
 		sem.a19();
 		else if (n==20)
 		sem.a20();
-		
+		if (n==45)
+			sem.a45();
 		if (n>20&&round==1)
 			return;
 		else if (n==21)

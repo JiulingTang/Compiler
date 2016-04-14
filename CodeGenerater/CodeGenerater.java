@@ -28,6 +28,8 @@ public class CodeGenerater {
 	public Stack<String> endIfStack;
 	public Stack<String> forStack;
 	public Stack<String> endforStack;
+	public boolean inFunc=false;
+	public boolean onlyMain=true;
 	public CodeGenerater()
 	{
 		defCode="";
@@ -56,7 +58,7 @@ public class CodeGenerater {
 	}
 	public void writeFunc(String s)
 	{
-		funcCode=funcCode;
+		funcCode=funcCode+s;
 	}
 	
 	public void writeMain(String s)
@@ -132,6 +134,7 @@ public class CodeGenerater {
 				break;
 			}
 		}
+		
 	}
 	public void output()
 	{
@@ -145,12 +148,12 @@ public class CodeGenerater {
 			e.printStackTrace();
 		}
 		
-		System.out.println("def:");
+	/*	System.out.println("def:");
 		System.out.println(this.defCode);
 		System.out.println("main:");
 		System.out.println(this.mainCode);
 		System.out.println("func:");
-		System.out.println(this.funcCode);
+		System.out.println(this.funcCode);*/
 	}
 	
 	public String lw(int k1,String o,int k2)
@@ -273,6 +276,7 @@ public class CodeGenerater {
 	{
 		return "cgei R"+k1+",R"+k2+","+i+"\r\n"; 
 	}
+	
 	
 	public String load(int k1,Location l)
 	{
@@ -522,9 +526,10 @@ public class CodeGenerater {
 		load(2,l2)+
 		or(3,1,2)+
 		"bz R3,"+lable+"\r\n"+
-		lable+" "+addi(1,0,1)+
+		addi(1,0,1)+
 		carry(tmp,1)+
 		"j "+endLable+"\r\n"+
+		lable+" "+
 		carry(tmp,0)+
 		endLable+"\r\n";
 		this.writeCode(r);
@@ -564,9 +569,10 @@ public class CodeGenerater {
 		addi(2,0,i)+
 		or(3,1,2)+
 		"bz R3,"+lable+"\r\n"+
-		lable+" "+addi(1,0,1)+
+		addi(1,0,1)+
 		carry(tmp,1)+
 		"j "+endLable+"\r\n"+
+		lable+" "+
 		carry(tmp,0)+
 		endLable+"\r\n";
 		this.writeCode(r);
@@ -644,12 +650,40 @@ public class CodeGenerater {
 		return tmp;
 	}
 	
+	public Location ceqll(Location l1,Location l2)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		load(2,l2)+
+		ceq(3,1,2)+
+		carry(tmp,3);
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location ceqli(Location l1,int i)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		ceqi(2,1,i)+
+		carry(tmp,2);
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	
 	public void assign(Var num1,Var num2)
 	{
+		System.out.println(num1.location);
 		if (num2.isCons==1)
 			this.assignli(num1.location, Integer.parseInt(num2.value));
 		else
+		{
+			//System.out.println(num2.location);
 			this.assignll(num1.location, num2.location);
+		}
 	}
 	
 	public void putv(Var v)
@@ -728,6 +762,8 @@ public class CodeGenerater {
 				location=this.orli(num1.location, Integer.parseInt(num2.value));
 			else if (t.value.equals("and"))
 				location=this.andli(num1.location, Integer.parseInt(num2.value));
+			else if  (t.value.equals("=="))
+				location=this.ceqli(num1.location, Integer.parseInt(num2.value));
 		}
 		else 
 		if (num1.isCons==1)
@@ -752,6 +788,8 @@ public class CodeGenerater {
 				location=this.orli(num2.location, Integer.parseInt(num1.value));
 			else if (t.value.equals("and"))
 				location=this.andli(num2.location, Integer.parseInt(num1.value));
+			else if (t.value.equals("=="))
+				location=this.ceqli(num2.location, Integer.parseInt(num1.value));
 		}
 		else 
 		{
@@ -775,6 +813,8 @@ public class CodeGenerater {
 				location=this.orll(num1.location, num2.location);
 			else if (t.value.equals("and"))
 				location=this.andll(num1.location, num2.location);
+			else if (t.value.equals("=="))
+				location=this.ceqll(num1.location, num2.location);
 			
 		}
 		v.location=location;
@@ -795,7 +835,7 @@ public class CodeGenerater {
 		{
 			Cla c;
 			Identifier id=Semantic.gTable.map.get(v.dtype);
-			if (id==null && !id.isCla())
+			if (id==null || !id.isCla())
 			{
 				return ;
 			}
@@ -870,13 +910,16 @@ public class CodeGenerater {
 		{
 			v.dim.add(pv.dim.get(i));
 		}
-		System.out.println(pa.location+pa.name+" "+v.location+v.name);
+		
 	}
 	
 	public void writeCode(String r)
 	{
 		//System.out.println(r);
-		this.writeMain(r);
+		if (this.inFunc==true)
+			this.writeFunc(r);
+		else
+			this.writeMain(r);
 	}
 	
 	public void writeStack()
@@ -1098,5 +1141,21 @@ public class CodeGenerater {
 		this.endforStack.pop();
 	}
 	
+	public String nextFunLable(String funName)
+	{
+		int i;
+		String tname=null;
+		for ( i=0;;i++)
+		{
+			tname=funName+i;
+			if (!this.symbolSet.contains(tname))
+			{
+				this.symbolSet.add(tname);
+				break;
+			}
+		}
+		return tname;
+	}
 	
+
 }

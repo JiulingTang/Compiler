@@ -67,14 +67,14 @@ public class Func extends Identifier{
 			return Error.ParameterNumberNotMacth;
 		for (int i=0;i<a.par.size();i++)
 		{
-			if (b.par.get(i).pp==null)
+			if (b.par.get(i).isCons==1)
 			{
 				if (a.par.get(i).dim.size()!=0)
 					return Error.ParameterNotMatch;
 			}
 			else
 			{
-				int size=b.par.get(i).pp.dim.size()-b.par.get(i).dim.size();
+				int size=b.par.get(i).dim.size();
 				if (a.par.get(i).dim.size()!=size)
 					return Error.ParameterNotMatch;
 			}

@@ -1,0 +1,97 @@
+class Op
+{
+	float a;
+	float b;
+	Op2 o;
+	float add(float c,float d)
+	{
+		return (c+d);
+	};
+	
+	float div(float c,float d)
+	{
+		if (d<>0)
+		then return (c/d);
+		else
+		return (1000000000.0);;
+		
+		
+	};
+	
+	float test1()
+	{
+		return (o.a);
+	};
+	
+};
+
+class Op2
+{
+	float a[100];
+	float b[100];
+	float sub(float c[100],float d[100])
+	{
+		float r;
+		r=0;
+		for (int i=0;i<100;i=i+1)
+		r=r+c-d;;
+		return (r);
+	};
+	
+};
+
+class Op3
+{
+	float a[20][20];
+	float b[20][20];
+	int add(float a[20][20],float b[20][20])
+	{ 
+		int sum;
+		sum=0;
+		for (int i=0;i<20;i=i+1)
+			for (int j=0;j<20;j=j+1)
+			sum=sum+a[i*20+j]+b[i*20+j];;; // index as expression
+	};
+};
+
+program
+{
+	Op2 a;
+	Op o;
+	int c[100];
+	int d[100];
+	int e[100];
+	float f[100];
+	float g[100][100];
+	int b1;
+	int b2;
+	int b1;
+	int h;
+	flot m;
+	for (int i=0;i<=100;i=i+1)
+		for (int j=0;j<=100;j=j+1) //nested loop
+		g[i][j]=e[i]*f[i];;;
+	if (b1<b2) then else if (b1==b2) then else;;
+	
+	m=o.o.sub(1.1,2.1);//nested access, parameter type not match
+	h=-1*2+c[0]+g[1][2]/f[3] and not ( g[2] or c[2])>= m or sub + 1 * 3 + + 1 ; // complex expression  
+};
+
+
+
+float f(Op b[2])
+{
+	float t;
+	t=sub(1.0,2.0);
+	return ((b[0].a)+(b[1].b));
+	
+};
+
+float sub(float c,float d)
+{	
+	return (c-d);
+};
+
+/*int q()
+{
+};*/

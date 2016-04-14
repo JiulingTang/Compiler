@@ -1,0 +1,13 @@
+"var1"has been defined. location: 7,9
+"var1"has been defined. location: 34,11
+parameter number not match. location: 17,23
+Variable maxValue is not defined. location: 26,29
+Variable maxValue is not defined. location: 27,17
+Variable a is not defined. location: 29,18
+parameter number not match. location: 29,20
+"var1"has been defined. location: 34,11
+Type do not match for operator *, need int or float. location£º52, 32
+No type real. location: 66,1
+No type real. location: 68,10
+Type do not match for operator =, need int or float. location£º69, 11
+Type do not match for operator =, need int or float. location£º70, 11

@@ -9,25 +9,28 @@ Global:
 			{
 				dimention: 4
 				type£º float
-				name in generated code: b
-				
+				location in generated code: b24
+				240
+				0
 			}
 			a
 			{
 				dimention: 2
 				type£º int
-				name in generated code: a
-				
+				location in generated code: a22
+				4
+				240
 			}
 			f
 			{
-				type:function
+				lable in generated codetype:function
 				parameter:
 				return:
 				{
 					type£º int
-					name in generated code: null
-					
+					location in generated code: null4
+					1
+					0
 				}
 				symbolTable:
 				{
@@ -39,19 +42,21 @@ Global:
 	}
 	f
 	{
-		type:function
+		lable in generated codetype:function
 		parameter:
 		{
 			dimention: 2
 			type£º float
-			name in generated code: c
-			
+			location in generated code: c20
+			12
+			0
 		}
 		return:
 		{
 			type£º int
-			name in generated code: null
-			
+			location in generated code: ret27
+			1
+			0
 		}
 		symbolTable:
 		{
@@ -59,15 +64,17 @@ Global:
 			{
 				dimention: 4
 				type£º float
-				name in generated code: a
-				
+				location in generated code: a24
+				240
+				0
 			}
 			c
 			{
 				dimention: 2
 				type£º float
-				name in generated code: c
-				
+				location in generated code: c20
+				12
+				0
 			}
 		}
 		
@@ -81,14 +88,16 @@ Global:
 			b
 			{
 				type£º c1
-				name in generated code: b
-				
+				location in generated code: b26
+				244
+				0
 			}
 			a
 			{
 				type£º int
-				name in generated code: a
-				
+				location in generated code: a25
+				1
+				0
 			}
 		}
 		

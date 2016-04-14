@@ -16,15 +16,15 @@ public class Main {
 		// TODO Auto-generated method stub
 		SyntacticalAnalyzer sA=new SyntacticalAnalyzer();
 		//sA.
-		File dic = new File("testCases");
+		/*File dic = new File("testCases");
 		String[] names=dic.list();
 		for (int i=0;i<names.length;i++)
 		{
 			sA.addInput(names[i]);
 			sA.derive(1);
 			sA.derive(2);
-		}
-		/*BufferedReader bf=new BufferedReader(new InputStreamReader(System.in));
+		}*/
+		BufferedReader bf=new BufferedReader(new InputStreamReader(System.in));
 		String fileName = null;
 		try {
 			fileName=bf.readLine();
@@ -34,7 +34,7 @@ public class Main {
 		}
 		sA.addInput(fileName);
 		sA.derive(1);
-		sA.derive(2);*/
+		sA.derive(2);
 		
 	}
 

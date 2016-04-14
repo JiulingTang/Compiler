@@ -1,0 +1,28 @@
+	program{
+	int a;
+	int b;
+	int c;
+	int d;
+	get(a);
+	a=a-48;
+	get(b);
+	b=b-48;
+	get(c);
+	c=c-48;
+	get(d);
+	d=d-48;
+	put(a*b+2>c-d);
+	put(a);
+	put(a or b);
+	put(a and 1);
+	put(not c);
+	put(a and d);
+	put(a>=b);
+	put(a<c);
+	put(a+b);
+	put(2.0<3.0);
+	put(2<a);
+	d=a-1;
+	put(d);
+	put(a*b+2>c-d);
+	};

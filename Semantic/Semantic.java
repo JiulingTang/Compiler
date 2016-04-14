@@ -12,7 +12,7 @@ import Token.Token;
 public class Semantic {
 	public static SybTable gTable;// global table
 	public Stack<Integer> stack;
-	public Stack<Record> stack2;
+	public static Stack<Record> stack2;
 	public Stack<Token> tStack;
 	public int round;
 	private PrintStream eout;
@@ -21,17 +21,20 @@ public class Semantic {
 	public static String errorFolderName="SymbolTableError";
 	public CodeGenerater codeGenerater;
 	public String fileName;
+	public static boolean useGenerate=true;
 	public Semantic()
 	{
 		stack =new Stack<Integer>();
 		stack2=new Stack<Record>();
 		tStack=new Stack<Token>();
+		this.codeGenerater=new CodeGenerater();
 	}
 	public void addOutFile(String inputFileName)
 	{
 		fileName=inputFileName;
 		try {
 			eout=new PrintStream(new File (outPutFolderName+"/"+inputFileName));
+			errorOut=new PrintStream(new File (this.errorFolderName+"/"+inputFileName));
 			//errorOut=new PrintStream(new File(errorFolderName+"/"+inputFileName));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -61,7 +64,7 @@ public class Semantic {
 	public void writeError(String error)
 	{
 		System.out.println(this.fileName+":"+error);
-		//eout.println(error);
+		this.errorOut.println(error);
 	}
 	public void a1()
 	{
@@ -112,6 +115,7 @@ public class Semantic {
 		insert(tb,"Main",f);
 		f.table=new SybTable();
 		stack2.push(new Record(f.table,0));
+	
 	}
 	public void a5(Token t) // funchead-> type id a5 (fparams)
 	{
@@ -122,6 +126,7 @@ public class Semantic {
 		String idName=t.value;
 		Func newFunc=new Func();
 		newFunc.name=idName;
+		if (round==1)
 		newFunc.rvalue=rt;
 		newFunc.table=new SybTable();
 		stack2.push(new Record(newFunc,2));
@@ -136,14 +141,25 @@ public class Semantic {
 		else 
 		{
 			if (round==1)
-			writeError("\""+idName+"\"has been defined. "+"location: "+t.row+","+t.col);
+			{
+				this.popN(1);
+				this.addError(12);
+				writeError("\""+idName+"\"has been defined. "+"location: "+t.row+","+t.col);
+			}
 			else
 			{
 				if (!f.def)
 				{
+					this.codeGenerater.writeFunc(((Func)f).lable+" ");
 					f.def=true;
 					stack2.pop();
 					stack2.push(new Record(f,2));
+				}
+				else
+				{
+					this.popN(1);
+					this.addError(12);
+					writeError("\""+idName+"\"has been defined. "+"location: "+t.row+","+t.col);
 				}
 			}
 		}
@@ -181,6 +197,13 @@ public class Semantic {
 	
 	public void a9()//fparams -> type id E a9 K, fparamstail -> , type id E a9
 	{
+		System.out.println(stack2.top().type);
+		if (this.checkError(2))
+		{
+			this.popN(2);
+			this.addError(12);
+			return;
+		}
 		Var var=(Var)stack2.top().o;
 		stack2.pop();
 		if (round==2)
@@ -194,6 +217,7 @@ public class Semantic {
 				return;
 			}
 		}
+		if (round==1f)
 		f.par.add(var);
 		insert(f.table,var.name,var);
 	}
@@ -207,7 +231,7 @@ public class Semantic {
 		if (v==null)
 		{
 			scope.map.put(var.name, var);
-			if (this.codeGenerater!=null&&inMain())
+			
 				this.codeGenerater.defineVariable(var);
 		}
 		else 
@@ -217,7 +241,7 @@ public class Semantic {
 			else if (!v.def)
 			{
 				v.def=true;
-				if (this.codeGenerater!=null&&inMain())
+				if (this.codeGenerater!=null&&this.useGenerate==true)
 				this.codeGenerater.defineVariable((Var)v);
 			}
 		}
@@ -303,7 +327,9 @@ public class Semantic {
 						}
 						else
 						{
+							
 							f.rvalue=new Var();
+							f.rvalue.isCons=1;
 							f.rvalue.dtype=((Func)id).rvalue.dtype;
 							stack2.push(new Record(f.rvalue,3));
 						}
@@ -345,8 +371,18 @@ public class Semantic {
 						else
 						{
 							f.rvalue=new Var();//need modify
+							f.rvalue.isCons=1;
 							f.rvalue.dtype=((Func)id).rvalue.dtype;
-							stack2.push(new Record(f.rvalue,3));
+							
+							
+							if (this.useGenerate==true)
+							{
+								f.rvalue.isCons=0;
+								this.funAssign((Func)id,f);
+								this.codeGenerater.writeCode("jl R15,"+((Func)id).name+"\r\n");
+							}
+							//System.out.println(((Func)id).rvalue.location);
+							stack2.push(new Record(((Func)id).rvalue,3));
 						}
 						
 					}
@@ -400,6 +436,7 @@ public class Semantic {
 						
 						v.pp=pv;
 						v.dtype=((Var)id).dtype;
+					
 						this.codeGenerater.getInfoFromParent(cv,pv,v);
 						stack2.push(new Record(v,3));
 						//System.out.println("hh");
@@ -443,6 +480,10 @@ public class Semantic {
 							v.isArray=true;
 						v.dtype=gv.dtype;
 						v.pp=gv;
+						//System.out.println(v.name+" "+v.t.row+","+v.t.col);
+						//System.out.println(this.useGenerate);
+						System.out.println(gv.name);
+						System.out.println(gv.location);
 						this.codeGenerater.getInfoFromPro(gv, v);
 						stack2.push(new Record(v,3));
 							}
@@ -546,7 +587,7 @@ public class Semantic {
 			var.value=t.value;
 			if (t.type.equals("integer"))
 				var.dtype="int";
-			if (t.type.endsWith("double"))
+			if (t.type.equals("double"))
 				var.dtype="float";
 			var.t=t;
 			var.value=t.value;
@@ -678,7 +719,7 @@ public class Semantic {
 		else
 		{
 			popN(3);
-			if (this.codeGenerater!=null)
+			if (this.codeGenerater!=null&&this.useGenerate==true)
 				this.codeGenerater.assign(num1, num2);
 			stack2.push(new Record(num1,3));
 		}
@@ -751,6 +792,7 @@ public class Semantic {
 		Func f=(Func)this.getLastK(2).o;
 		this.popN(2);
 		f.par.add(v);
+		//System.out.println("hhh"+v.location);
 		stack2.push(new Record(f,2));
 	}
 	
@@ -769,7 +811,12 @@ public class Semantic {
 		}
 		else
 		{
-			f.rvalue=v;
+			if (this.useGenerate==true)
+			{
+			this.codeGenerater.assign(f.rvalue, v);
+			this.codeGenerater.writeFunc("jr R15\r\n");
+			this.codeGenerater.inFunc=false;
+			}
 		}
 	}
 	
@@ -781,6 +828,7 @@ public class Semantic {
 		if (!this.checkError(1))
 		{
 			Cla cla=(Cla)stack2.top().o;
+			if (this.useGenerate==true)
 			this.codeGenerater.defineClass(cla);
 		}
 	}
@@ -791,7 +839,6 @@ public class Semantic {
 		if (!this.checkError(1))
 		{
 			Func f=(Func)stack2.top().o;
-			this.codeGenerater.defineFunc(f);
 		}
 	}
 	
@@ -801,7 +848,7 @@ public class Semantic {
 		if (!this.checkError(1))
 		{
 			Var v=(Var)stack2.top().o;
-			if (inMain())
+			if (this.useGenerate==true&&(inMain()||inFunc()))
 			{
 				this.codeGenerater.defineVariable(v);
 			}
@@ -823,7 +870,7 @@ public class Semantic {
 				this.writeError("constant is forbidden. lcation: "+v.t.row+","+v.t.col);
 				return;
 			}
-			if (this.codeGenerater!=null)
+			if (this.codeGenerater!=null&&this.useGenerate==true)
 			{
 				this.codeGenerater.getv(v);
 			}
@@ -836,8 +883,10 @@ public class Semantic {
 		if (!this.checkError(1))
 		{
 			Var v=(Var)stack2.top().o;
-			if (this.codeGenerater!=null)
+			if (this.codeGenerater!=null&&this.useGenerate==true)
 			{
+			
+				
 				this.codeGenerater.putv(v);
 			}
 		}
@@ -846,6 +895,7 @@ public class Semantic {
 	//after if
 	public void a38()
 	{
+		if (round==2&&this.useGenerate==true)
 		this.codeGenerater.ifState();
 	}
 	
@@ -861,17 +911,20 @@ public class Semantic {
 				this.popN(1);
 				this.addError(13);
 			}
+			if (round==2&&this.useGenerate==true)
 			this.codeGenerater.then(v);
 		}
 	}
 	//meet else
 	public void a40()
 	{
+		if (this.useGenerate==true)
 		this.codeGenerater.elseAct();
 	}
 	
 	public void a41()
 	{
+		if (this.useGenerate==true)
 		this.codeGenerater.endIf();
 	}
 	
@@ -879,6 +932,7 @@ public class Semantic {
 	public void a42()
 	{
 		
+		if (this.useGenerate==true)
 		this.codeGenerater.forStart();
 	}
 	
@@ -894,6 +948,7 @@ public class Semantic {
 				this.popN(1);
 				this.addError(13);
 			}
+			if (this.useGenerate==true)
 			this.codeGenerater.checkFor(v);
 		}
 
@@ -902,8 +957,42 @@ public class Semantic {
 	//end for
 	public void a44()
 	{
+		if (this.useGenerate==true)
 		this.codeGenerater.endFor();
 	}
+	
+	//define a function in generated code
+	public void a45()
+	{
+		if (this.round==2)
+			this.codeGenerater.inFunc=true;
+		else 
+		if(!this.checkError(1))
+		{
+			Func f=(Func)stack2.top().o;
+			//if (this.useGenerate==true
+			
+			this.codeGenerater.defineFunc(f);
+			//System.out.println(f.lable);
+			
+			for (int i=0;i<f.par.size();i++)
+			{
+				this.codeGenerater.defineVariable(f.par.get(i));
+				((Var)f.table.map.get(f.par.get(i).name)).location=f.par.get(i).location;
+				f.rvalue.name="ret";
+				
+			}
+			System.out.println(this.fileName+"define"+f.lable);
+			this.codeGenerater.defineVariable(f.rvalue);
+			
+		}
+	}
+	
+	public void a46()
+	{
+		this.codeGenerater.inFunc=true;
+	}
+	
 	
 	public void unary()
 	{
@@ -937,8 +1026,10 @@ public class Semantic {
 					v.value=Integer.toString(not(Integer.parseInt(num.value)));
 			}
 			else
+			{
+				if(this.useGenerate==true)
 				this.codeGenerater.unary(v, num,t);
-			
+			}
 			stack2.push(new Record(v,3));
 			v.t=t;
 		}
@@ -1013,7 +1104,9 @@ public class Semantic {
 			}
 			else
 			{
+				if (this.useGenerate==true)
 				this.codeGenerater.binary(v, num1, num2, t);
+				v.isCons=0;
 			}
 			stack2.push(new Record(v,3));
 		}
@@ -1185,6 +1278,49 @@ public class Semantic {
 		else
 			return 0;
 	}
+	
+	public static boolean inFunc()
+	{
+		for (int i=stack2.size()-1;i>=0;i--)
+		{
+			if(stack2.get(i).type==2)
+				return true;
+		}
+		return false;
+	}
+	
+	public void funAssign(Func f,Func fp)
+	{
+		for(int i=0;i<fp.par.size();i++)
+		{
+			parameterAssin(f.par.get(i),fp.par.get(i));
+		}
+	}
+	
+	public void parameterAssin(Var v1,Var v2)
+	{
+		System.out.println(v2.location);
+		v2.countSize();
+		for (int i=0;i<v2.size;i++)
+		{
+			Var tmp2=new Var();
+			Var tmp1=new Var();
+			tmp1.location=new Location(v1.location.startLable,v1.location.offset+i);
+			if (v2.isCons==1)
+			{
+				tmp2.value=v2.value;
+				tmp2.isCons=1;
+			}
+			else
+			{
+				tmp2.location=new Location(v2.location.startLable,v2.location.offset+i);
+			}
+			this.codeGenerater.assign(tmp1, tmp2);
+			v1.size=v2.size;
+		}
+	}
+	
+
 }
 
 

@@ -52,6 +52,9 @@ public class Var extends Identifier{
 	
 	public static Error match(Var a,Var b) //Check if two vairbale macth
 	{
+		//System.out.println(a.value);
+		//System.out.println("hh"+a.dim.size());
+		//System.out.println("hh"+b.dim.size());
 		if (!a.dtype.equals(b.dtype))
 			return Error.TypeNotMatch;
 		if (a.dim==null&&b.dim==null)
@@ -76,7 +79,7 @@ public class Var extends Identifier{
 		{
 			Cla c;
 			Identifier id=Semantic.gTable.map.get(this.dtype);
-			if (id==null && !id.isCla())
+			if (id==null || !id.isCla())
 			{
 				return 0;
 			}

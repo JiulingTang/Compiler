@@ -22,8 +22,9 @@ public class CodeGenerater {
 	public HashSet<String> symbolSet;
 	public HashSet<String> tmpSymbolSet;
 	public HashSet<String> lableSet;
-	public String fileName="code.txt";
+	public String fileName;
 	public FileWriter eout;
+	public FileWriter errorout;
 	public Stack<String> elseStack;
 	public Stack<String> endIfStack;
 	public Stack<String> forStack;
@@ -43,14 +44,19 @@ public class CodeGenerater {
 		this.endIfStack=new Stack<String>();
 		this.forStack=new Stack<String>();
 		this.endforStack=new Stack<String>();
+	
+		this.writeStack();
+		this.writeEntry();
+	}
+	
+	public void addInput(String fileName)
+	{
 		try {
-			eout=new FileWriter(new File(fileName));
+			this.eout=new FileWriter(new File("CodeGenerated/"+fileName));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.writeStack();
-		this.writeEntry();
 	}
 	public void writeDef(String s)
 	{
@@ -139,10 +145,23 @@ public class CodeGenerater {
 	public void output()
 	{
 		try {
+			
 			eout.write(this.defCode);
 			eout.write(this.mainCode);
 			eout.write(this.funcCode);
 			eout.flush();
+			eout.close();
+			defCode="";
+			funcCode="";
+			mainCode="";
+			symbolSet=new HashSet();
+			tmpSymbolSet=new HashSet();
+			symbolSet.add("j");
+			symbolSet.add("dw");
+			this.elseStack=new Stack<String>();
+			this.endIfStack=new Stack<String>();
+			this.forStack=new Stack<String>();
+			this.endforStack=new Stack<String>();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,6 +234,16 @@ public class CodeGenerater {
 	public String ceqi(int k1,int k2,int i)
 	{
 		return "ceq"+" R"+k1+",R"+k2+","+i+"\r\n";
+	}
+	
+	public String cne(int k1,int k2,int k3)
+	{
+		return "cne"+" R"+k1+",R"+k2+",R"+k3+"\r\n";
+	}
+	
+	public String cnei(int k1,int k2,int i)
+	{
+		return "cnei"+" R"+k1+",R"+k2+","+i+"\r\n";
 	}
 	
 	public String getc(int k)
@@ -673,10 +702,40 @@ public class CodeGenerater {
 		return tmp;
 	}
 	
+	public Location cnell(Location l1,Location l2)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		load(2,l2)+
+		cne(3,1,2)+
+		carry(tmp,3);
+		this.writeCode(r);
+		return tmp;
+	}
+	
+	public Location cneli(Location l1,int i)
+	{
+		Location tmp=this.nextTmp();
+		String r=""+
+		load(1,l1)+
+		cnei(2,1,i)+
+		carry(tmp,2);
+		this.writeCode(r);
+		return tmp;
+	}
 	
 	public void assign(Var num1,Var num2)
 	{
 		System.out.println(num1.location);
+		if (num1.dtype.equals("float"))
+		{
+			num1.value=Integer.toString((int)Double.parseDouble(num1.value));
+		}
+		if (num2.dtype.equals("float"))
+		{
+			num2.value=Integer.toString((int)Double.parseDouble(num1.value));
+		}
 		if (num2.isCons==1)
 			this.assignli(num1.location, Integer.parseInt(num2.value));
 		else
@@ -720,6 +779,10 @@ public class CodeGenerater {
 	public void unary(Var v,Var num,Token t)
 	{
 		Location l = null;
+		if  (num.dtype.equals("float"))
+		{
+			num.value=Integer.toString((int)Double.parseDouble(num.value));
+		}
 		if (num.isCons==1)
 		{
 			if (t.value.equals("not"))
@@ -739,6 +802,14 @@ public class CodeGenerater {
 		/*System.out.print(num1.name+","+num1.location);
 		System.out.print(" "+t.value);
 		System.out.println(" "+num2.name+","+num2.location);*/
+		if (num1.dtype.equals("float"))
+		{
+			num1.value=Integer.toString((int)Double.parseDouble(num1.value));
+		}
+		if (num2.dtype.equals("float"))
+		{
+			num2.value=Integer.toString((int)Double.parseDouble(num1.value));
+		}
 		Location location=null;
 		if (num2.isCons==1)
 		{
@@ -764,7 +835,10 @@ public class CodeGenerater {
 				location=this.andli(num1.location, Integer.parseInt(num2.value));
 			else if  (t.value.equals("=="))
 				location=this.ceqli(num1.location, Integer.parseInt(num2.value));
-		}
+			else if (t.value.equals("<>"))
+				location=this.cneli(num1.location, Integer.parseInt(num2.value));
+				
+		}	
 		else 
 		if (num1.isCons==1)
 		{
@@ -790,6 +864,8 @@ public class CodeGenerater {
 				location=this.andli(num2.location, Integer.parseInt(num1.value));
 			else if (t.value.equals("=="))
 				location=this.ceqli(num2.location, Integer.parseInt(num1.value));
+			else if (t.value.equals("<>"))
+				location=this.cneli(num2.location, Integer.parseInt(num1.value));
 		}
 		else 
 		{
@@ -815,6 +891,8 @@ public class CodeGenerater {
 				location=this.andll(num1.location, num2.location);
 			else if (t.value.equals("=="))
 				location=this.ceqll(num1.location, num2.location);
+			else if (t.value.equals("<>"))
+				location=this.cnell(num1.location, num2.location);
 			
 		}
 		v.location=location;

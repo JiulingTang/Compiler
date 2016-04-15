@@ -1,73 +1,85 @@
-// example valid program 
-
-class Utility {
-
-	int var1[4][5][7][8][9][1][2];
-	float var2;
-	int var1;
-	int idx;
-	int findMax(int array[100]) {
-		int maxValue;
-		maxValue = array[100];
-		
-		for( int idx = 99; idx > 0; idx = idx - 1 ) { //use member idx
-			if(array[idx] > maxValue) then {
-				maxValue = array[idx];
-			}
-			else {idx=findMin();}; //function number of parameter not match
-		};
-		
-		return (maxValue);
-	};
-	int findMin(int array[100]) {
-		int minValue;
-		minValue = array[100];
-		for( int idx = 1; idx <= 99; idx = ( idx ) + 1) { //use member idx
-			if(array[idx] < maxValue) then {
-				maxValue = array[idx];
-			}
-			else{a=findMax();};//parameter number not match
-		};
-		return (minValue);
-	};
-	
-	float var1()
+class iDriver{
+	int add(int a,int b)
 	{
-		return (var1);// check return type
+		return (a+b);
+	};
+	
+	int addArray(int a[100],int b[100],int n)
+	{
+		int c[100];
+		for (int i=0;i<n;i=i+1)
+		{
+			c[i]=a[i]+b[i];
+		};
+		for (int i=0;i<n;i=i+1)
+		put(c[i]);;
+	};
+	
+	int add(int a,int b)
+	{
+		return (a+b);
 	};
 };
 
-program {
-	
-	int sample[100];
-	int idx;
-	int maxValue;
-	int minValue;
-	
-	Utility utility;
-	Utility arrayUtility[2][3][6][7];
-
-	for(int t = 0; t<=100 ; t = t + 1) {
-		get(sample[t]);
-		sample[t] = (sample[t] * randomize());
+class fDriver{
+	float add(int a,int b)
+	{
+		return (a+b);
 	};
-
-	maxValue = utility.findMax(sample);
-	minValue = utility.findMin(sample);
 	
-	utility. var1[4][1][0][0][0][0][0] = 10;
-	
-	arrayUtility[1][1][1][1].var1[4][1][0][0][0][0][0] = 2;
-	
-	put(maxValue);
-	put(minValue);
+	float addArray(float a[100],float b[100],int n)
+	{
+		float c[100];
+		for (int i=0;i<n;i=i+1)
+		{
+			c[i]=a[i]+b[i];
+		};
+		for (int i=0;i<n;i=i+1)
+		put(c[i]);;
+	};
+	float add(int a,int b)
+	{
+		return (a+b);
+	};
 };
 
-real randomize() { //no class real
-
-	real value;
-	value = 100 * (2 + 3.0 / 7.0006);
-	value = 1.05 + ((2.04 * 2.47) - 3.0) + 7.0006 ;
-	return (value);
+program{
+	int a[110];
+	int b[100];
+	float c[100];
+	float d[100];
+	int r1;
+	int r2;
+	int r3;
+	int r4;
+	iDriver dr;
+	fDriver fr;
+	int r1;
+	int r2;
+	int r3;
+	int r4;
+	float r5;
+	float r6;
+	
+	r1=output1(dr.add(a[0],b[0],3));//check parameter number
+	r2=output2(fr.add(c[0],d));//check parameter type
+	r3=dr.addArray(a);//check parameter number
+	r4=fr.addArray(c,1);//check parameter type
+	r5=dr.sub(a[0],b[2][3][1]);//check array size error
+	r6=r5 or r5;
+	r6=not r5;
+	r6=r5 and r5;
+	dr=r5;	 
+	
 };
-/*
+
+int output1(int k)
+{
+	put(k);
+	return (k);
+};
+
+float output2 (float k)
+{	put(k);
+	return (k);
+};

@@ -1,73 +1,68 @@
-// example valid program 
-
-/*This is a class*/
-class Utility {
-
-	int var1[4][5][7][8][9][1][2];//This is a member
-	float var2;
-	
-	int findMax(int array[100]) {
-		int maxValue;
-		int idx;
-		maxValue = array[100];
-		
-		for( int idx = 99; idx > 0; idx = idx - 1 ) {
-			if(array[idx] > maxValue) then {
-				maxValue = array[idx];
-			}
-			else {};
-		};
-		
-		return (maxValue);
+class Op
+{
+	float a;
+	float b;
+	Op2 o;
+	float add(float c,float d)
+	{
+		return (c+d);
 	};
 	
-	int findMin(int array[100]) {
-		int minValue;
-		int idx;
-		minValue = array[100];
-		for( int idx = 1; idx <= 99; idx = ( idx ) + 1) {
-			if(array[idx] < minValue) then {
-				minValue = array[idx];
-			}
-			else{};
-		};
-		return (minValue);
+	float div(float c,float d)
+	{
+		if (d<>0)
+		then return (c/d);
+		else
+		return (1000000000.0);;
+		
+		
+	};
+	
+	float test1()
+	{
+		return (o.c);
 	};
 	
 };
 
-/*This is main function*/
-program {
-	
-	int sample[100];
-	int idx;
-	int maxValue;
-	int minValue;
-	
-	Utility utility;
-	Utility arrayUtility[2][3][6][7];
-
-	for(int t = 0; t<=100 ; t = t + 1) {
-		get(sample[t]);
-		sample[t] = (sample[t] * randomize()); //forward refrence
+class Op2
+{
+	float a[100];
+	float b[100];
+	float sub(float c[100],float d[100])
+	{
+		float r;
+		r=0;
+		for (int i=0;i<100;i=i+1)
+		r=r+c-d;;
+		return (r);
 	};
-
-	maxValue = utility.findMax(sample);
-	minValue = utility.findMin(sample);
-	
-	utility.var1[4][1][0][0][0][0][0] = 10;
-	
-	arrayUtility[1][1][1][1].var1[4][1][0][0][0][0][0] = 2;
-	
-	put(maxValue);
-	put(minValue);
 };
 
-/*function for randomize number*/
-float randomize() {
+program
+{
+	Op2 a;
+	Op o;
+	int c[100];
+	int d[100];
+	float e;
+	float sub;
+	e=a.sub(c,d);
+	e=sub(1.0,2.1);
+	e=o.o.su(1.1,2.1);
+	/*No member funtion named su*/
+};
 
-	float value;
-	value = 100 * (2 + 3.0 / 7.0006);
-	value = 1.05 + ((2.04 * 2.47) - 3.0) + 7.0006 ;
-	return (value);//return
+float sub(float c,float d)
+{	
+	return (c-d);
+};
+
+float f(Op b[2])
+{
+	return ((b[0].c)+(b[1].b));
+};
+
+int Op()
+{
 };

@@ -1,0 +1,100 @@
+a res 8
+b res 8
+o res 0
+c res 8
+d res 8
+ret res 8
+c1 res 8
+d1 res 8
+ret1 res 8
+null res 8
+a1 res 800
+b1 res 800
+c2 res 800
+d2 res 800
+ret2 res 8
+r res 8
+i dw 0
+a2 res 1600
+o1 res 1616
+c3 res 400
+d3 res 400
+e res 8
+sub1 res 8
+c4 res 8
+d4 res 8
+ret3 res 8
+b2 res 3232
+ret4 res 8
+a3 res 8
+b3 res 8
+o2 res 1600
+tmp0 dw 0
+tmp1 dw 0
+tmp2 dw 0
+a4 res 800
+b4 res 800
+r1 res 8
+i1 dw 0
+tmp3 dw 0
+tmp4 dw 0
+a5 res 1600
+o3 res 1616
+c5 res 400
+d5 res 400
+e1 res 8
+sub3 res 8
+tmp5 dw 0
+entry
+j endif0
+else0 addi R1,R0,0
+sw ret1(R0),R1
+endif0 addi R1,R0,0
+sw e1(R0),R1
+add lw R1,c(R0)
+lw R2,d(R0)
+add R3,R1,R2
+sw tmp0(R0),R3
+lw R1,tmp0(R0)
+sw ret(R0),R1
+jr R15
+div lw R1,d1(R0)
+cnei R2,R1,0
+sw tmp1(R0),R2
+lw R1,tmp1(R0)
+bz R1,else0
+lw R1,c1(R0)
+lw R2,d1(R0)
+div R3,R1,R2
+sw tmp2(R0),R3
+lw R1,tmp2(R0)
+sw ret1(R0),R1
+jr R15
+jr R15
+test1 sub addi R1,R0,0
+sw r1(R0),R1
+addi R1,R0,0
+sw i1(R0),R1
+for0 addi R1,R0,100
+lw R2,i1(R0)
+cgt R3,R1,R2
+sw tmp3(R0),R3
+lw R1,tmp3(R0)
+bz R1,endAnd0
+lw R1,i1(R0)
+addi R2,R1,1
+sw tmp4(R0),R2
+lw R1,tmp4(R0)
+sw i1(R0),R1
+j for0
+endAnd0 lw R1,r1(R0)
+sw ret2(R0),R1
+jr R15
+sub2 lw R1,c4(R0)
+lw R2,d4(R0)
+sub R3,R1,R2
+sw tmp5(R0),R3
+lw R1,tmp5(R0)
+sw ret3(R0),R1
+jr R15
+f 

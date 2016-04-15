@@ -1,136 +1,279 @@
 Global:
 {
-	Utility
+	Op2
 	{
 		type:class
 		symbolTable
 		{
-			findMax
+			b
 			{
-				lable in generated codetype:function
-				parameter:
-				{
-					dimention: 1
-					type£º int
-					location in generated code: array
-					100
-					0
-				}
-				return:
-				{
-					type£º int
-					location in generated code: ret
-					1
-					0
-				}
-				symbolTable:
-				{
-					idx
-					{
-						type£º int
-						location in generated code: idx5
-						1
-						0
-					}
-					maxValue
-					{
-						type£º int
-						location in generated code: maxValue2
-						1
-						0
-					}
-					array
-					{
-						dimention: 1
-						type£º int
-						location in generated code: array
-						100
-						0
-					}
-				}
-				
-			}
-			findMin
-			{
-				lable in generated codetype:function
-				parameter:
-				{
-					dimention: 1
-					type£º int
-					location in generated code: array1
-					100
-					0
-				}
-				return:
-				{
-					type£º int
-					location in generated code: ret1
-					1
-					0
-				}
-				symbolTable:
-				{
-					idx
-					{
-						type£º int
-						location in generated code: idx7
-						1
-						0
-					}
-					minValue
-					{
-						type£º int
-						location in generated code: minValue2
-						1
-						0
-					}
-					array
-					{
-						dimention: 1
-						type£º int
-						location in generated code: array1
-						100
-						0
-					}
-				}
-				
-			}
-			var2
-			{
+				dimention: 1
 				type£º float
-				location in generated code: var21
-				2
+				location in generated code: b4
+				200
 				0
 			}
-			var1
+			a
 			{
-				dimention: 7
-				type£º int
-				location in generated code: var11
-				20160
-				2
+				dimention: 1
+				type£º float
+				location in generated code: a4
+				200
+				200
+			}
+			sub
+			{
+				lable in generated codetype:function
+				parameter:
+				{
+					dimention: 1
+					type£º float
+					location in generated code: c2
+					200
+					0
+				}
+				{
+					dimention: 1
+					type£º float
+					location in generated code: d2
+					200
+					0
+				}
+				return:
+				{
+					type£º float
+					location in generated code: ret2
+					2
+					0
+				}
+				symbolTable:
+				{
+					r
+					{
+						type£º float
+						location in generated code: r1
+						2
+						0
+					}
+					d
+					{
+						dimention: 1
+						type£º float
+						location in generated code: d2
+						200
+						0
+					}
+					c
+					{
+						dimention: 1
+						type£º float
+						location in generated code: c2
+						200
+						0
+					}
+				}
+				
 			}
 		}
 		
 	}
-	randomize
+	Op
+	{
+		type:class
+		symbolTable
+		{
+			b
+			{
+				type£º float
+				location in generated code: b3
+				2
+				0
+			}
+			a
+			{
+				type£º float
+				location in generated code: a3
+				2
+				2
+			}
+			test1
+			{
+				lable in generated codetype:function
+				parameter:
+				return:
+				{
+					type£º float
+					location in generated code: null
+					2
+					0
+				}
+				symbolTable:
+				{
+				}
+				
+			}
+			add
+			{
+				lable in generated codetype:function
+				parameter:
+				{
+					type£º float
+					location in generated code: c
+					2
+					0
+				}
+				{
+					type£º float
+					location in generated code: d
+					2
+					0
+				}
+				return:
+				{
+					type£º float
+					location in generated code: ret
+					2
+					0
+				}
+				symbolTable:
+				{
+					d
+					{
+						type£º float
+						location in generated code: d
+						2
+						0
+					}
+					c
+					{
+						type£º float
+						location in generated code: c
+						2
+						0
+					}
+				}
+				
+			}
+			o
+			{
+				type£º Op2
+				location in generated code: o2
+				400
+				4
+			}
+			div
+			{
+				lable in generated codetype:function
+				parameter:
+				{
+					type£º float
+					location in generated code: c1
+					2
+					0
+				}
+				{
+					type£º float
+					location in generated code: d1
+					2
+					0
+				}
+				return:
+				{
+					type£º float
+					location in generated code: ret1
+					2
+					0
+				}
+				symbolTable:
+				{
+					d
+					{
+						type£º float
+						location in generated code: d1
+						2
+						0
+					}
+					c
+					{
+						type£º float
+						location in generated code: c1
+						2
+						0
+					}
+				}
+				
+			}
+		}
+		
+	}
+	sub
 	{
 		lable in generated codetype:function
 		parameter:
+		{
+			type£º float
+			location in generated code: c4
+			2
+			0
+		}
+		{
+			type£º float
+			location in generated code: d4
+			2
+			0
+		}
 		return:
 		{
 			type£º float
-			location in generated code: null
+			location in generated code: ret3
 			2
 			0
 		}
 		symbolTable:
 		{
-			value
+			d
 			{
 				type£º float
-				location in generated code: value1
+				location in generated code: d4
 				2
+				0
+			}
+			c
+			{
+				type£º float
+				location in generated code: c4
+				2
+				0
+			}
+		}
+		
+	}
+	f
+	{
+		lable in generated codetype:function
+		parameter:
+		{
+			dimention: 1
+			type£º Op
+			location in generated code: b2
+			808
+			0
+		}
+		return:
+		{
+			type£º float
+			location in generated code: ret4
+			2
+			0
+		}
+		symbolTable:
+		{
+			b
+			{
+				dimention: 1
+				type£º Op
+				location in generated code: b2
+				808
 				0
 			}
 		}
@@ -142,48 +285,48 @@ Global:
 		parameter:
 		symbolTable:
 		{
-			idx
+			a
 			{
-				type£º int
-				location in generated code: idx9
-				1
+				type£º Op2
+				location in generated code: a5
+				400
 				0
 			}
-			arrayUtility
+			sub
 			{
-				dimention: 4
-				type£º Utility
-				location in generated code: arrayUtility1
-				5080824
+				type£º float
+				location in generated code: sub3
+				2
 				0
 			}
-			utility
+			e
 			{
-				type£º Utility
-				location in generated code: utility1
-				20162
+				type£º float
+				location in generated code: e1
+				2
 				0
 			}
-			sample
+			d
 			{
 				dimention: 1
 				type£º int
-				location in generated code: sample1
+				location in generated code: d5
 				100
 				0
 			}
-			minValue
+			o
 			{
-				type£º int
-				location in generated code: minValue3
-				1
+				type£º Op
+				location in generated code: o3
+				404
 				0
 			}
-			maxValue
+			c
 			{
+				dimention: 1
 				type£º int
-				location in generated code: maxValue3
-				1
+				location in generated code: c5
+				100
 				0
 			}
 		}

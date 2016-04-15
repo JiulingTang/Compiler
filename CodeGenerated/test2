@@ -1,0 +1,167 @@
+a dw 0
+b dw 0
+ret dw 0
+a1 res 400
+b1 res 400
+n dw 0
+ret1 dw 0
+c res 400
+i dw 0
+i1 dw 0
+a2 dw 0
+b2 dw 0
+ret2 res 8
+a3 res 800
+b3 res 800
+n1 dw 0
+ret3 res 8
+c1 res 800
+i2 dw 0
+i3 dw 0
+a4 res 440
+b4 res 400
+c2 res 800
+d res 800
+r1 dw 0
+r2 dw 0
+r3 dw 0
+r4 dw 0
+dr res 0
+fr res 0
+r5 res 8
+r6 res 8
+k dw 0
+ret4 dw 0
+k1 res 8
+ret5 res 8
+tmp0 dw 0
+c3 res 400
+i4 dw 0
+tmp1 dw 0
+tmp2 dw 0
+tmp3 dw 0
+i5 dw 0
+tmp4 dw 0
+tmp5 dw 0
+tmp6 dw 0
+c4 res 800
+i6 dw 0
+tmp7 dw 0
+tmp8 dw 0
+tmp9 dw 0
+i7 dw 0
+tmp10 dw 0
+tmp11 dw 0
+a5 res 440
+b5 res 400
+c5 res 800
+d1 res 800
+r11 dw 0
+r21 dw 0
+r31 dw 0
+r41 dw 0
+dr1 res 0
+fr1 res 0
+r12 dw 0
+r22 dw 0
+r32 dw 0
+r42 dw 0
+r51 res 8
+r61 res 8
+add lw R1,a(R0)
+lw R2,b(R0)
+add R3,R1,R2
+sw tmp0(R0),R3
+lw R1,tmp0(R0)
+sw ret(R0),R1
+jr R15
+addArray addi R1,R0,0
+sw i4(R0),R1
+for0 lw R1,n(R0)
+lw R2,i4(R0)
+cgt R3,R1,R2
+sw tmp1(R0),R3
+lw R1,tmp1(R0)
+bz R1,endAnd0
+lw R1,i4(R0)
+addi R2,R1,1
+sw tmp2(R0),R2
+lw R1,tmp2(R0)
+sw i4(R0),R1
+lw R1,a1(R0)
+lw R2,b1(R0)
+add R3,R1,R2
+sw tmp3(R0),R3
+lw R1,tmp3(R0)
+sw c3(R0),R1
+j for0
+endAnd0 addi R1,R0,0
+sw i5(R0),R1
+for1 lw R1,n(R0)
+lw R2,i5(R0)
+cgt R3,R1,R2
+sw tmp4(R0),R3
+lw R1,tmp4(R0)
+bz R1,endAnd1
+lw R1,i5(R0)
+addi R2,R1,1
+sw tmp5(R0),R2
+lw R1,tmp5(R0)
+sw i5(R0),R1
+sub R1,R1,R1
+lw R1,c3(R0)
+putc R1
+j for1
+endAnd1 add1 lw R1,a2(R0)
+lw R2,b2(R0)
+add R3,R1,R2
+sw tmp6(R0),R3
+addArray1 addi R1,R0,0
+sw i6(R0),R1
+for2 lw R1,n1(R0)
+lw R2,i6(R0)
+cgt R3,R1,R2
+sw tmp7(R0),R3
+lw R1,tmp7(R0)
+bz R1,endAnd2
+lw R1,i6(R0)
+addi R2,R1,1
+sw tmp8(R0),R2
+lw R1,tmp8(R0)
+sw i6(R0),R1
+lw R1,a3(R0)
+lw R2,b3(R0)
+add R3,R1,R2
+sw tmp9(R0),R3
+lw R1,tmp9(R0)
+sw c4(R0),R1
+j for2
+endAnd2 addi R1,R0,0
+sw i7(R0),R1
+for3 lw R1,n1(R0)
+lw R2,i7(R0)
+cgt R3,R1,R2
+sw tmp10(R0),R3
+lw R1,tmp10(R0)
+bz R1,endAnd3
+lw R1,i7(R0)
+addi R2,R1,1
+sw tmp11(R0),R2
+lw R1,tmp11(R0)
+sw i7(R0),R1
+sub R1,R1,R1
+lw R1,c4(R0)
+putc R1
+j for3
+endAnd3 output1 sub R1,R1,R1
+lw R1,k(R0)
+putc R1
+lw R1,k(R0)
+sw ret4(R0),R1
+jr R15
+output2 sub R1,R1,R1
+lw R1,k1(R0)
+putc R1
+lw R1,k1(R0)
+sw ret5(R0),R1
+jr R15

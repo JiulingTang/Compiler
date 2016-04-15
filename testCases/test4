@@ -1,68 +1,28 @@
-class Op
-{
-	float a;
-	float b;
-	Op2 o;
-	float add(float c,float d)
-	{
-		return (c+d);
+	program{
+	int a;
+	int b;
+	int c;
+	int d;
+	get(a);
+	a=a-48;
+	get(b);
+	b=b-48;
+	get(c);
+	c=c-48;
+	get(d);
+	d=d-48;
+	put(a*b+2>c-d);
+	put(a);
+	put(a or b);
+	put(a and 1);
+	put(not c);
+	put(a and d);
+	put(a>=b);
+	put(a<c);
+	put(a+b);
+	put(2.0<3.0);
+	put(2<a);
+	d=a-1;
+	put(d);
+	put(a*b+2>c-d);
 	};
-	
-	float div(float c,float d)
-	{
-		if (d<>0)
-		then return (c/d);
-		else
-		return (1000000000.0);;
-		
-		
-	};
-	
-	float test1()
-	{
-		return (o.c);
-	};
-	
-};
-
-class Op2
-{
-	float a[100];
-	float b[100];
-	float sub(float c[100],float d[100])
-	{
-		float r;
-		r=0;
-		for (int i=0;i<100;i=i+1)
-		r=r+c-d;;
-		return (r);
-	};
-};
-
-program
-{
-	Op2 a;
-	Op o;
-	int c[100];
-	int d[100];
-	float e;
-	float sub;
-	e=a.sub(c,d);
-	e=sub(1.0,2.1);
-	e=o.o.su(1.1,2.1);
-	/*No member funtion named su*/
-};
-
-float sub(float c,float d)
-{	
-	return (c-d);
-};
-
-float f(Op b[2])
-{
-	return ((b[0].c)+(b[1].b));
-};
-
-int Op2()
-{
-};

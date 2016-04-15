@@ -1,97 +1,99 @@
-class Op
+class class1
 {
-	float a;
-	float b;
-	Op2 o;
-	float add(float c,float d)
-	{
-		return (c+d);
-	};
-	
-	float div(float c,float d)
-	{
-		if (d<>0)
-		then return (c/d);
-		else
-		return (1000000000.0);;
-		
-		
-	};
-	
-	float test1()
-	{
-		return (o.a);
-	};
-	
+	class2 a;
 };
 
-class Op2
+class class2
 {
-	float a[100];
-	float b[100];
-	float sub(float c[100],float d[100])
-	{
-		float r;
-		r=0;
-		for (int i=0;i<100;i=i+1)
-		r=r+c-d;;
-		return (r);
-	};
-	
+	int a[2][2];
+	int b;
 };
-
-class Op3
-{
-	float a[20][20];
-	float b[20][20];
-	int add(float a[20][20],float b[20][20])
-	{ 
-		int sum;
-		sum=0;
-		for (int i=0;i<20;i=i+1)
-			for (int j=0;j<20;j=j+1)
-			sum=sum+a[i*20+j]+b[i*20+j];;; // index as expression
-	};
-};
-
 program
 {
-	Op2 a;
-	Op o;
-	int c[100];
-	int d[100];
-	int e[100];
-	float f[100];
-	float g[100][100];
-	int b1;
-	int b2;
-	int b1;
-	int h;
-	flot m;
-	for (int i=0;i<=100;i=i+1)
-		for (int j=0;j<=100;j=j+1) //nested loop
-		g[i][j]=e[i]*f[i];;;
-	if (b1<b2) then else if (b1==b2) then else;;
+	int a;
+	int b;
+	int c;
+	int d;
+	int e[2][2];
+	class1 p;
+	a=10;
+	b=20;
+	c=30;
+	d=1;
+	p.a.a[0][0]=0;
+	p.a.a[0][1]=1;
+	p.a.a[1][0]=1;
+	p.a.a[1][1]=2;
+	p.a.b=p.a.a[0][0]+p.a.a[0][1]+p.a.a[1][0]+p.a.a[1][1];
 	
-	m=o.o.sub(1.1,2.1);//nested access, parameter type not match
-	h=-1*2+c[0]+g[1][2]/f[3] and not ( g[2] or c[2])>= m or sub + 1 * 3 + + 1 ; // complex expression  
-};
-
-
-
-float f(Op b[2])
-{
-	float t;
-	t=sub(1.0,2.0);
-	return ((b[0].a)+(b[1].b));
+	e[0][0]=3;
+	e[0][1]=1;
+	e[1][0]=1;
+	e[1][1]=2;
 	
+	put(f(e));
+	
+	for (int i=0;i<100;i=i+1)
+	{
+		d=d+1;
+	};
+	put(d);
+	put(SUB(a*b/d,d));
+	if (a>b)
+	then if (c<=d)
+		 then put(c);
+		 else put(d);;
+	else
+		 put(a);;
+	put(c);
+	for (int i=0;i<10;i=i+1)
+		for (int j=0;j<=9;j=j+1)
+		{			
+			a=a+(i-1)*10+j;
+		};;
+	put(a);
+	put(a or b);
+	put(a and 1);
+	put(not c);
+	put(a and d);
+	get(a);
+	a=a-48;
+	get(b);
+	b=b-48;
+	get(c);
+	c=c-48;
+	get(d);
+	d=d-48;
+	put(a>=b);
+	put(a<c);
+	put(a+b);
+	put(2.0<3.0);
+	put(2<a);
+	d=a-1;
+	put(d);
+	put(a*b+2>c-d);
 };
 
-float sub(float c,float d)
-{	
-	return (c-d);
-};
-
-/*int q()
+int f(int d[2][2])
 {
-};*/
+	put(d[1][1]);
+	put(d[1][0]);
+	return (d[0][0]);
+};
+
+int sum(int h,int b)
+{
+	return (h+b);
+};
+
+int inc(int p)
+{
+	return (p+1);
+};
+
+int SUB(int a,int b)
+{
+	int c;
+	c=a-b;
+	return (c);
+};

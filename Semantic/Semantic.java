@@ -33,6 +33,7 @@ public class Semantic {
 	{
 		fileName=inputFileName;
 		try {
+			this.codeGenerater.addInput(fileName);
 			eout=new PrintStream(new File (outPutFolderName+"/"+inputFileName));
 			errorOut=new PrintStream(new File (this.errorFolderName+"/"+inputFileName));
 			//errorOut=new PrintStream(new File(errorFolderName+"/"+inputFileName));
@@ -1048,7 +1049,7 @@ public class Semantic {
 			Var num2=(Var)stack2.top().o;
 			Var num1=(Var)this.getLastK(3).o;
 			Var v=new Var();
-			if (t.equals("and")||t.equals("or"))
+			if (t.equals("<>")||t.equals("and")||t.equals("or")||t.equals(">")||t.equals("<")||t.equals(">=")||t.equals("<="))
 			{
 				v.dtype="int";
 			}
@@ -1306,6 +1307,7 @@ public class Semantic {
 			Var tmp2=new Var();
 			Var tmp1=new Var();
 			tmp1.location=new Location(v1.location.startLable,v1.location.offset+i);
+			tmp1.dtype=v1.dtype;
 			if (v2.isCons==1)
 			{
 				tmp2.value=v2.value;
@@ -1314,6 +1316,7 @@ public class Semantic {
 			else
 			{
 				tmp2.location=new Location(v2.location.startLable,v2.location.offset+i);
+				tmp2.dtype=v2.dtype;
 			}
 			this.codeGenerater.assign(tmp1, tmp2);
 			v1.size=v2.size;
